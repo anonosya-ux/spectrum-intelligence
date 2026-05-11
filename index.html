@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spectrum Intelligence | Алгоритмическое управление</title>
+    <meta name="description" content="Переход к алгоритмическому управлению строительным производством. AI-проектирование и логистика для ГК Спектрум.">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <canvas id="webgl-canvas"></canvas>
+    <div id="noise-overlay"></div>
+
+    <!-- Preloader -->
+    <div id="preloader">
+        <div class="preloader-inner">
+            <div class="preloader-line"></div>
+            <span class="preloader-text" data-text="SPECTRUM">SPECTRUM</span>
+            <div class="preloader-counter">0%</div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav id="main-nav">
+        <div class="nav-logo">
+            <span class="nav-logo-icon">◆</span>
+            <span>SPECTRUM</span>
+        </div>
+        <div class="nav-links">
+            <a href="#problem" class="nav-link" data-index="01">Проблематика</a>
+            <a href="#tech" class="nav-link" data-index="02">Технологии</a>
+            <a href="#mvp" class="nav-link" data-index="03">MVP</a>
+            <a href="#cta" class="nav-link" data-index="04">Старт</a>
+        </div>
+        <div class="nav-indicator"></div>
+    </nav>
+
+    <!-- Progress Bar -->
+    <div id="scroll-progress"></div>
+
+    <!-- Section 1: Hero -->
+    <section id="hero" class="section" data-section="0">
+        <div class="hero-content">
+            <div class="hero-tag">
+                <span class="tag-dot"></span>
+                <span class="tag-text">INTELLIGENCE PLATFORM v2.0</span>
+            </div>
+            <h1 class="hero-title">
+                <div class="title-line"><span>Spectrum</span></div>
+                <div class="title-line"><span>Intelligence</span></div>
+            </h1>
+            <p class="hero-subtitle">Переход к алгоритмическому<br>управлению строительным производством</p>
+            <div class="hero-stats">
+                <div class="hero-stat">
+                    <span class="stat-number" data-value="52">0</span><span class="stat-suffix">×</span>
+                    <span class="stat-label">Ускорение цикла</span>
+                </div>
+                <div class="hero-stat-divider"></div>
+                <div class="hero-stat">
+                    <span class="stat-number" data-value="18">0</span><span class="stat-suffix">М₽</span>
+                    <span class="stat-label">Экономия / проект</span>
+                </div>
+                <div class="hero-stat-divider"></div>
+                <div class="hero-stat">
+                    <span class="stat-number" data-value="21">0</span><span class="stat-suffix">день</span>
+                    <span class="stat-label">До запуска MVP</span>
+                </div>
+            </div>
+            <div class="hero-scroll-hint">
+                <div class="scroll-line"></div>
+                <span>SCROLL</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 2: Problem -->
+    <section id="problem" class="section" data-section="1">
+        <div class="section-container">
+            <div class="section-header">
+                <span class="section-index">01</span>
+                <h2 class="section-title">
+                    <div class="title-line"><span>Скрытые убытки</span></div>
+                    <div class="title-line"><span>операционного хаоса</span></div>
+                </h2>
+            </div>
+            <div class="problem-grid">
+                <div class="problem-card problem-card-main">
+                    <div class="card-glow"></div>
+                    <span class="card-label">ФОТ УБЫТОК / ПРОЕКТ</span>
+                    <div class="big-metric" data-value="18000000">
+                        <span class="metric-value">18 000 000</span>
+                        <span class="metric-currency">₽</span>
+                    </div>
+                    <p class="card-desc">Прямые затраты на ФОТ рабочей группы из 3-4 инженеров. Ручное проектирование наружных сетей формирует критический риск срыва сроков генподряда.</p>
+                    <div class="metric-bar">
+                        <div class="metric-bar-fill" data-width="100"></div>
+                        <span class="metric-bar-label">Критический риск</span>
+                    </div>
+                </div>
+                <div class="problem-card">
+                    <div class="card-glow"></div>
+                    <span class="card-label">ДЛИТЕЛЬНОСТЬ ЦИКЛА</span>
+                    <div class="big-metric">
+                        <span class="metric-value">12</span>
+                        <span class="metric-unit">месяцев</span>
+                    </div>
+                    <p class="card-desc">Линейная последовательность операций. Один инженер — одна задача. Параллелизация невозможна.</p>
+                </div>
+                <div class="problem-card">
+                    <div class="card-glow"></div>
+                    <span class="card-label">ТРАНЗАКЦИОННЫЙ ХАОС</span>
+                    <div class="big-metric">
+                        <span class="metric-value">15 000</span>
+                        <span class="metric-unit">позиций</span>
+                    </div>
+                    <p class="card-desc">Перегруженный справочник 1С. 4 часа на перенос одной накладной в ERP. Опечатки = налоговые риски.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 3: Technology -->
+    <section id="tech" class="section" data-section="2">
+        <div class="section-container">
+            <div class="section-header">
+                <span class="section-index">02</span>
+                <h2 class="section-title">
+                    <div class="title-line"><span>Технологическое</span></div>
+                    <div class="title-line"><span>решение</span></div>
+                </h2>
+            </div>
+            <div class="tech-grid">
+                <div class="tech-card tech-card-ai">
+                    <div class="card-glow card-glow-blue"></div>
+                    <div class="tech-icon">
+                        <svg viewBox="0 0 48 48" fill="none"><rect x="4" y="4" width="12" height="12" rx="2" stroke="currentColor" stroke-width="2"/><rect x="20" y="4" width="12" height="12" rx="2" stroke="currentColor" stroke-width="2"/><rect x="36" y="4" width="8" height="8" rx="2" stroke="currentColor" stroke-width="2" opacity="0.5"/><rect x="4" y="20" width="12" height="12" rx="2" stroke="currentColor" stroke-width="2"/><rect x="20" y="20" width="12" height="12" rx="2" stroke="currentColor" stroke-width="2"/><rect x="4" y="36" width="8" height="8" rx="2" stroke="currentColor" stroke-width="2" opacity="0.5"/></svg>
+                    </div>
+                    <h3>AI-Проектировщик</h3>
+                    <p class="tech-subtitle">Вокселизация + Pathfinding</p>
+                    <ul class="tech-list">
+                        <li>DWG → цифровая матрица (1/0)</li>
+                        <li>A*/GNN маршруты за секунды</li>
+                        <li>RAG по СНиП и ПУЭ — 100% точность</li>
+                    </ul>
+                    <div class="tech-result">
+                        <span class="result-number">7</span>
+                        <span class="result-label">дней вместо 365</span>
+                    </div>
+                </div>
+                <div class="tech-card tech-card-logistics">
+                    <div class="card-glow card-glow-green"></div>
+                    <div class="tech-icon">
+                        <svg viewBox="0 0 48 48" fill="none"><circle cx="24" cy="24" r="20" stroke="currentColor" stroke-width="2"/><path d="M12 24h24M24 12v24" stroke="currentColor" stroke-width="1.5" opacity="0.3"/><circle cx="24" cy="24" r="8" stroke="currentColor" stroke-width="2"/><circle cx="24" cy="24" r="3" fill="currentColor"/></svg>
+                    </div>
+                    <h3>AI-Логистика</h3>
+                    <p class="tech-subtitle">Vision LLM + Jaro-Winkler</p>
+                    <ul class="tech-list">
+                        <li>Парсинг грязных накладных — 95%</li>
+                        <li>Математическая коррекция опечаток</li>
+                        <li>JSON → черновик 1С мгновенно</li>
+                    </ul>
+                    <div class="tech-result">
+                        <span class="result-number">-370</span>
+                        <span class="result-label">часов рутины / мес</span>
+                    </div>
+                </div>
+            </div>
+            <div class="compression-visual">
+                <div class="compress-bar compress-before">
+                    <span class="compress-label">БЫЛО</span>
+                    <div class="compress-fill" data-width="100"></div>
+                    <span class="compress-value">365 дней</span>
+                </div>
+                <div class="compress-arrow">→</div>
+                <div class="compress-bar compress-after">
+                    <span class="compress-label">СТАЛО</span>
+                    <div class="compress-fill compress-fill-green" data-width="2"></div>
+                    <span class="compress-value">7 дней</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 4: MVP -->
+    <section id="mvp" class="section" data-section="3">
+        <div class="section-container">
+            <div class="section-header">
+                <span class="section-index">03</span>
+                <h2 class="section-title">
+                    <div class="title-line"><span>Fast Track MVP</span></div>
+                    <div class="title-line"><span>за 21 день</span></div>
+                </h2>
+            </div>
+            <div class="mvp-grid">
+                <div class="mvp-card mvp-card-scope">
+                    <div class="card-glow"></div>
+                    <div class="mvp-number">500</div>
+                    <div class="mvp-label">SKU</div>
+                    <p>Telegram-бот парсер накладных с матчингом базы 1С через Jaro-Winkler</p>
+                </div>
+                <div class="mvp-card mvp-card-area">
+                    <div class="card-glow"></div>
+                    <div class="mvp-number">1 Га</div>
+                    <div class="mvp-label">ПОЛИГОН</div>
+                    <p>Трассировка DWG с обходом препятствий на тестовом участке</p>
+                </div>
+                <div class="mvp-card mvp-card-budget">
+                    <div class="card-glow card-glow-accent"></div>
+                    <span class="card-label">БЮДЖЕТ ПИЛОТА</span>
+                    <div class="budget-value">
+                        <span>250 000</span>
+                        <span class="budget-currency">₽</span>
+                    </div>
+                    <div class="budget-timeline">
+                        <div class="timeline-dot active"></div>
+                        <div class="timeline-line"></div>
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-line"></div>
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-labels">
+                            <span>Данные</span>
+                            <span>Сборка</span>
+                            <span>Запуск</span>
+                        </div>
+                    </div>
+                    <p class="budget-note">Развертывание в закрытом контуре. Без риска для боевых серверов.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 5: CTA -->
+    <section id="cta" class="section" data-section="4">
+        <div class="section-container cta-container">
+            <div class="section-header">
+                <span class="section-index">04</span>
+                <h2 class="section-title cta-title">
+                    <div class="title-line"><span>Передайте данные.</span></div>
+                    <div class="title-line"><span>Запустим систему.</span></div>
+                </h2>
+            </div>
+            <p class="cta-desc">Математическая система требует настройки на реальных активах. Для старта MVP нужны два типа данных.</p>
+            <div class="cta-grid">
+                <div class="cta-card" id="cta-dwg">
+                    <div class="card-glow card-glow-blue"></div>
+                    <div class="cta-icon">
+                        <svg viewBox="0 0 48 48" fill="none"><path d="M8 8h24l8 8v24a4 4 0 01-4 4H12a4 4 0 01-4-4V8z" stroke="currentColor" stroke-width="2"/><path d="M32 8v8h8" stroke="currentColor" stroke-width="2"/><path d="M16 24h16M16 30h10" stroke="currentColor" stroke-width="1.5" opacity="0.5"/></svg>
+                    </div>
+                    <h3>Передать DWG</h3>
+                    <p>Генплан участка для тестовой трассировки</p>
+                    <button class="cta-btn cta-btn-primary" id="btn-dwg">
+                        <span>Загрузить файл</span>
+                        <span class="btn-arrow">→</span>
+                    </button>
+                </div>
+                <div class="cta-card" id="cta-csv">
+                    <div class="card-glow card-glow-green"></div>
+                    <div class="cta-icon">
+                        <svg viewBox="0 0 48 48" fill="none"><rect x="6" y="6" width="36" height="36" rx="4" stroke="currentColor" stroke-width="2"/><path d="M6 18h36M6 30h36M18 6v36M30 6v36" stroke="currentColor" stroke-width="1" opacity="0.3"/></svg>
+                    </div>
+                    <h3>Выгрузить 1С (CSV)</h3>
+                    <p>Справочник ТМЦ для обучения матчера</p>
+                    <button class="cta-btn cta-btn-secondary" id="btn-csv">
+                        <span>Выгрузить базу</span>
+                        <span class="btn-arrow">→</span>
+                    </button>
+                </div>
+            </div>
+            <div class="cta-footer">
+                <span>© 2025 Spectrum Intelligence</span>
+                <span class="cta-footer-dot">•</span>
+                <span>Закрытый контур. Enterprise-безопасность.</span>
+            </div>
+        </div>
+    </section>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script src="https://unpkg.com/lenis@1.3.23/dist/lenis.min.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>

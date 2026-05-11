@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spectrum Intelligence | ГК Спектрум</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #050505;
+            --surface-color: rgba(255, 255, 255, 0.03);
+            --border-color: rgba(255, 255, 255, 0.08);
+            --accent-blue: #0055ff;
+            --accent-red: #ff3333;
+            --accent-green: #00cc66;
+            --text-main: #ffffff;
+            --text-muted: #888890;
+            --font-main: 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: var(--font-main);
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            line-height: 1.5;
+        }
+
+        /* Parallax Background */
+        .bg-glow {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            width: 80vw;
+            height: 80vh;
+            background: radial-gradient(circle, rgba(0, 85, 255, 0.05) 0%, rgba(0, 0, 0, 0) 70%);
+            transform: translate(-50%, -50%);
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        header {
+            padding: 100px 20px 60px;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+            letter-spacing: -0.05em;
+        }
+
+        h1 span {
+            color: var(--accent-blue);
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .bento-section {
+            max-width: 1200px;
+            margin: 0 auto 100px;
+            padding: 0 20px;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 30px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 20px;
+        }
+
+        .bento-item {
+            background: var(--surface-color);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 40px;
+            backdrop-filter: blur(10px);
+            transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1), border-color 0.4s;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .bento-item.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .bento-item:hover {
+            border-color: rgba(0, 85, 255, 0.4);
+            transform: translateY(-5px);
+        }
+
+        .col-4 { grid-column: span 4; }
+        .col-6 { grid-column: span 6; }
+        .col-8 { grid-column: span 8; }
+        .col-12 { grid-column: span 12; }
+
+        .bento-item h2 {
+            font-size: 1.8rem;
+            margin-top: 0;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .bento-item p, .bento-item li {
+            color: var(--text-muted);
+            font-size: 1rem;
+            margin-bottom: 12px;
+        }
+
+        .bento-item ul {
+            padding-left: 20px;
+        }
+
+        .highlight-number {
+            font-size: 3.5rem;
+            font-weight: 800;
+            color: var(--accent-blue);
+            line-height: 1;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .highlight-red { color: var(--accent-red); }
+        .highlight-green { color: var(--accent-green); }
+
+        /* Visual Elements */
+        .bar-chart {
+            margin-top: 20px;
+        }
+        .bar {
+            height: 40px;
+            border-radius: 4px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            padding: 0 15px;
+            font-weight: 600;
+        }
+        .bar-red { background: rgba(255, 51, 51, 0.2); border: 1px solid var(--accent-red); width: 100%; color: var(--accent-red); }
+        .bar-blue { background: rgba(0, 85, 255, 0.2); border: 1px solid var(--accent-blue); width: 50%; color: var(--accent-blue); }
+        .bar-green { background: rgba(0, 204, 102, 0.2); border: 1px solid var(--accent-green); width: 10%; color: var(--accent-green); }
+
+        .cta-button {
+            display: inline-block;
+            background: var(--accent-blue);
+            color: #fff;
+            padding: 16px 32px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: background 0.3s;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            text-align: center;
+            box-sizing: border-box;
+        }
+
+        .cta-button:hover {
+            background: #0044cc;
+        }
+
+        @media (max-width: 900px) {
+            .col-4, .col-6, .col-8 { grid-column: span 12; }
+            h1 { font-size: 2.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="bg-glow"></div>
+
+    <header>
+        <h1>Spectrum <span>Intelligence</span></h1>
+        <p class="subtitle">Технологический рывок и оптимизация издержек. Фундаментальная трансформация операционной деятельности: от децентрализованного ручного труда к строгой математической оптимизации.</p>
+    </header>
+
+    <section class="bento-section">
+        <div class="section-title">Анализ операционной эффективности</div>
+        <div class="bento-grid">
+            
+            <div class="bento-item col-6">
+                <h2>Executive Summary</h2>
+                <ul>
+                    <li>Замещение когнитивных способностей исполнителей алгоритмами.</li>
+                    <li>Устранение линейной последовательности в проектировании.</li>
+                    <li>Ликвидация зоопарка IT-систем в логистике.</li>
+                </ul>
+            </div>
+
+            <div class="bento-item col-6">
+                <h2>Цена человеческого фактора</h2>
+                <ul>
+                    <li>Ошибки в CAD-моделях = простой техники и перерасход материалов.</li>
+                    <li>Опечатки при вводе ТМЦ = налоговые риски и долгие корректировки.</li>
+                </ul>
+            </div>
+
+            <div class="bento-item col-8">
+                <h2>Аудит проектирования сетей</h2>
+                <span class="highlight-number highlight-red">18 000 000 ₽</span>
+                <p>Прямые затраты на ФОТ рабочей группы (3-4 инженера) на один проект длительностью 12 месяцев.</p>
+                <ul>
+                    <li>Постоянная лицензия САПР до 403 700 руб. за место.</li>
+                    <li>Годовой цикл формирует критический риск срыва сроков генподряда.</li>
+                </ul>
+                <div class="bar-chart">
+                    <div class="bar bar-red">Текущий цикл: 12 месяцев (Критический риск)</div>
+                </div>
+            </div>
+
+            <div class="bento-item col-4">
+                <h2>Аудит логистики</h2>
+                <span class="highlight-number highlight-red">4 часа</span>
+                <p>На перенос данных из одной накладной в ERP.</p>
+                <ul>
+                    <li>Справочник перегружен: 15 000 позиций.</li>
+                    <li>Транзакционная нагрузка парализует учет.</li>
+                </ul>
+            </div>
+
+        </div>
+    </section>
+
+    <section class="bento-section">
+        <div class="section-title">Технологическое решение</div>
+        <div class="bento-grid">
+            
+            <div class="bento-item col-12">
+                <h2>Экосистема: AutoCAD + 1C + Bitrix24</h2>
+                <p>Единый ИИ-слой устраняет барьеры. Данные напрямую транслируются из облачного AutoCAD (APS) в 1С и Bitrix24 без ручного копирования.</p>
+            </div>
+
+            <div class="bento-item col-6">
+                <h2>AI-Проектировщик</h2>
+                <ul>
+                    <li>Вокселизация: DWG-чертеж переводится в цифровую матрицу (1 - препятствие, 0 - свободно).</li>
+                    <li>A*/GNN агенты строят маршруты с обходом зданий за секунды.</li>
+                    <li>RAG-система: гибридный поиск по СНиП и ПУЭ блокирует ИИ-галлюцинации с точностью 100%.</li>
+                </ul>
+            </div>
+
+            <div class="bento-item col-6">
+                <h2>AI-Логистика (Vision LLM)</h2>
+                <ul>
+                    <li>Мультимодальные модели извлекают таблицы из грязных накладных (точность 95%).</li>
+                    <li>Алгоритм Jaro-Winkler математически нивелирует опечатки.</li>
+                    <li>Мгновенное формирование JSON и черновика в 1С.</li>
+                </ul>
+            </div>
+
+            <div class="bento-item col-6">
+                <h2>Результат: Проектирование</h2>
+                <span class="highlight-number highlight-green">7 дней</span>
+                <p>Вместо 365 дней ручного черчения.</p>
+                <div class="bar-chart">
+                    <div class="bar bar-red" style="width:100%">Было: 365 дней</div>
+                    <div class="bar bar-green" style="width:5%">Стало: 7 дней</div>
+                </div>
+            </div>
+
+            <div class="bento-item col-6">
+                <h2>Результат: Документооборот</h2>
+                <span class="highlight-number highlight-green">-370 часов</span>
+                <p>Высвобождение рутинных часов бухгалтерии в месяц.</p>
+                <ul>
+                    <li>Цикл валидации падает с 7 дней до 1 часа.</li>
+                    <li>Количество ошибок извлечения BOM снижено на 85%.</li>
+                </ul>
+            </div>
+
+        </div>
+    </section>
+
+    <section class="bento-section">
+        <div class="section-title">Экономика и Внедрение</div>
+        <div class="bento-grid">
+            
+            <div class="bento-item col-8">
+                <h2>Методология Antigravity</h2>
+                <p>Полностью исключен классический штат IT-интеграторов. 2 Senior Архитектора работают в среде Antigravity, где AI генерирует 80% рутинного кода.</p>
+                <ul>
+                    <li>Прямая трансляция логики в код: релиз в 5 раз быстрее.</li>
+                    <li>Бюджет идет на чистую инженерию, а не содержание офисов.</li>
+                    <li>Enterprise-безопасность on-premise в закрытом контуре.</li>
+                </ul>
+            </div>
+
+            <div class="bento-item col-4">
+                <h2>Рынок vs Наше решение</h2>
+                <p>Дисконт 50% при сохранении Enterprise-качества.</p>
+                <div class="bar-chart">
+                    <div class="bar bar-red" style="width:100%">Рынок: 15-25 млн ₽</div>
+                    <div class="bar bar-blue" style="width:50%">Antigravity: Дисконт 50%</div>
+                </div>
+            </div>
+
+            <div class="bento-item col-12">
+                <h2>Этап 1: Fast Track MVP за 21 день</h2>
+                <div class="bento-grid" style="margin-top: 20px;">
+                    <div class="col-6">
+                        <span class="highlight-number">1 Га</span>
+                        <p>Генерация маршрута с обходом препятствий на тестовом полигоне DWG.</p>
+                    </div>
+                    <div class="col-6">
+                        <span class="highlight-number">500 SKU</span>
+                        <p>Запуск Telegram-бота и парсера с матчингом базы 1С без риска для боевых серверов. <b>Стоимость пилота: 250 000 ₽.</b></p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bento-item col-6">
+                <h2>ROI: Профит после 1-го проекта</h2>
+                <ul>
+                    <li>Мгновенная окупаемость за счет сокращения ФОТ на 18 млн руб. в год.</li>
+                    <li>Исключение пеней за срыв сроков формирует чистую прибыль.</li>
+                </ul>
+            </div>
+
+            <div class="bento-item col-6" style="border-color: var(--accent-blue); background: rgba(0, 85, 255, 0.05);">
+                <h2>Next Step: Валидация данных</h2>
+                <p>Математическая система требует настройки на реальных активах. Передайте материалы для старта сборки MVP.</p>
+                <div style="display: flex; gap: 15px; margin-top: 20px;">
+                    <button class="cta-button">Передать DWG</button>
+                    <button class="cta-button" style="background: rgba(255,255,255,0.1); color: white;">Выгрузить 1С (CSV)</button>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.1
+            };
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('.bento-item').forEach((item, index) => {
+                item.style.transitionDelay = `${index % 4 * 0.1}s`;
+                observer.observe(item);
+            });
+        });
+    </script>
+</body>
+</html>
