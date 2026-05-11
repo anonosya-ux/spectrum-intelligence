@@ -1,279 +1,326 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Spectrum Intelligence | Коммерческое предложение</title>
-    <meta name="description" content="AI-трансформация строительного производства ГК Спектрум. Проектирование наружных сетей за 7 дней вместо 12 месяцев.">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Spectrum Intelligence | Коммерческое предложение</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <canvas id="webgl-canvas"></canvas>
-    <div id="noise-overlay"></div>
+<canvas id="webgl-canvas"></canvas>
+<div id="noise-overlay"></div>
+<div id="preloader"><div class="pl-inner"><div class="pl-line"></div><span class="pl-brand">SPECTRUM</span><span class="pl-pct">0%</span></div></div>
 
-    <!-- Preloader -->
-    <div id="preloader">
-        <div class="preloader-inner">
-            <div class="preloader-line"></div>
-            <span class="preloader-text">SPECTRUM</span>
-            <div class="preloader-counter">0%</div>
-        </div>
-    </div>
+<nav id="nav"><span class="nav-logo">◆ SPECTRUM</span>
+<a href="#s2" class="nav-a" data-i="01">Боль</a>
+<a href="#s6" class="nav-a" data-i="02">Решение</a>
+<a href="#s13" class="nav-a" data-i="03">Метод</a>
+<a href="#s16" class="nav-a" data-i="04">Сделка</a>
+</nav>
+<div id="prog"></div>
 
-    <!-- Navigation -->
-    <nav id="main-nav">
-        <div class="nav-logo"><span class="nav-logo-icon">◆</span><span>SPECTRUM</span></div>
-        <div class="nav-links">
-            <a href="#pain" class="nav-link" data-index="01">Проблема</a>
-            <a href="#tech" class="nav-link" data-index="02">Решение</a>
-            <a href="#method" class="nav-link" data-index="03">Метод</a>
-            <a href="#mvp" class="nav-link" data-index="04">MVP</a>
-            <a href="#cta" class="nav-link" data-index="05">Старт</a>
-        </div>
-    </nav>
+<!-- S1: HERO -->
+<section class="sl" id="s1" data-block="0">
+<div class="sl-c col-c">
+<div class="tag"><span class="tag-dot"></span>КОММЕРЧЕСКОЕ ПРЕДЛОЖЕНИЕ ДЛЯ ГК СПЕКТРУМ</div>
+<h1 class="hero-h"><div class="tl"><span>Spectrum</span></div><div class="tl"><span>Intelligence</span></div></h1>
+<p class="hero-sub">Технологический рывок и оптимизация издержек.<br>От децентрализованного ручного труда —<br>к строгой математической оптимизации.</p>
+<div class="kpis">
+<div class="kpi"><span class="kpi-v" data-v="18">0</span><span class="kpi-u">млн ₽</span><span class="kpi-l">Экономия ФОТ</span></div>
+<div class="kpi-d"></div>
+<div class="kpi"><span class="kpi-v" data-v="52">0</span><span class="kpi-u">×</span><span class="kpi-l">Сжатие цикла</span></div>
+<div class="kpi-d"></div>
+<div class="kpi"><span class="kpi-v" data-v="85">0</span><span class="kpi-u">%</span><span class="kpi-l">Снижение ошибок</span></div>
+</div>
+<div class="scr-cue"><div class="scr-line"></div><span>SCROLL</span></div>
+</div>
+</section>
 
-    <div id="scroll-progress"></div>
+<!-- S2: EXECUTIVE SUMMARY -->
+<section class="sl" id="s2" data-block="1">
+<div class="sl-c col-c" style="max-width:800px">
+<span class="idx">01 — EXECUTIVE SUMMARY</span>
+<h2 class="sec-h"><div class="tl"><span>Три вектора</span></div><div class="tl"><span>трансформации</span></div></h2>
+<div class="reveal-lines">
+<p class="rv-line">→ Замещение когнитивных способностей исполнителей алгоритмами.</p>
+<p class="rv-line">→ Устранение линейной последовательности в проектировании наружных сетей.</p>
+<p class="rv-line">→ Ликвидация «зоопарка IT-систем» в логистике и документообороте.</p>
+</div>
+</div>
+</section>
 
-    <!-- ═══ S1: HERO — Pinned Cinematic Opener ═══ -->
-    <section id="hero" class="section" data-section="0">
-        <div class="hero-content">
-            <div class="hero-tag"><span class="tag-dot"></span><span class="tag-text">КОММЕРЧЕСКОЕ ПРЕДЛОЖЕНИЕ ДЛЯ ГК СПЕКТРУМ</span></div>
-            <h1 class="hero-title">
-                <div class="title-line"><span>Spectrum</span></div>
-                <div class="title-line"><span>Intelligence</span></div>
-            </h1>
-            <p class="hero-subtitle">Технологический рывок и оптимизация издержек.<br>От децентрализованного ручного труда —<br>к строгой математической оптимизации.</p>
-            <div class="hero-kpis">
-                <div class="kpi"><span class="kpi-val" data-val="18">0</span><span class="kpi-unit">млн ₽</span><span class="kpi-label">Экономия ФОТ / проект</span></div>
-                <div class="kpi-div"></div>
-                <div class="kpi"><span class="kpi-val" data-val="52">0</span><span class="kpi-unit">×</span><span class="kpi-label">Сжатие цикла</span></div>
-                <div class="kpi-div"></div>
-                <div class="kpi"><span class="kpi-val" data-val="85">0</span><span class="kpi-unit">%</span><span class="kpi-label">Снижение ошибок BOM</span></div>
-            </div>
-            <div class="scroll-cue"><div class="scroll-cue-line"></div><span>SCROLL</span></div>
-        </div>
-    </section>
+<!-- S3: ФОТ БОЛЬ -->
+<section class="sl" id="s3" data-block="1">
+<div class="sl-c col-c">
+<span class="idx">02 — АУДИТ ПРОЕКТИРОВАНИЯ</span>
+<div class="big-num red ctr" data-v="18000000">0</div>
+<span class="big-unit">₽ / ПРОЕКТ</span>
+<p class="sl-desc">Прямые затраты на ФОТ рабочей группы из 3-4 инженеров<br>на один проект длительностью 12 месяцев.</p>
+<div class="bar-wrap">
+<div class="bar-row"><div class="bar-fill bar-red" data-w="100"></div><span class="bar-lbl">Текущий цикл: 12 месяцев</span></div>
+<div class="bar-row"><div class="bar-fill bar-blue" data-w="2"></div><span class="bar-lbl">Цель AI: 7 дней</span></div>
+</div>
+<p class="sl-note">Постоянная лицензия САПР — до 403 700 ₽/место · Годовой цикл = риск срыва генподряда</p>
+</div>
+</section>
 
-    <!-- ═══ S2: PAIN — Horizontal Scroll Cards ═══ -->
-    <section id="pain" class="section section-tall" data-section="1">
-        <div class="section-container">
-            <div class="section-header">
-                <span class="section-index">01 — АНАЛИЗ ОПЕРАЦИОННОЙ ЭФФЕКТИВНОСТИ</span>
-                <h2 class="section-title"><div class="title-line"><span>Скрытая цена</span></div><div class="title-line"><span>ручного управления</span></div></h2>
-                <p class="section-lead fade-in">Фундаментальная трансформация: замещение когнитивных способностей исполнителей алгоритмами, устранение линейной последовательности, ликвидация зоопарка IT-систем.</p>
-            </div>
+<!-- S4: УЩЕРБ ОТ ОШИБОК -->
+<section class="sl" id="s4" data-block="1">
+<div class="sl-c">
+<span class="idx">03 — ЦЕНА ЧЕЛОВЕЧЕСКОГО ФАКТОРА</span>
+<h2 class="sec-h"><div class="tl"><span>Ущерб от ошибок</span></div></h2>
+<div class="split">
+<div class="split-l card-r">
+<span class="split-tag">CAD / ПРОЕКТИРОВАНИЕ</span>
+<h3>Коллизии в чертежах</h3>
+<p>Простой строительной техники. Перерасход материалов — кабель не той номенклатуры. Срыв сроков = пени по договорам генподряда.</p>
+<div class="split-icon">⚠️</div>
+</div>
+<div class="split-r card-r">
+<span class="split-tag green">1С / ДОКУМЕНТООБОРОТ</span>
+<h3>Опечатки при вводе ТМЦ</h3>
+<p>Налоговые штрафы. Долгие корректировки. При 15 000 позиций — вероятность ошибки стабильно высокая.</p>
+<div class="split-icon">📉</div>
+</div>
+</div>
+</div>
+</section>
 
-            <!-- Horizontal scroll panel -->
-            <div class="hscroll-wrap">
-                <div class="hscroll-track">
-                    <div class="pain-card pain-card-hero">
-                        <div class="card-glow"></div>
-                        <span class="card-tag">ФОТ / ПРОЕКТ</span>
-                        <div class="pain-metric"><span class="pain-val">18 000 000</span><span class="pain-cur">₽</span></div>
-                        <p>Содержание группы из 3-4 инженеров-проектировщиков обходится в 3.5-4.5 млн ₽/год каждый. Прямые затраты на ФОТ одного проекта длительностью 12 месяцев.</p>
-                        <div class="pain-bar"><div class="pain-bar-fill" data-w="100"></div><span>Критический риск</span></div>
-                    </div>
+<!-- S5: ЛОГИСТИЧЕСКИЙ ХАОС (horizontal scroll) -->
+<section class="sl sl-hscr" id="s5" data-block="1">
+<div class="sl-c">
+<span class="idx">04 — ТРАНЗАКЦИОННЫЙ ХАОС</span>
+<h2 class="sec-h"><div class="tl"><span>Паралич документооборота</span></div></h2>
+<div class="hscr-track">
+<div class="hcard"><span class="hcard-num red">15 000</span><span class="hcard-u">позиций</span><p>Перегруженный справочник 1С. Ручной поиск номенклатуры при каждой операции.</p></div>
+<div class="hcard"><span class="hcard-num red">4</span><span class="hcard-u">часа / накладная</span><p>Бухгалтер тратит 3-4 часа на перенос данных из одной многостраничной накладной в ERP.</p></div>
+<div class="hcard"><span class="hcard-num red">∞</span><span class="hcard-u">фото в чате</span><p>Отчёты в виде фотографий в Bitrix-чате. Нет структуры. Нет контроля. Человеческий фактор.</p></div>
+</div>
+</div>
+</section>
 
-                    <div class="pain-card">
-                        <div class="card-glow card-glow-amber"></div>
-                        <span class="card-tag">ЦИКЛ ПРОЕКТИРОВАНИЯ</span>
-                        <div class="pain-metric"><span class="pain-val">12</span><span class="pain-unit">месяцев</span></div>
-                        <p>Линейная последовательность операций. Инженеры в разных странах. Постоянная лицензия САПР — до 403 700 ₽/место. Годовой цикл = риск срыва генподряда.</p>
-                    </div>
+<!-- S6: ЭКОСИСТЕМА -->
+<section class="sl" id="s6" data-block="2">
+<div class="sl-c col-c">
+<span class="idx">05 — ЕДИНАЯ ЭКОСИСТЕМА</span>
+<h2 class="sec-h"><div class="tl"><span>AutoCAD + 1С + Bitrix24</span></div><div class="tl"><span>Единый ИИ-слой</span></div></h2>
+<div class="eco">
+<div class="eco-node eco-n1"><span>AutoCAD</span><small>APS Cloud</small></div>
+<svg class="eco-line" viewBox="0 0 200 20"><line x1="0" y1="10" x2="200" y2="10" class="svg-draw"/></svg>
+<div class="eco-node eco-n2"><span>AI</span><small>Ядро</small></div>
+<svg class="eco-line" viewBox="0 0 200 20"><line x1="0" y1="10" x2="200" y2="10" class="svg-draw"/></svg>
+<div class="eco-node eco-n3"><span>1С + Bitrix</span><small>ERP</small></div>
+</div>
+<p class="sl-desc">Данные транслируются напрямую без ручного копирования.<br>Исключён «зоопарк» разрозненных систем.</p>
+</div>
+</section>
 
-                    <div class="pain-card">
-                        <div class="card-glow card-glow-amber"></div>
-                        <span class="card-tag">ТРАНЗАКЦИОННЫЙ ХАОС</span>
-                        <div class="pain-metric"><span class="pain-val">15 000</span><span class="pain-unit">позиций</span></div>
-                        <p>Перегруженный справочник 1С. До 4 часов на перенос одной накладной. Фотографии отчётов в чате Bitrix. Опечатки = налоговые штрафы и пени.</p>
-                    </div>
+<!-- S7: AI ПРОЕКТИРОВЩИК -->
+<section class="sl" id="s7" data-block="2">
+<div class="sl-c col-c" style="max-width:900px">
+<span class="idx">06 — ПРОДУКТ 1: AI-ПРОЕКТИРОВЩИК</span>
+<h2 class="sec-h"><div class="tl"><span>Вокселизация + Pathfinding</span></div></h2>
+<div class="steps">
+<div class="step"><span class="step-n">01</span><div><strong>DWG → Воксельная матрица</strong><p>Чертёж переводится в цифровую сетку: 1 = препятствие, 0 = свободно</p></div></div>
+<div class="step"><span class="step-n">02</span><div><strong>A* / GNN Pathfinding</strong><p>Алгоритмы строят маршруты за секунды с учётом СНиП, ПУЭ, охранных зон</p></div></div>
+<div class="step"><span class="step-n">03</span><div><strong>RAG по нормативам</strong><p>Гибридный поиск блокирует галлюцинации: dense + sparse векторы</p></div></div>
+<div class="step"><span class="step-n">04</span><div><strong>Маршрут → DWG</strong><p>Через Autodesk Platform Services полилиния записывается обратно в чертёж</p></div></div>
+</div>
+</div>
+</section>
 
-                    <div class="pain-card">
-                        <div class="card-glow card-glow-amber"></div>
-                        <span class="card-tag">УЩЕРБ ОТ ОШИБОК</span>
-                        <div class="pain-metric"><span class="pain-val">∞</span><span class="pain-unit">множитель</span></div>
-                        <p>Коллизии в CAD → простой техники, перерасход материалов, кабель не той номенклатуры. Срыв сроков = пени по договорам генподряда.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+<!-- S8: РЕЗУЛЬТАТ ПРОЕКТИРОВАНИЯ -->
+<section class="sl" id="s8" data-block="2">
+<div class="sl-c col-c">
+<span class="idx">07 — РЕЗУЛЬТАТ</span>
+<div class="compress-big">
+<div class="compress-row"><span class="compress-was">365</span><span class="compress-unit">дней</span></div>
+<div class="compress-arrow">→</div>
+<div class="compress-row"><span class="compress-now green">7</span><span class="compress-unit">дней</span></div>
+</div>
+<p class="sl-desc">Сжатие цикла проектирования наружных электрических сетей в 52 раза.</p>
+</div>
+</section>
 
-    <!-- ═══ S3: TECH — AI Solution Split ═══ -->
-    <section id="tech" class="section" data-section="2">
-        <div class="section-container">
-            <div class="section-header">
-                <span class="section-index">02 — ТЕХНОЛОГИЧЕСКОЕ РЕШЕНИЕ</span>
-                <h2 class="section-title"><div class="title-line"><span>Два AI-продукта.</span></div><div class="title-line"><span>Единая экосистема.</span></div></h2>
-                <p class="section-lead fade-in">Единый ИИ-слой связывает AutoCAD (APS) + 1С + Bitrix24. Данные транслируются напрямую без ручного копирования.</p>
-            </div>
+<!-- S9: AI ЛОГИСТИКА -->
+<section class="sl" id="s9" data-block="2">
+<div class="sl-c col-c" style="max-width:900px">
+<span class="idx">08 — ПРОДУКТ 2: AI-ЛОГИСТИКА</span>
+<h2 class="sec-h"><div class="tl"><span>Vision LLM + Entity Resolution</span></div></h2>
+<div class="steps">
+<div class="step"><span class="step-n">01</span><div><strong>Фото → Vision LLM</strong><p>Мультимодальная модель парсит грязную накладную. Точность 93-95%.</p></div></div>
+<div class="step"><span class="step-n">02</span><div><strong>Jaro-Winkler + n-gram</strong><p>Математическая коррекция опечаток: «песок мыт. 1 кл.» → точная номенклатура</p></div></div>
+<div class="step"><span class="step-n">03</span><div><strong>Elasticsearch каскад</strong><p>Exact match → Fuzzy → Semantic search по справочнику 15 000 ТМЦ</p></div></div>
+<div class="step"><span class="step-n">04</span><div><strong>JSON → черновик 1С</strong><p>Мгновенное формирование документа без ручного ввода</p></div></div>
+</div>
+</div>
+</section>
 
-            <div class="tech-split">
-                <div class="tech-card tech-card-left">
-                    <div class="card-glow card-glow-blue"></div>
-                    <div class="tech-badge">ПРОДУКТ 1</div>
-                    <h3>AI-Проектировщик</h3>
-                    <p class="tech-sub">Вокселизация + A*/GNN + RAG</p>
-                    <div class="tech-steps">
-                        <div class="step"><span class="step-n">01</span><span>DWG → воксельная матрица (1 = препятствие, 0 = свободно)</span></div>
-                        <div class="step"><span class="step-n">02</span><span>A*/GNN агенты строят маршруты за секунды с учётом СНиП</span></div>
-                        <div class="step"><span class="step-n">03</span><span>RAG по нормативам блокирует галлюцинации с точностью 100%</span></div>
-                        <div class="step"><span class="step-n">04</span><span>Маршрут → полилиния DWG через Autodesk Platform Services</span></div>
-                    </div>
-                    <div class="tech-result"><span class="res-num">7</span><span class="res-text">дней вместо 365</span></div>
-                </div>
+<!-- S10: РЕЗУЛЬТАТ ДОКУМЕНТООБОРОТ -->
+<section class="sl" id="s10" data-block="2">
+<div class="sl-c col-c">
+<span class="idx">09 — РЕЗУЛЬТАТ ДОКУМЕНТООБОРОТА</span>
+<div class="tri-metrics">
+<div class="tri-m"><span class="tri-v green ctr" data-v="370">0</span><span class="tri-u">часов / мес</span><span class="tri-l">Высвобождение рутины</span></div>
+<div class="tri-m"><span class="tri-v green ctr" data-v="85">0</span><span class="tri-u">%</span><span class="tri-l">Снижение ошибок BOM</span></div>
+<div class="tri-m"><span class="tri-v green ctr" data-v="70">0</span><span class="tri-u">%</span><span class="tri-l">Задач закрывается быстрее</span></div>
+</div>
+<p class="sl-desc">Цикл валидации документации: с 7 дней до 1 часа.</p>
+</div>
+</section>
 
-                <div class="tech-card tech-card-right">
-                    <div class="card-glow card-glow-green"></div>
-                    <div class="tech-badge tech-badge-green">ПРОДУКТ 2</div>
-                    <h3>AI-Логистика</h3>
-                    <p class="tech-sub">Vision LLM + Jaro-Winkler + Elasticsearch</p>
-                    <div class="tech-steps">
-                        <div class="step"><span class="step-n">01</span><span>Фото накладной → Vision LLM парсит таблицу (точность 95%)</span></div>
-                        <div class="step"><span class="step-n">02</span><span>Jaro-Winkler + n-gram математически исправляет опечатки</span></div>
-                        <div class="step"><span class="step-n">03</span><span>Elasticsearch каскадный матчинг по справочнику 15 000 ТМЦ</span></div>
-                        <div class="step"><span class="step-n">04</span><span>Мгновенный JSON → черновик документа 1С</span></div>
-                    </div>
-                    <div class="tech-result tech-result-green"><span class="res-num">-370</span><span class="res-text">часов рутины / мес</span></div>
-                </div>
-            </div>
+<!-- S11: МЕТОД ANTIGRAVITY -->
+<section class="sl" id="s13" data-block="3">
+<div class="sl-c">
+<span class="idx">10 — МЕТОД ANTIGRAVITY</span>
+<h2 class="sec-h"><div class="tl"><span>2 архитектора</span></div><div class="tl"><span>эффективнее 50 интеграторов</span></div></h2>
+<div class="split">
+<div class="split-l card-r" style="border-color:var(--red-d)">
+<span class="split-tag red">КЛАССИЧЕСКИЙ ПОДХОД</span>
+<div class="pyramid">
+<div class="pyr-row">👔 Директор</div>
+<div class="pyr-row">📋 PM · Аналитики</div>
+<div class="pyr-row">💻 Devs · QA · DevOps</div>
+<div class="pyr-row">🏢 Офис · HR · Бухгалтерия</div>
+</div>
+<span class="split-cost red">15-25 млн ₽</span>
+</div>
+<div class="split-r card-r" style="border-color:var(--blue-d)">
+<span class="split-tag blue">ANTIGRAVITY</span>
+<div class="pyramid mini">
+<div class="pyr-row">🧠 2 Senior Архитектора</div>
+<div class="pyr-row">🤖 AI генерирует 80% кода</div>
+</div>
+<span class="split-cost blue">Дисконт 50%</span>
+</div>
+</div>
+</div>
+</section>
 
-            <!-- Compression bar -->
-            <div class="compress fade-in">
-                <div class="compress-row">
-                    <span class="compress-label">БЫЛО</span>
-                    <div class="compress-track"><div class="compress-fill compress-fill-red" data-w="100"></div></div>
-                    <span class="compress-val">365 дней</span>
-                </div>
-                <div class="compress-row">
-                    <span class="compress-label">СТАЛО</span>
-                    <div class="compress-track"><div class="compress-fill compress-fill-green" data-w="2"></div></div>
-                    <span class="compress-val">7 дней</span>
-                </div>
-            </div>
-        </div>
-    </section>
+<!-- S12: ENTERPRISE SECURITY -->
+<section class="sl" id="s14" data-block="3">
+<div class="sl-c col-c" style="max-width:700px">
+<span class="idx">11 — ENTERPRISE SECURITY</span>
+<h2 class="sec-h"><div class="tl"><span>Закрытый контур</span></div></h2>
+<div class="shield">
+<div class="shield-icon">🛡️</div>
+<div class="shield-items">
+<div class="sh-item rv-line">On-premise развёртывание</div>
+<div class="sh-item rv-line">Нет утечек DWG и базы 1С в SaaS-облака</div>
+<div class="sh-item rv-line">Данные циркулируют внутри периметра</div>
+<div class="sh-item rv-line">Абсолютная конфиденциальность</div>
+</div>
+</div>
+</div>
+</section>
 
-    <!-- ═══ S4: METHOD — Antigravity Edge ═══ -->
-    <section id="method" class="section" data-section="3">
-        <div class="section-container">
-            <div class="section-header">
-                <span class="section-index">03 — МЕТОДОЛОГИЯ И ПРЕИМУЩЕСТВА</span>
-                <h2 class="section-title"><div class="title-line"><span>Метод Antigravity:</span></div><div class="title-line"><span>2 архитектора > 50 интеграторов</span></div></h2>
-            </div>
+<!-- S13: РЫНОК VS МЫ -->
+<section class="sl" id="s16" data-block="4">
+<div class="sl-c col-c">
+<span class="idx">12 — ЭКОНОМИКА</span>
+<h2 class="sec-h"><div class="tl"><span>Рынок vs Antigravity</span></div></h2>
+<div class="bar-wrap wide">
+<div class="bar-row"><div class="bar-fill bar-red" data-w="100"></div><span class="bar-lbl">Интеграторы: 15-25 млн ₽ + саппорт 500к/мес</span></div>
+<div class="bar-row"><div class="bar-fill bar-blue" data-w="50"></div><span class="bar-lbl">Antigravity: дисконт 50% · оплата по этапам</span></div>
+</div>
+<p class="sl-desc">Enterprise-качество без корпоративного оверхеда.</p>
+</div>
+</section>
 
-            <div class="method-grid">
-                <div class="method-card fade-in">
-                    <div class="card-glow card-glow-blue"></div>
-                    <span class="method-icon">⚡</span>
-                    <h4>Без штата интеграторов</h4>
-                    <p>2 Senior Архитектора работают в среде, где AI генерирует 80% рутинного кода. Релиз в 5× быстрее. Бюджет — на чистую инженерию.</p>
-                </div>
-                <div class="method-card fade-in">
-                    <div class="card-glow card-glow-blue"></div>
-                    <span class="method-icon">🔒</span>
-                    <h4>Enterprise On-Premise</h4>
-                    <p>Развёртывание в закрытом контуре. Абсолютная конфиденциальность данных. Никаких внешних серверов для критичных операций.</p>
-                </div>
-                <div class="method-card fade-in">
-                    <div class="card-glow card-glow-blue"></div>
-                    <span class="method-icon">📉</span>
-                    <h4>Дисконт 50%</h4>
-                    <p>Рынок: 10-25 млн ₽ за Enterprise ИИ-решение. Наша модель устраняет офисы и менеджмент. Результат — половина стоимости при Enterprise-качестве.</p>
-                </div>
-                <div class="method-card method-card-roi fade-in">
-                    <div class="card-glow card-glow-green"></div>
-                    <span class="method-icon">💰</span>
-                    <h4>ROI после 1-го проекта</h4>
-                    <p>Сокращение ФОТ на 18 млн ₽ + исключение пеней за срыв сроков. Окупаемость автоматизации документов за 1 квартал — высвобождение 370 часов/мес.</p>
-                </div>
-            </div>
+<!-- S14: MVP FAST TRACK -->
+<section class="sl" id="s17" data-block="4">
+<div class="sl-c col-c" style="max-width:1000px">
+<span class="idx">13 — FAST TRACK MVP</span>
+<h2 class="sec-h"><div class="tl"><span>Пилот за 21 день · 250 000 ₽</span></div></h2>
+<div class="timeline">
+<div class="tl-phase tl-active"><div class="tl-dot"></div><strong>Неделя 1</strong><span>Приём данных, настройка окружения, RAG-индексация нормативов</span></div>
+<div class="tl-connector"></div>
+<div class="tl-phase"><div class="tl-dot"></div><strong>Неделя 2</strong><span>Сборка MVP: парсер + матчер + прототип трассировки</span></div>
+<div class="tl-connector"></div>
+<div class="tl-phase"><div class="tl-dot"></div><strong>Неделя 3</strong><span>Тестирование на реальных данных, демо, итоговый отчёт</span></div>
+</div>
+<div class="mvp-split">
+<div class="mvp-box"><span class="mvp-val">1 Га</span><span class="mvp-tag">DWG полигон</span><p>Генерация маршрута с обходом препятствий на тестовом участке</p></div>
+<div class="mvp-box"><span class="mvp-val">500</span><span class="mvp-tag">SKU</span><p>Telegram-бот + парсер с матчингом базы 1С без риска для боевых серверов</p></div>
+</div>
+</div>
+</section>
 
-            <!-- Market comparison -->
-            <div class="market-compare fade-in">
-                <div class="market-bar"><div class="market-fill market-fill-red" data-w="100"></div><span class="market-label">Рынок: 15–25 млн ₽</span></div>
-                <div class="market-bar"><div class="market-fill market-fill-blue" data-w="50"></div><span class="market-label">Antigravity: дисконт 50%</span></div>
-            </div>
-        </div>
-    </section>
+<!-- S15: ОПЛАТА ПО ЭТАПАМ -->
+<section class="sl" id="s18" data-block="4">
+<div class="sl-c col-c" style="max-width:900px">
+<span class="idx">14 — ИНВЕСТИЦИОННАЯ КАРТА</span>
+<h2 class="sec-h"><div class="tl"><span>Оплата по этапам</span></div></h2>
+<div class="price-table">
+<div class="price-row price-head"><span>Этап</span><span>Сроки</span><span>Контрольная точка</span><span>Стоимость</span></div>
+<div class="price-row rv-line"><span>MVP Пилот</span><span>3 недели</span><span>Работающий бот + трассировка 1 Га</span><span class="price-val blue">250 000 ₽</span></div>
+<div class="price-row rv-line"><span>Фаза 2: Масштаб</span><span>2-3 мес</span><span>Полная интеграция 1С + APS</span><span class="price-val">По дисконту</span></div>
+<div class="price-row rv-line"><span>Фаза 3: Enterprise</span><span>1-2 мес</span><span>On-premise + обучение команды</span><span class="price-val">По дисконту</span></div>
+</div>
+<div class="price-note">
+<p>⚡ Контрольные точки каждую неделю — оплата за готовый результат</p>
+<p>💰 Гарантия: цена ниже рынка при Enterprise-качестве</p>
+<p>🔒 Токены вместо лицензий: САПР 403 700 ₽/место → доли цента за API-вызов</p>
+</div>
+</div>
+</section>
 
-    <!-- ═══ S5: MVP — Fast Track ═══ -->
-    <section id="mvp" class="section" data-section="4">
-        <div class="section-container">
-            <div class="section-header">
-                <span class="section-index">04 — FAST TRACK MVP</span>
-                <h2 class="section-title"><div class="title-line"><span>Пилот за 21 день.</span></div><div class="title-line"><span>Бюджет: 250 000 ₽.</span></div></h2>
-                <p class="section-lead fade-in">Боевой минимальный продукт в закрытом контуре. Без риска для рабочих серверов.</p>
-            </div>
+<!-- S16: ROI -->
+<section class="sl" id="s19" data-block="4">
+<div class="sl-c col-c">
+<span class="idx">15 — ROI</span>
+<h2 class="sec-h"><div class="tl"><span>Профит после 1-го проекта</span></div></h2>
+<div class="roi-graph">
+<svg viewBox="0 0 600 300" class="roi-svg">
+<line x1="60" y1="20" x2="60" y2="260" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+<line x1="60" y1="260" x2="580" y2="260" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+<text x="30" y="260" fill="#475569" font-size="11" font-family="JetBrains Mono">0</text>
+<text x="15" y="140" fill="#475569" font-size="11" font-family="JetBrains Mono">ROI</text>
+<text x="200" y="280" fill="#475569" font-size="10" font-family="JetBrains Mono">MVP</text>
+<text x="380" y="280" fill="#475569" font-size="10" font-family="JetBrains Mono">Проект 1</text>
+<line x1="60" y1="180" x2="580" y2="180" stroke="rgba(255,255,255,0.05)" stroke-dasharray="5,5" stroke-width="1"/>
+<text x="540" y="175" fill="#475569" font-size="9" font-family="JetBrains Mono">Break-even</text>
+<path d="M60,250 Q200,240 280,200 Q350,160 400,100 Q460,30 560,25" fill="none" stroke="#10B981" stroke-width="3" class="roi-path"/>
+<circle cx="280" cy="200" r="5" fill="#2563EB" class="roi-dot"/>
+<circle cx="400" cy="100" r="5" fill="#10B981" class="roi-dot"/>
+</svg>
+</div>
+<div class="roi-facts">
+<p>📊 Сокращение ФОТ на <strong>18 млн ₽/год</strong> — мгновенная окупаемость</p>
+<p>📊 Исключение пеней за срыв сроков = дополнительная чистая прибыль</p>
+</div>
+</div>
+</section>
 
-            <div class="mvp-cols">
-                <div class="mvp-card fade-in">
-                    <div class="card-glow card-glow-blue"></div>
-                    <div class="mvp-num">500</div>
-                    <div class="mvp-tag">SKU</div>
-                    <h4>Бот-парсер накладных</h4>
-                    <p>Telegram-бот: фото накладной → Vision LLM → матчинг базы 1С через Jaro-Winkler на 500 позиций → JSON-черновик документа.</p>
-                </div>
-                <div class="mvp-card fade-in">
-                    <div class="card-glow card-glow-green"></div>
-                    <div class="mvp-num">1 Га</div>
-                    <div class="mvp-tag">ПОЛИГОН</div>
-                    <h4>Трассировка DWG</h4>
-                    <p>Генерация маршрута с обходом препятствий на тестовом участке 1 Га. Вокселизация + A* pathfinding → полилиния DWG.</p>
-                </div>
-                <div class="mvp-card mvp-card-timeline fade-in">
-                    <div class="card-glow card-glow-accent"></div>
-                    <div class="mvp-timeline">
-                        <div class="tl-phase tl-phase-active"><span class="tl-dot"></span><span class="tl-label">Неделя 1</span><span class="tl-desc">Данные + настройка</span></div>
-                        <div class="tl-line"></div>
-                        <div class="tl-phase"><span class="tl-dot"></span><span class="tl-label">Неделя 2</span><span class="tl-desc">Сборка MVP</span></div>
-                        <div class="tl-line"></div>
-                        <div class="tl-phase"><span class="tl-dot"></span><span class="tl-label">Неделя 3</span><span class="tl-desc">Тестирование + запуск</span></div>
-                    </div>
-                    <div class="mvp-budget"><span>250 000</span><span class="mvp-cur">₽</span></div>
-                    <p class="mvp-note">Полная стоимость пилота. Развёртывание on-premise.</p>
-                </div>
-            </div>
-        </div>
-    </section>
+<!-- S17: CTA -->
+<section class="sl" id="s20" data-block="5">
+<div class="sl-c col-c">
+<span class="idx">16 — NEXT STEP</span>
+<h2 class="sec-h cta-h"><div class="tl"><span>Передайте данные.</span></div><div class="tl"><span>Запустим систему.</span></div></h2>
+<p class="sl-desc" style="margin-bottom:40px">Математическая система требует настройки на реальных активах.<br>Для старта MVP необходимы два типа данных.</p>
+<div class="cta-row">
+<div class="cta-card">
+<div class="cta-ic"><svg viewBox="0 0 48 48" fill="none"><path d="M8 8h24l8 8v24a4 4 0 01-4 4H12a4 4 0 01-4-4V8z" stroke="currentColor" stroke-width="2"/><path d="M32 8v8h8" stroke="currentColor" stroke-width="2"/></svg></div>
+<h3>Передать DWG</h3>
+<p>Тестовая геоподоснова с контурами для вокселизации</p>
+<button class="cta-btn primary">Загрузить файл →</button>
+</div>
+<div class="cta-card">
+<div class="cta-ic green"><svg viewBox="0 0 48 48" fill="none"><rect x="6" y="6" width="36" height="36" rx="4" stroke="currentColor" stroke-width="2"/><path d="M6 18h36M6 30h36M18 6v36M30 6v36" stroke="currentColor" stroke-width="1" opacity=".3"/></svg></div>
+<h3>Выгрузить 1С (CSV)</h3>
+<p>Справочник ТМЦ на 500 позиций для обучения матчера</p>
+<button class="cta-btn secondary">Выгрузить базу →</button>
+</div>
+</div>
+<div class="cta-foot">© 2025 Spectrum Intelligence · Закрытый контур · Enterprise-безопасность</div>
+</div>
+</section>
 
-    <!-- ═══ S6: CTA — Data Request ═══ -->
-    <section id="cta" class="section" data-section="5">
-        <div class="section-container cta-center">
-            <div class="section-header">
-                <span class="section-index">05 — NEXT STEP</span>
-                <h2 class="section-title cta-title"><div class="title-line"><span>Передайте данные.</span></div><div class="title-line"><span>Запустим систему.</span></div></h2>
-            </div>
-            <p class="cta-lead fade-in">Математическая система требует настройки на реальных активах. Для старта MVP необходимы два типа данных.</p>
-            <div class="cta-cards">
-                <div class="cta-card fade-in" id="cta-dwg">
-                    <div class="card-glow card-glow-blue"></div>
-                    <div class="cta-icon-wrap"><svg viewBox="0 0 48 48" fill="none"><path d="M8 8h24l8 8v24a4 4 0 01-4 4H12a4 4 0 01-4-4V8z" stroke="currentColor" stroke-width="2"/><path d="M32 8v8h8" stroke="currentColor" stroke-width="2"/><path d="M16 24h16M16 30h10" stroke="currentColor" stroke-width="1.5" opacity="0.5"/></svg></div>
-                    <h3>Передать DWG</h3>
-                    <p>Генплан участка для тестовой вокселизации и трассировки</p>
-                    <button class="cta-btn cta-btn-primary"><span>Загрузить файл</span><span class="btn-arrow">→</span></button>
-                </div>
-                <div class="cta-card fade-in" id="cta-csv">
-                    <div class="card-glow card-glow-green"></div>
-                    <div class="cta-icon-wrap"><svg viewBox="0 0 48 48" fill="none"><rect x="6" y="6" width="36" height="36" rx="4" stroke="currentColor" stroke-width="2"/><path d="M6 18h36M6 30h36M18 6v36M30 6v36" stroke="currentColor" stroke-width="1" opacity="0.3"/></svg></div>
-                    <h3>Выгрузить 1С (CSV)</h3>
-                    <p>Справочник ТМЦ на 500 позиций для обучения матчера Jaro-Winkler</p>
-                    <button class="cta-btn cta-btn-secondary"><span>Выгрузить базу</span><span class="btn-arrow">→</span></button>
-                </div>
-            </div>
-            <div class="cta-footer fade-in">
-                <span>© 2025 Spectrum Intelligence</span>
-                <span class="cta-dot">•</span>
-                <span>Закрытый контур. Enterprise-безопасность.</span>
-            </div>
-        </div>
-    </section>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-    <script src="https://unpkg.com/lenis@1.3.23/dist/lenis.min.js"></script>
-    <script src="app.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://unpkg.com/lenis@1.3.23/dist/lenis.min.js"></script>
+<script src="app.js"></script>
 </body>
 </html>
