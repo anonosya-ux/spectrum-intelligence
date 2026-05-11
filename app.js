@@ -1,192 +1,87 @@
 /* ═══════════════════════════════════════════════════════════════
-   SPECTRUM INTELLIGENCE — Cinematic SPA v2.0
-   Custom GLSL Shaders + GSAP Scrollytelling + Lenis
+   SPECTRUM INTELLIGENCE v3 — Cinematic Scrollytelling KP
+   GLSL Background + GSAP Pin/Scrub + Horizontal Scroll +
+   Elastic Tilt + Magnetic Buttons + Counter Animation
    ═══════════════════════════════════════════════════════════════ */
 (function () {
   'use strict';
+  const S = { mx: 0.5, my: 0.5, tx: 0.5, ty: 0.5, scroll: 0, loaded: false };
 
-  const S = {
-    mouse: { x: 0.5, y: 0.5, tx: 0.5, ty: 0.5 },
-    scroll: 0,
-    loaded: false,
-    section: 0,
-  };
-
-  /* ══════════════ 1. THREE.JS — Custom Shader Background ══════════════ */
+  /* ══════════════ 1. GLSL SHADER BACKGROUND ══════════════ */
   function initWebGL() {
-    const canvas = document.getElementById('webgl-canvas');
-    const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: false, powerPreference: 'high-performance' });
-    renderer.setSize(window.innerWidth, window.innerHeight);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
-
-    const scene = new THREE.Scene();
-    const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
-
-    // Full-screen quad with custom GLSL shader
-    const geo = new THREE.PlaneGeometry(2, 2);
+    const c = document.getElementById('webgl-canvas');
+    if (!c) return;
+    const r = new THREE.WebGLRenderer({ canvas: c, alpha: true, antialias: false, powerPreference: 'high-performance' });
+    r.setSize(innerWidth, innerHeight);
+    r.setPixelRatio(Math.min(devicePixelRatio, 1.5));
+    const sc = new THREE.Scene(), cam = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
     const mat = new THREE.ShaderMaterial({
       uniforms: {
-        uTime: { value: 0 },
-        uMouse: { value: new THREE.Vector2(0.5, 0.5) },
-        uScroll: { value: 0 },
-        uResolution: { value: new THREE.Vector2(window.innerWidth, window.innerHeight) },
-        uColor1: { value: new THREE.Color(0x0a0a14) },
-        uColor2: { value: new THREE.Color(0x0d1b3e) },
-        uAccent: { value: new THREE.Color(0x2563eb) },
+        uTime: { value: 0 }, uMouse: { value: new THREE.Vector2(.5, .5) },
+        uScroll: { value: 0 }, uRes: { value: new THREE.Vector2(innerWidth, innerHeight) },
+        uC1: { value: new THREE.Color(0x0a0a14) }, uC2: { value: new THREE.Color(0x0d1b3e) },
+        uAcc: { value: new THREE.Color(0x2563eb) }
       },
-      vertexShader: `
-        varying vec2 vUv;
-        void main() {
-          vUv = uv;
-          gl_Position = vec4(position, 1.0);
-        }
-      `,
+      vertexShader: `varying vec2 vUv;void main(){vUv=uv;gl_Position=vec4(position,1.);}`,
       fragmentShader: `
         precision highp float;
-        uniform float uTime;
-        uniform vec2 uMouse;
-        uniform float uScroll;
-        uniform vec2 uResolution;
-        uniform vec3 uColor1;
-        uniform vec3 uColor2;
-        uniform vec3 uAccent;
-        varying vec2 vUv;
-
-        // Simplex noise
-        vec3 mod289(vec3 x) { return x - floor(x * (1.0 / 289.0)) * 289.0; }
-        vec2 mod289(vec2 x) { return x - floor(x * (1.0 / 289.0)) * 289.0; }
-        vec3 permute(vec3 x) { return mod289(((x * 34.0) + 1.0) * x); }
-
-        float snoise(vec2 v) {
-          const vec4 C = vec4(0.211324865405187, 0.366025403784439,
-                             -0.577350269189626, 0.024390243902439);
-          vec2 i = floor(v + dot(v, C.yy));
-          vec2 x0 = v - i + dot(i, C.xx);
-          vec2 i1;
-          i1 = (x0.x > x0.y) ? vec2(1.0, 0.0) : vec2(0.0, 1.0);
-          vec4 x12 = x0.xyxy + C.xxzz;
-          x12.xy -= i1;
-          i = mod289(i);
-          vec3 p = permute(permute(i.y + vec3(0.0, i1.y, 1.0)) + i.x + vec3(0.0, i1.x, 1.0));
-          vec3 m = max(0.5 - vec3(dot(x0,x0), dot(x12.xy,x12.xy), dot(x12.zw,x12.zw)), 0.0);
-          m = m * m; m = m * m;
-          vec3 x = 2.0 * fract(p * C.www) - 1.0;
-          vec3 h = abs(x) - 0.5;
-          vec3 ox = floor(x + 0.5);
-          vec3 a0 = x - ox;
-          m *= 1.79284291400159 - 0.85373472095314 * (a0*a0 + h*h);
-          vec3 g;
-          g.x = a0.x * x0.x + h.x * x0.y;
-          g.yz = a0.yz * x12.xz + h.yz * x12.yw;
-          return 130.0 * dot(m, g);
+        uniform float uTime,uScroll;uniform vec2 uMouse,uRes;
+        uniform vec3 uC1,uC2,uAcc;varying vec2 vUv;
+        vec3 mod289(vec3 x){return x-floor(x*(1./289.))*289.;}
+        vec2 mod289(vec2 x){return x-floor(x*(1./289.))*289.;}
+        vec3 permute(vec3 x){return mod289(((x*34.)+1.)*x);}
+        float snoise(vec2 v){
+          const vec4 C=vec4(.211324865405187,.366025403784439,-.577350269189626,.024390243902439);
+          vec2 i=floor(v+dot(v,C.yy));vec2 x0=v-i+dot(i,C.xx);vec2 i1;
+          i1=(x0.x>x0.y)?vec2(1.,0.):vec2(0.,1.);
+          vec4 x12=x0.xyxy+C.xxzz;x12.xy-=i1;i=mod289(i);
+          vec3 p=permute(permute(i.y+vec3(0.,i1.y,1.))+i.x+vec3(0.,i1.x,1.));
+          vec3 m=max(.5-vec3(dot(x0,x0),dot(x12.xy,x12.xy),dot(x12.zw,x12.zw)),0.);
+          m=m*m;m=m*m;
+          vec3 x=2.*fract(p*C.www)-1.;vec3 h=abs(x)-.5;vec3 ox=floor(x+.5);vec3 a0=x-ox;
+          m*=1.79284291400159-.85373472095314*(a0*a0+h*h);
+          vec3 g;g.x=a0.x*x0.x+h.x*x0.y;g.yz=a0.yz*x12.xz+h.yz*x12.yw;
+          return 130.*dot(m,g);
         }
-
-        // Grid pattern
-        float grid(vec2 uv, float size, float thickness) {
-          vec2 g = abs(fract(uv * size) - 0.5);
-          float d = min(g.x, g.y);
-          return 1.0 - smoothstep(0.0, thickness, d);
+        float grid(vec2 uv,float sz,float th){vec2 g=abs(fract(uv*sz)-.5);return 1.-smoothstep(0.,th,min(g.x,g.y));}
+        float traceLine(vec2 uv,float t,float off){
+          float y=uv.y+off;float w=sin(uv.x*20.+t+off*10.)*.02;
+          float l=smoothstep(.003,0.,abs(y-.5+w));
+          float p=smoothstep(0.,1.,sin(uv.x*3.14159-t*2.+off*5.));
+          return l*p*.5;
         }
-
-        // Voxel-like pattern
-        float voxelField(vec2 uv, float time) {
-          float n = 0.0;
-          vec2 p = uv * 8.0;
-          // Layered noise for depth
-          n += snoise(p + time * 0.15) * 0.5;
-          n += snoise(p * 2.0 - time * 0.1) * 0.25;
-          n += snoise(p * 4.0 + time * 0.2) * 0.125;
-          return n;
+        void main(){
+          vec2 uv=vUv;float asp=uRes.x/uRes.y;vec2 uvA=vec2(uv.x*asp,uv.y);
+          uv.y+=uScroll*.25;
+          vec2 md=uv-uMouse;float mD=length(md);float mG=exp(-mD*3.)*.12;
+          vec3 bg=mix(uC1,uC2,uv.y+snoise(uv*2.+uTime*.04)*.2);
+          bg+=vec3(grid(uvA+vec2(0.,uScroll*.4),22.,.07)*.012);
+          float vox=snoise(uvA*8.+uTime*.12)*.5+snoise(uvA*16.-uTime*.08)*.25;
+          bg+=uAcc*smoothstep(.1,.55,vox)*.035*(1.-uScroll*.4);
+          for(float i=0.;i<6.;i++) bg+=uAcc*traceLine(uvA,uTime*.7,i*.1-.25)*.12;
+          bg+=uAcc*mG;
+          float pn=snoise(uvA*55.+uTime*.25);bg+=vec3(smoothstep(.93,.96,pn)*.25);
+          bg*=1.-smoothstep(.3,1.2,length(uv-.5)*1.3);
+          bg+=(fract(sin(dot(uv*uTime,vec2(12.9898,78.233)))*43758.5453)-.5)*.025;
+          gl_FragColor=vec4(bg,1.);
         }
-
-        // Algorithmic lines — like circuit traces
-        float traceLine(vec2 uv, float time, float offset) {
-          float y = uv.y + offset;
-          float wave = sin(uv.x * 20.0 + time + offset * 10.0) * 0.02;
-          float line = smoothstep(0.004, 0.0, abs(y - 0.5 + wave));
-          float pulse = smoothstep(0.0, 1.0, sin(uv.x * 3.14159 - time * 2.0 + offset * 5.0));
-          return line * pulse * 0.6;
-        }
-
-        void main() {
-          vec2 uv = vUv;
-          float aspect = uResolution.x / uResolution.y;
-          vec2 uvA = vec2(uv.x * aspect, uv.y);
-
-          // Scroll-driven distortion
-          float scrollWarp = uScroll * 0.3;
-          uv.y += scrollWarp;
-
-          // Mouse influence
-          vec2 mouseD = uv - uMouse;
-          float mouseDist = length(mouseD);
-          float mouseGlow = exp(-mouseDist * 3.0) * 0.15;
-
-          // Base gradient
-          vec3 bg = mix(uColor1, uColor2, uv.y + snoise(uv * 2.0 + uTime * 0.05) * 0.2);
-
-          // Grid overlay
-          float g = grid(uvA + vec2(0.0, uScroll * 0.5), 20.0, 0.08);
-          bg += vec3(g * 0.015);
-
-          // Voxel field
-          float vox = voxelField(uvA + vec2(uTime * 0.02, uScroll * 0.3), uTime);
-          float voxMask = smoothstep(0.1, 0.6, vox);
-          bg += uAccent * voxMask * 0.04 * (1.0 - uScroll * 0.5);
-
-          // Circuit trace lines
-          for (float i = 0.0; i < 5.0; i++) {
-            float t = traceLine(uvA, uTime * 0.8, i * 0.12 - 0.24);
-            bg += uAccent * t * 0.15;
-          }
-
-          // Mouse glow
-          bg += uAccent * mouseGlow;
-
-          // Floating particles via noise
-          float particleNoise = snoise(uvA * 50.0 + uTime * 0.3);
-          float particles = smoothstep(0.92, 0.95, particleNoise);
-          bg += vec3(particles * 0.3);
-
-          // Vignette
-          float vig = 1.0 - smoothstep(0.3, 1.2, length(uv - 0.5) * 1.3);
-          bg *= vig;
-
-          // Film grain
-          float grain = (fract(sin(dot(uv * uTime, vec2(12.9898, 78.233))) * 43758.5453) - 0.5) * 0.03;
-          bg += grain;
-
-          gl_FragColor = vec4(bg, 1.0);
-        }
-      `,
+      `
     });
-
-    const quad = new THREE.Mesh(geo, mat);
-    scene.add(quad);
-
-    let time = 0;
-    function animate() {
-      requestAnimationFrame(animate);
-      time += 0.016;
-
-      S.mouse.x += (S.mouse.tx - S.mouse.x) * 0.04;
-      S.mouse.y += (S.mouse.ty - S.mouse.y) * 0.04;
-
-      mat.uniforms.uTime.value = time;
-      mat.uniforms.uMouse.value.set(S.mouse.x, 1.0 - S.mouse.y);
+    sc.add(new THREE.Mesh(new THREE.PlaneGeometry(2, 2), mat));
+    let t = 0;
+    (function loop() {
+      requestAnimationFrame(loop);
+      t += .016;
+      S.mx += (S.tx - S.mx) * .04; S.my += (S.ty - S.my) * .04;
+      mat.uniforms.uTime.value = t;
+      mat.uniforms.uMouse.value.set(S.mx, 1 - S.my);
       mat.uniforms.uScroll.value = S.scroll;
-
-      renderer.render(scene, camera);
-    }
-    animate();
-
-    window.addEventListener('resize', () => {
-      renderer.setSize(window.innerWidth, window.innerHeight);
-      mat.uniforms.uResolution.value.set(window.innerWidth, window.innerHeight);
-    });
+      r.render(sc, cam);
+    })();
+    addEventListener('resize', () => { r.setSize(innerWidth, innerHeight); mat.uniforms.uRes.value.set(innerWidth, innerHeight); });
   }
 
-  /* ══════════════ 2. LENIS SMOOTH SCROLL ══════════════ */
+  /* ══════════════ 2. LENIS ══════════════ */
   let lenis;
   function initLenis() {
     lenis = new Lenis({ duration: 1.6, easing: t => Math.min(1, 1.001 - Math.pow(2, -10 * t)), smoothWheel: true });
@@ -195,116 +90,204 @@
     gsap.ticker.lagSmoothing(0);
     lenis.on('scroll', ({ progress }) => {
       S.scroll = progress;
-      document.getElementById('scroll-progress').style.width = (progress * 100) + '%';
+      const bar = document.getElementById('scroll-progress');
+      if (bar) bar.style.width = (progress * 100) + '%';
     });
   }
 
-  /* ══════════════ 3. SCROLLYTELLING CHOREOGRAPHY ══════════════ */
+  /* ══════════════ 3. GSAP SCROLLYTELLING ══════════════ */
   function initScrollytelling() {
     gsap.registerPlugin(ScrollTrigger);
 
-    // ── HERO: Pinned with parallax layers ──
-    const heroTl = gsap.timeline({ scrollTrigger: {
-      trigger: '#hero', start: 'top top', end: '+=150%', scrub: 1.5, pin: true,
-    }});
+    // ─── HERO: Pinned with dramatic exit ───
+    const heroTl = gsap.timeline({
+      scrollTrigger: { trigger: '#hero', start: 'top top', end: '+=120%', scrub: 1.5, pin: true }
+    });
     heroTl
-      .to('.hero-title .title-line:first-child span', { x: -120, opacity: 0, ease: 'none' }, 0)
-      .to('.hero-title .title-line:last-child span', { x: 120, opacity: 0, ease: 'none' }, 0)
+      .to('.hero-title .title-line:first-child span', { x: -200, opacity: 0, ease: 'none' }, 0)
+      .to('.hero-title .title-line:last-child span', { x: 200, opacity: 0, ease: 'none' }, 0)
       .to('.hero-subtitle', { y: -80, opacity: 0, ease: 'none' }, 0)
-      .to('.hero-stats', { y: -60, opacity: 0, ease: 'none' }, 0.1)
-      .to('.hero-tag', { scale: 0.8, opacity: 0, ease: 'none' }, 0);
+      .to('.hero-kpis', { y: -60, opacity: 0, ease: 'none' }, 0.1)
+      .to('.hero-tag', { scale: 0.85, opacity: 0, ease: 'none' }, 0)
+      .to('.scroll-cue', { opacity: 0, ease: 'none' }, 0);
 
-    // ── PROBLEM: Staggered card reveals with horizontal scroll ──
-    gsap.set('#problem .problem-card', { opacity: 0, y: 80, rotateX: 8 });
-    gsap.set('#problem .section-index', { opacity: 0, x: -30 });
+    // ─── PAIN: Horizontal scroll (pinned section) ───
+    const track = document.querySelector('.hscroll-track');
+    if (track) {
+      const cards = gsap.utils.toArray('.pain-card');
+      const totalW = () => track.scrollWidth - window.innerWidth + 80;
 
-    const probTl = gsap.timeline({ scrollTrigger: {
-      trigger: '#problem', start: 'top 65%', end: 'center center', toggleActions: 'play none none reverse',
-    }});
-    probTl
-      .to('#problem .section-index', { opacity: 1, x: 0, duration: 0.6 })
-      .to('#problem .title-line span', { y: 0, duration: 1.2, stagger: 0.08, ease: 'power4.out' }, '-=0.3')
-      .to('.problem-card', { opacity: 1, y: 0, rotateX: 0, duration: 0.9, stagger: 0.18, ease: 'power3.out' }, '-=0.7')
-      .to('.metric-bar-fill', { width: '100%', duration: 2, ease: 'power2.out' }, '-=0.5');
+      gsap.to(track, {
+        x: () => -totalW(),
+        ease: 'none',
+        scrollTrigger: {
+          trigger: '#pain',
+          pin: true,
+          scrub: 1,
+          start: 'top top',
+          end: () => '+=' + totalW(),
+          invalidateOnRefresh: true,
+        }
+      });
 
-    // Problem cards parallax
-    gsap.utils.toArray('.problem-card').forEach((card, i) => {
-      gsap.to(card, {
-        y: -30 - i * 10,
-        scrollTrigger: { trigger: card, start: 'top bottom', end: 'bottom top', scrub: 2 },
+      // Cards stagger in during horizontal scroll
+      cards.forEach((card, i) => {
+        gsap.from(card, {
+          opacity: 0, y: 40, rotateY: -8,
+          duration: 0.8,
+          scrollTrigger: {
+            trigger: card,
+            containerAnimation: undefined,
+            start: 'left 80%',
+            toggleActions: 'play none none reverse',
+          }
+        });
+      });
+    }
+
+    // Pain bar fills
+    gsap.utils.toArray('.pain-bar-fill').forEach(el => {
+      gsap.to(el, { width: el.dataset.w + '%', duration: 1.5, ease: 'power2.out',
+        scrollTrigger: { trigger: el, start: 'top 80%' }
       });
     });
 
-    // ── TECH: Split reveal + compression bar animation ──
-    gsap.set('.tech-card', { opacity: 0, y: 80, scale: 0.95 });
-    gsap.set('.compression-visual', { opacity: 0, y: 40 });
+    // ─── GENERIC: .fade-in elements ───
+    gsap.utils.toArray('.fade-in').forEach(el => {
+      gsap.to(el, {
+        opacity: 1, y: 0, duration: 1, ease: 'power3.out',
+        scrollTrigger: { trigger: el, start: 'top 80%', toggleActions: 'play none none reverse' }
+      });
+    });
 
-    const techTl = gsap.timeline({ scrollTrigger: {
-      trigger: '#tech', start: 'top 65%', end: 'center center', toggleActions: 'play none none reverse',
-    }});
-    techTl
-      .to('#tech .section-index', { opacity: 1, x: 0, duration: 0.6 })
-      .to('#tech .title-line span', { y: 0, duration: 1.2, stagger: 0.08, ease: 'power4.out' }, '-=0.3')
-      .to('.tech-card-ai', { opacity: 1, y: 0, scale: 1, duration: 0.8, ease: 'back.out(1.4)' }, '-=0.5')
-      .to('.tech-card-logistics', { opacity: 1, y: 0, scale: 1, duration: 0.8, ease: 'back.out(1.4)' }, '-=0.5')
-      .to('.compression-visual', { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' }, '-=0.3')
-      .to('.compress-fill', { width: (_, el) => el.dataset.width + '%', duration: 1.8, stagger: 0.4, ease: 'power2.out' }, '-=0.3');
+    // ─── SECTION HEADERS: Index + Title reveal ───
+    document.querySelectorAll('.section[data-section]').forEach(sec => {
+      if (sec.id === 'hero') return;
+      const idx = sec.querySelector('.section-index');
+      const spans = sec.querySelectorAll('.title-line span');
+      const tl = gsap.timeline({
+        scrollTrigger: { trigger: sec, start: 'top 70%', toggleActions: 'play none none reverse' }
+      });
+      if (idx) tl.to(idx, { opacity: 1, x: 0, duration: 0.6 });
+      if (spans.length) tl.to(spans, { y: 0, duration: 1.2, stagger: 0.08, ease: 'power4.out' }, '-=0.3');
+    });
 
-    // ── MVP: Pinned timeline animation ──
-    gsap.set('.mvp-card', { opacity: 0, y: 80, scale: 0.9 });
+    // ─── TECH: Cards fly in from sides ───
+    const techL = document.querySelector('.tech-card-left');
+    const techR = document.querySelector('.tech-card-right');
+    if (techL && techR) {
+      gsap.set(techL, { opacity: 0, x: -80 });
+      gsap.set(techR, { opacity: 0, x: 80 });
+      const techTl = gsap.timeline({
+        scrollTrigger: { trigger: '#tech', start: 'top 60%', toggleActions: 'play none none reverse' }
+      });
+      techTl
+        .to(techL, { opacity: 1, x: 0, duration: 1, ease: 'power3.out' })
+        .to(techR, { opacity: 1, x: 0, duration: 1, ease: 'power3.out' }, '-=0.7');
+    }
 
-    const mvpTl = gsap.timeline({ scrollTrigger: {
-      trigger: '#mvp', start: 'top 65%', toggleActions: 'play none none reverse',
-    }});
-    mvpTl
-      .to('#mvp .section-index', { opacity: 1, x: 0, duration: 0.6 })
-      .to('#mvp .title-line span', { y: 0, duration: 1.2, stagger: 0.08, ease: 'power4.out' }, '-=0.3')
-      .to('.mvp-card', { opacity: 1, y: 0, scale: 1, duration: 0.8, stagger: 0.2, ease: 'back.out(1.2)' }, '-=0.5');
+    // Compression bars
+    gsap.utils.toArray('.compress-fill').forEach(el => {
+      gsap.to(el, { width: el.dataset.w + '%', duration: 2, ease: 'power2.out',
+        scrollTrigger: { trigger: el, start: 'top 85%' }
+      });
+    });
 
-    // Timeline dots animation
-    mvpTl.to('.timeline-dot', { borderColor: '#2563EB', stagger: { each: 0.3, from: 'start' }, duration: 0.4 }, '-=0.3');
-    mvpTl.to('.timeline-line', { background: 'linear-gradient(90deg, #2563EB, #2563EB)', stagger: 0.3, duration: 0.5 }, '-=0.8');
+    // ─── METHOD: Staggered cards ───
+    gsap.utils.toArray('.method-card').forEach((card, i) => {
+      gsap.from(card, {
+        opacity: 0, y: 60, scale: 0.95,
+        duration: 0.8,
+        delay: i * 0.1,
+        ease: 'back.out(1.2)',
+        scrollTrigger: { trigger: card, start: 'top 80%', toggleActions: 'play none none reverse' }
+      });
+    });
 
-    // ── CTA: Dramatic reveal ──
-    gsap.set('.cta-card', { opacity: 0, y: 60, rotateY: -5 });
+    // Market compare bars
+    gsap.utils.toArray('.market-fill').forEach(el => {
+      const w = el.classList.contains('market-fill-red') ? '100%' : '50%';
+      gsap.to(el, { width: w, duration: 1.5, ease: 'power2.out',
+        scrollTrigger: { trigger: el, start: 'top 85%' }
+      });
+    });
 
-    const ctaTl = gsap.timeline({ scrollTrigger: {
-      trigger: '#cta', start: 'top 65%', toggleActions: 'play none none reverse',
-    }});
-    ctaTl
-      .to('#cta .section-index', { opacity: 1, x: 0, duration: 0.6 })
-      .to('#cta .title-line span', { y: 0, duration: 1.2, stagger: 0.08, ease: 'power4.out' }, '-=0.3')
-      .to('.cta-desc', { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' }, '-=0.5')
-      .to('.cta-card', { opacity: 1, y: 0, rotateY: 0, duration: 0.9, stagger: 0.2, ease: 'power3.out', transformPerspective: 800 }, '-=0.4')
-      .to('.cta-footer', { opacity: 1, duration: 0.6 }, '-=0.2');
+    // ─── MVP: Cards rise with elastic ───
+    gsap.utils.toArray('.mvp-card').forEach((card, i) => {
+      gsap.from(card, {
+        opacity: 0, y: 80, rotateX: 8,
+        duration: 1,
+        delay: i * 0.15,
+        ease: 'power3.out',
+        scrollTrigger: { trigger: card, start: 'top 80%', toggleActions: 'play none none reverse' }
+      });
+    });
 
-    // ── NAV HIGHLIGHTING ──
+    // Timeline dots progressive activation
+    gsap.utils.toArray('.tl-dot').forEach((dot, i) => {
+      gsap.to(dot, {
+        borderColor: '#2563EB', background: '#2563EB', boxShadow: '0 0 12px rgba(37,99,235,.3)',
+        duration: 0.5,
+        delay: i * 0.3,
+        scrollTrigger: { trigger: '.mvp-timeline', start: 'top 75%' }
+      });
+    });
+    gsap.utils.toArray('.tl-line').forEach((line, i) => {
+      gsap.to(line, {
+        background: 'linear-gradient(90deg, #2563EB, #2563EB)',
+        duration: 0.6,
+        delay: i * 0.3 + 0.15,
+        scrollTrigger: { trigger: '.mvp-timeline', start: 'top 75%' }
+      });
+    });
+
+    // ─── CTA: Dramatic cards ───
+    gsap.utils.toArray('.cta-card').forEach((card, i) => {
+      gsap.from(card, {
+        opacity: 0, y: 50, rotateY: -6,
+        duration: 1,
+        delay: i * 0.15,
+        ease: 'power3.out',
+        transformPerspective: 800,
+        scrollTrigger: { trigger: card, start: 'top 80%', toggleActions: 'play none none reverse' }
+      });
+    });
+
+    // ─── NAV: Active state ───
     document.querySelectorAll('.section[data-section]').forEach((sec, i) => {
       ScrollTrigger.create({
         trigger: sec, start: 'top center', end: 'bottom center',
         onEnter: () => setNav(i), onEnterBack: () => setNav(i),
       });
     });
-
     function setNav(i) {
       document.querySelectorAll('.nav-link').forEach((l, j) => l.classList.toggle('active', j === i - 1));
     }
+
+    // ─── PARALLAX: Subtle per-section ───
+    document.querySelectorAll('.section-container').forEach(el => {
+      gsap.to(el, {
+        y: -20,
+        scrollTrigger: { trigger: el, start: 'top bottom', end: 'bottom top', scrub: 3 }
+      });
+    });
   }
 
   /* ══════════════ 4. HERO ENTRANCE ══════════════ */
-  function playHeroEntrance() {
-    const tl = gsap.timeline({ delay: 0.1 });
+  function playHero() {
+    const tl = gsap.timeline({ delay: 0.15 });
     tl.to('.hero-tag', { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' })
-      .to('#hero .title-line span', { y: 0, duration: 1.4, stagger: 0.1, ease: 'power4.out' }, '-=0.5')
-      .to('.hero-subtitle', { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' }, '-=0.7')
-      .to('.hero-stats', { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' }, '-=0.5')
-      .to('.hero-scroll-hint', { opacity: 1, duration: 0.8 }, '-=0.3');
+      .to('#hero .title-line span', { y: 0, duration: 1.4, stagger: 0.12, ease: 'power4.out' }, '-=0.5')
+      .to('.hero-subtitle', { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' }, '-=0.8')
+      .to('.hero-kpis', { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' }, '-=0.5')
+      .to('.scroll-cue', { opacity: 1, duration: 0.8 }, '-=0.3');
 
-    // Animate counters
+    // Counter animation
     tl.add(() => {
-      document.querySelectorAll('.stat-number').forEach(el => {
-        const v = parseInt(el.dataset.value);
-        gsap.to({ n: 0 }, { n: v, duration: 2.5, ease: 'power2.out',
+      document.querySelectorAll('.kpi-val').forEach(el => {
+        const v = parseInt(el.dataset.val);
+        gsap.to({ n: 0 }, {
+          n: v, duration: 2.5, ease: 'power2.out',
           onUpdate() { el.textContent = Math.round(this.targets()[0].n); }
         });
       });
@@ -314,82 +297,71 @@
   /* ══════════════ 5. PRELOADER ══════════════ */
   function initPreloader() {
     const el = document.getElementById('preloader');
+    if (!el) return;
     const counter = el.querySelector('.preloader-counter');
     const line = el.querySelector('.preloader-line');
     let p = 0;
     const iv = setInterval(() => {
-      p += Math.random() * 15 + 5;
+      p += Math.random() * 14 + 4;
       if (p > 100) p = 100;
       counter.textContent = Math.round(p) + '%';
       line.style.setProperty('--p', p + '%');
       if (p >= 100) {
         clearInterval(iv);
         setTimeout(() => {
-          gsap.to(el, { clipPath: 'inset(0 0 100% 0)', duration: 1, ease: 'power4.inOut',
+          gsap.to(el, {
+            clipPath: 'inset(0 0 100% 0)', duration: 1.1, ease: 'power4.inOut',
             onComplete() {
               el.style.display = 'none';
               S.loaded = true;
-              document.getElementById('main-nav').classList.add('visible');
-              playHeroEntrance();
+              const nav = document.getElementById('main-nav');
+              if (nav) nav.classList.add('visible');
+              playHero();
             }
           });
-        }, 400);
+        }, 350);
       }
     }, 50);
   }
 
-  /* ══════════════ 6. MOUSE & TILT ══════════════ */
+  /* ══════════════ 6. INTERACTIONS ══════════════ */
   function initMouse() {
     document.addEventListener('mousemove', e => {
-      S.mouse.tx = e.clientX / window.innerWidth;
-      S.mouse.ty = e.clientY / window.innerHeight;
+      S.tx = e.clientX / innerWidth;
+      S.ty = e.clientY / innerHeight;
     });
 
-    // Magnetic card tilt
-    document.querySelectorAll('.problem-card, .tech-card, .mvp-card, .cta-card').forEach(card => {
+    // 3D Tilt on cards
+    const cards = document.querySelectorAll('.pain-card, .tech-card, .method-card, .mvp-card, .cta-card');
+    cards.forEach(card => {
       card.addEventListener('mousemove', e => {
         const r = card.getBoundingClientRect();
         const x = (e.clientX - r.left) / r.width - 0.5;
         const y = (e.clientY - r.top) / r.height - 0.5;
-        gsap.to(card, { rotateY: x * 8, rotateX: -y * 8, duration: 0.4, ease: 'power2.out', transformPerspective: 1000 });
+        gsap.to(card, { rotateY: x * 10, rotateX: -y * 10, duration: 0.35, ease: 'power2.out', transformPerspective: 1000 });
         const glow = card.querySelector('.card-glow');
-        if (glow) gsap.to(glow, { x: x * 100, y: y * 100, duration: 0.5 });
+        if (glow) gsap.to(glow, { x: x * 80, y: y * 80, duration: 0.4 });
       });
       card.addEventListener('mouseleave', () => {
-        gsap.to(card, { rotateY: 0, rotateX: 0, duration: 0.7, ease: 'elastic.out(1, 0.5)' });
+        gsap.to(card, { rotateY: 0, rotateX: 0, duration: 0.8, ease: 'elastic.out(1, 0.4)' });
       });
     });
 
-    // CTA button magnetic effect
+    // Magnetic CTA buttons
     document.querySelectorAll('.cta-btn').forEach(btn => {
       btn.addEventListener('mousemove', e => {
         const r = btn.getBoundingClientRect();
         const x = e.clientX - r.left - r.width / 2;
         const y = e.clientY - r.top - r.height / 2;
-        gsap.to(btn, { x: x * 0.15, y: y * 0.15, duration: 0.3 });
+        gsap.to(btn, { x: x * 0.2, y: y * 0.2, duration: 0.3 });
       });
       btn.addEventListener('mouseleave', () => {
-        gsap.to(btn, { x: 0, y: 0, duration: 0.5, ease: 'elastic.out(1, 0.4)' });
+        gsap.to(btn, { x: 0, y: 0, duration: 0.6, ease: 'elastic.out(1, 0.35)' });
       });
     });
   }
 
-  /* ══════════════ 7. TEXT SPLITTING (word-by-word reveal) ══════════════ */
-  function splitText() {
-    // Add word-by-word split to subtitle for advanced reveal
-    const subtitle = document.querySelector('.hero-subtitle');
-    if (subtitle) {
-      const html = subtitle.innerHTML;
-      const words = html.split(/(\s+|<br\s*\/?>)/);
-      subtitle.innerHTML = words.map(w => {
-        if (w.match(/<br\s*\/?>/)) return w;
-        if (w.trim() === '') return w;
-        return `<span class="word">${w}</span>`;
-      }).join('');
-    }
-  }
-
-  /* ══════════════ 8. NAVIGATION ══════════════ */
+  /* ══════════════ 7. NAV ══════════════ */
   function initNav() {
     document.querySelectorAll('.nav-link').forEach(link => {
       link.addEventListener('click', e => {
@@ -400,20 +372,16 @@
     });
   }
 
-  /* ══════════════ 9. INITIAL STATES ══════════════ */
+  /* ══════════════ 8. INITIAL STATES ══════════════ */
   function initStates() {
-    gsap.set('.section-index', { opacity: 0, x: -30 });
-    gsap.set('.title-line span', { y: '120%' });
     gsap.set('.hero-tag', { opacity: 0, y: 20 });
     gsap.set('.hero-subtitle', { opacity: 0, y: 20 });
-    gsap.set('.hero-stats', { opacity: 0, y: 30 });
-    gsap.set('.cta-desc', { opacity: 0, y: 20 });
-    gsap.set('.cta-footer', { opacity: 0 });
+    gsap.set('.hero-kpis', { opacity: 0, y: 30 });
+    gsap.set('.scroll-cue', { opacity: 0 });
   }
 
   /* ══════════════ BOOT ══════════════ */
   document.addEventListener('DOMContentLoaded', () => {
-    splitText();
     initStates();
     initWebGL();
     initLenis();
