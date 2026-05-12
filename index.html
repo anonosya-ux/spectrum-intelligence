@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Spectrum Intelligence | Коммерческое предложение</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800;900&family=Plus+Jakarta+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -105,6 +105,9 @@
 <div class="sl-c col-c">
 <span class="idx">05 — ЕДИНАЯ ЭКОСИСТЕМА</span>
 <h2 class="sec-h"><div class="tl"><span>AutoCAD + 1С + Bitrix24</span></div><div class="tl"><span>Единый ИИ-слой</span></div></h2>
+<div class="graphics-container" style="margin-top: 20px; margin-bottom: 40px;">
+    <img src="circuit_ai.png" alt="AI Circuit" class="premium-graphic" style="max-width: 100%; border-radius: 24px; box-shadow: 0 20px 40px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.1);">
+</div>
 <div class="eco">
 <div class="eco-node eco-n1"><span>AutoCAD</span><small>APS Cloud</small></div>
 <svg class="eco-line" viewBox="0 0 200 20"><line x1="0" y1="10" x2="200" y2="10" class="svg-draw"/></svg>
@@ -118,18 +121,24 @@
 
 <!-- S7: AI ПРОЕКТИРОВЩИК -->
 <section class="sl" id="s7" data-block="2">
-<div class="sl-c col-c" style="max-width:900px">
+<div class="sl-c col-c" style="max-width:1100px">
 <span class="idx">06 — ПРОДУКТ 1: AI-ПРОЕКТИРОВЩИК</span>
 <h2 class="sec-h"><div class="tl"><span>Вокселизация + Pathfinding</span></div></h2>
-<div class="steps">
-<div class="step"><span class="step-n">01</span><div><strong>DWG → Воксельная матрица</strong><p>Чертёж переводится в цифровую сетку: 1 = препятствие, 0 = свободно</p></div></div>
-<div class="step"><span class="step-n">02</span><div><strong>A* / GNN Pathfinding</strong><p>Алгоритмы строят маршруты за секунды с учётом СНиП, ПУЭ, охранных зон</p></div></div>
-<div class="step"><span class="step-n">03</span><div><strong>RAG по нормативам</strong><p>Гибридный поиск блокирует галлюцинации: dense + sparse векторы</p></div></div>
-<div class="step"><span class="step-n">04</span><div><strong>Маршрут → DWG</strong><p>Через Autodesk Platform Services полилиния записывается обратно в чертёж</p></div></div>
+<div class="split" style="align-items: center; margin-top: 40px;">
+    <div class="split-l" style="padding-right: 40px;">
+        <div class="steps">
+            <div class="step"><span class="step-n">01</span><div><strong>DWG → Воксельная матрица</strong><p>Чертёж переводится в цифровую сетку: 1 = препятствие, 0 = свободно</p></div></div>
+            <div class="step"><span class="step-n">02</span><div><strong>A* / GNN Pathfinding</strong><p>Алгоритмы строят маршруты за секунды с учётом СНиП, ПУЭ, охранных зон</p></div></div>
+            <div class="step"><span class="step-n">03</span><div><strong>RAG по нормативам</strong><p>Гибридный поиск блокирует галлюцинации: dense + sparse векторы</p></div></div>
+            <div class="step"><span class="step-n">04</span><div><strong>Маршрут → DWG</strong><p>Через Autodesk Platform Services полилиния записывается обратно в чертёж</p></div></div>
+        </div>
+    </div>
+    <div class="split-r">
+        <img src="voxel_matrix.png" alt="Voxel Matrix" class="premium-graphic" style="width: 100%; border-radius: 24px; box-shadow: 0 20px 40px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.1);">
+    </div>
 </div>
 </div>
 </section>
-
 <!-- S8: РЕЗУЛЬТАТ ПРОЕКТИРОВАНИЯ -->
 <section class="sl" id="s8" data-block="2">
 <div class="sl-c col-c">
