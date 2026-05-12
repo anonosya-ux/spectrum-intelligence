@@ -2,360 +2,301 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Spectrum Intelligence | Коммерческое предложение</title>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="spectrum.css">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Spectrum Intelligence</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{--r:#E50914;--b:#0055ff;--c:#00d4ff;--o:#FF6B00}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:auto}
+body{background:#030303;color:#fff;font-family:'Inter',sans-serif;overflow-x:hidden;cursor:none}
+body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9998;opacity:.035;background:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='.9'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+.cur{position:fixed;width:20px;height:20px;border:2px solid var(--r);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .3s,height .3s;mix-blend-mode:difference}
+.dot{position:fixed;width:5px;height:5px;background:var(--r);border-radius:50%;pointer-events:none;z-index:10000;transform:translate(-50%,-50%)}
+canvas{position:fixed;inset:0;z-index:-2;pointer-events:none}
+.orb{position:fixed;border-radius:50%;filter:blur(150px);pointer-events:none;z-index:-1}
+.o1{width:50vw;height:50vw;background:rgba(229,9,20,.1);top:-15%;left:-15%}
+.o2{width:40vw;height:40vw;background:rgba(255,107,0,.07);bottom:-10%;right:-15%}
+
+/* SLIDES */
+.s{min-height:100vh;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
+.s-bg{position:absolute;inset:-50px;background-size:cover;background-position:center;filter:brightness(.35);transform:scale(1.1);will-change:transform}
+.s-inner{position:relative;z-index:2;max-width:1200px;width:100%;padding:60px}
+.s::after{content:'';position:absolute;bottom:0;left:5%;right:5%;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.06),transparent)}
+
+/* HERO */
+.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;position:relative}
+.hero h1{font-family:'Bebas Neue';font-size:clamp(5rem,12vw,12rem);line-height:.85;letter-spacing:-3px;opacity:0;transform:translateY(60px)}
+.hero p{color:#777;font-size:1.2rem;max-width:600px;margin-top:30px;opacity:0}
+.hero .tag{display:inline-block;border:1px solid var(--b);color:var(--b);padding:12px 24px;margin-top:30px;font-size:.9rem;backdrop-filter:blur(10px);background:rgba(0,85,255,.05);opacity:0}
+
+/* FULLSCREEN IMAGE SLIDE */
+.fs{min-height:100vh;position:relative;overflow:hidden;display:flex;align-items:flex-end}
+.fs img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;will-change:transform}
+.fs .overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.85) 0%,rgba(0,0,0,.2) 40%,rgba(0,0,0,.1) 100%);z-index:1}
+.fs .caption{position:relative;z-index:2;padding:60px 80px;max-width:900px}
+.fs .caption h2{font-family:'Bebas Neue';font-size:clamp(2.5rem,5vw,4rem);margin-bottom:12px;text-transform:uppercase;opacity:0;transform:translateY(40px)}
+.fs .caption p{color:#aaa;font-size:1.05rem;line-height:1.6;opacity:0;transform:translateY(30px)}
+
+/* HORIZONTAL SCROLL */
+.hz-wrap{overflow:hidden;position:relative}
+.hz-track{display:flex;width:max-content}
+.hz-panel{width:100vw;height:100vh;flex-shrink:0;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
+.hz-panel img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:brightness(.4)}
+.hz-panel .hz-content{position:relative;z-index:2;text-align:center;max-width:800px;padding:40px}
+.hz-panel h2{font-family:'Bebas Neue';font-size:clamp(3rem,6vw,5rem);text-transform:uppercase;margin-bottom:15px}
+.hz-panel p{color:#aaa;font-size:1.05rem;line-height:1.6}
+.hz-counter{position:fixed;bottom:40px;right:60px;font-family:'Bebas Neue';font-size:1.5rem;color:#333;z-index:50;display:none}
+
+/* SCALE SECTION */
+.scale-s{min-height:200vh;position:relative}
+.scale-s .sticky{position:sticky;top:0;height:100vh;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.scale-s img{width:80vw;max-width:1000px;border-radius:16px;box-shadow:0 40px 80px rgba(0,0,0,.6);will-change:transform}
+.scale-s .scale-text{position:absolute;z-index:2;text-align:center;opacity:0}
+.scale-s .scale-text h2{font-family:'Bebas Neue';font-size:clamp(4rem,8vw,7rem);text-shadow:0 0 60px rgba(229,9,20,.4)}
+.scale-s .scale-text p{color:#aaa;font-size:1.15rem;margin-top:15px}
+
+/* TWO-UP */
+.twoup{display:grid;grid-template-columns:1fr 1fr;min-height:100vh;overflow:hidden}
+.twoup .side{display:flex;align-items:center;justify-content:center;padding:60px;position:relative;overflow:hidden}
+.twoup img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0;filter:brightness(.3)}
+.twoup .txt{position:relative;z-index:2;max-width:500px}
+.twoup h2{font-family:'Bebas Neue';font-size:clamp(2.5rem,4vw,3.5rem);margin-bottom:15px;text-transform:uppercase}
+.twoup p{color:#aaa;font-size:1rem;line-height:1.6}
+
+/* FINAL CTA */
+.cta{min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;position:relative}
+.cta h1{font-family:'Bebas Neue';font-size:clamp(4rem,10vw,9rem);line-height:.9;opacity:0}
+.cta .price{font-family:'Bebas Neue';font-size:clamp(3rem,6vw,5rem);color:var(--o);margin-top:20px;opacity:0}
+.cta p{color:#777;font-size:1.1rem;margin-top:20px;max-width:700px;opacity:0}
+
+@media(max-width:768px){.twoup{grid-template-columns:1fr}.fs .caption{padding:30px}.s-inner{padding:30px}}
+</style>
 </head>
 <body>
+<canvas id="c"></canvas>
+<div class="orb o1"></div>
+<div class="orb o2"></div>
 
-<canvas id="particles"></canvas>
-<div class="orb orb-1"></div>
-<div class="orb orb-2"></div>
+<!-- HERO -->
+<section class="hero s" id="hero">
+  <h1>SPECTRUM<br>INTELLIGENCE</h1>
+  <p>Технологический рывок и оптимизация издержек. Интеграция микросервисной архитектуры для радикального снижения транзакционных издержек.</p>
+  <div class="tag">⟶ ЛИСТАЙТЕ ВНИЗ</div>
+</section>
 
-<!-- S1: ТИТУЛКА -->
-<section class="slide" id="s1">
-  <div class="slide-inner">
-    <h1 class="mega-title split">SPECTRUM<br>INTELLIGENCE</h1>
-    <p class="subtitle">Технологический рывок и оптимизация издержек.<br>От децентрализованного ручного труда к строгой математической оптимизации.</p>
-    <div class="tag">Интеграция микросервисной архитектуры для радикального снижения транзакционных издержек.</div>
+<!-- FS1: PARADIGM SHIFT (slide_02) -->
+<section class="fs" id="fs1">
+  <img src="Изображение 2.jpg" alt="" class="fs-img">
+  <div class="overlay"></div>
+  <div class="caption"><h2>PARADIGM SHIFT</h2><p>Переход к алгоритмическому управлению. Замещение когнитивных способностей исполнителей машинными алгоритмами. Устранение хаоса IT-систем.</p></div>
+</section>
+
+<!-- FS2: 18 МЛН (slide_03 = Изображение 1) -->
+<section class="fs" id="fs2">
+  <img src="Изображение 1.jpg" alt="" class="fs-img">
+  <div class="overlay"></div>
+  <div class="caption"><h2>18 000 000 ₽ / 12 МЕСЯЦЕВ</h2><p>Убыток на ФОТ рабочей группы. 3-4 инженера сжигают до 18 млн руб. за цикл проекта. Лицензия САПР — до 403 700 ₽ за одно рабочее место.</p></div>
+</section>
+
+<!-- SCALE: 15000 SKU -->
+<section class="scale-s" id="sku">
+  <div class="sticky">
+    <img src="Изображение 4.jpg" alt="" class="scale-img">
+    <div class="scale-text"><h2>15 000 SKU | 4 ЧАСА</h2><p>Хаос номенклатуры парализует учет. 4 часа на одну накладную.</p></div>
   </div>
 </section>
 
-<!-- S2: PARADIGM SHIFT -->
-<section class="slide" id="s2">
-  <div class="slide-inner">
-    <h1 class="mega-title split">PARADIGM SHIFT</h1>
-    <p class="subtitle">Переход к алгоритмическому управлению. Замещение когнитивных способностей и дисциплины исполнителей машинными алгоритмами.</p>
-    <div class="two-col">
-      <div class="col chaos">
-        <h3>ХАОС (СЕЙЧАС)</h3>
-        <p>Мятые накладные в мессенджерах. Ошибки ручного ввода. «Зоопарк» IT-систем.</p>
-      </div>
-      <div class="col order">
-        <h3>ПОРЯДОК (ПОСЛЕ)</h3>
-        <p>Единый AI-слой. Ingest Server → Processing → AI Model → Execution Engine.</p>
-      </div>
-    </div>
+<!-- FS3: HUMAN ERROR (Изображение 3) -->
+<section class="fs" id="fs3">
+  <img src="Изображение 3.jpg" alt="" class="fs-img">
+  <div class="overlay"></div>
+  <div class="caption"><h2>HUMAN ERROR MULTIPLIER</h2><p>Опечатка в 1С → Закупка неверного кабеля → Простой тяжелой техники → Многомиллионные пени по генподряду.</p></div>
+</section>
+
+<!-- HORIZONTAL SCROLL: 4 tech slides -->
+<section class="hz-wrap" id="hz">
+  <div class="hz-track">
+    <div class="hz-panel"><img src="Изображение 5.jpg" alt=""><div class="hz-content"><h2>ECOSYSTEM ARCHITECTURE</h2><p>Единый ИИ-слой: APS ⟵ AI Core ⟶ 1C ERP ⟶ Bitrix24</p></div></div>
+    <div class="hz-panel"><img src="Изображение 6.jpg" alt=""><div class="hz-content"><h2>Математическая трассировка из DWG за 7 дней</h2><p>Алгоритм A* + графовые нейросети. RAG-валидация на базе СНиП и ПУЭ.</p></div></div>
+    <div class="hz-panel"><img src="Изображение 7.jpg" alt=""><div class="hz-content"><h2>Облачная парадигма Autodesk (APS)</h2><p>Headless AutoCAD + Model Context Protocol. Двунаправленный обмен DWG ↔ Cloud.</p></div></div>
+    <div class="hz-panel"><img src="Изображение 8.jpg" alt=""><div class="hz-content"><h2>Защита от ИИ-галлюцинаций</h2><p>Гибридный поиск BERTA + BM25. Алгоритм жестко ограничен локальной базой знаний.</p></div></div>
   </div>
 </section>
 
-<!-- S3: 18 МЛН ФОТ -->
-<section class="slide" id="s3">
-  <div class="slide-inner">
-    <h1 class="mega-title split"><span class="red">18 000 000 ₽</span> / 12 МЕСЯЦЕВ</h1>
-    <p class="subtitle">Убыток на ФОТ рабочей группы (3-4 инженера) и критический риск срыва сроков генподряда.</p>
-    <div class="metric-row">
-      <div class="metric-card">
-        <div class="metric-val counter" data-target="18000000">0</div>
-        <div class="metric-label">ФОТ РАБОЧЕЙ ГРУППЫ (12 МЕС.)</div>
-        <div class="bar-fill red-bar" data-width="100%"></div>
-      </div>
-      <div class="metric-card">
-        <div class="metric-val red">403 700 ₽</div>
-        <div class="metric-label">ЛИЦЕНЗИЯ CAD (1 Р.М.)</div>
-        <div class="bar-fill blue-bar" data-width="15%"></div>
-      </div>
-    </div>
+<!-- FS4: 365 → 7 -->
+<section class="fs" id="fs4">
+  <img src="Изображение 9.jpg" alt="" class="fs-img">
+  <div class="overlay"></div>
+  <div class="caption"><h2>365 → 7 ДНЕЙ</h2><p>Перевод трассировки в облачные вычисления APS сжимает срок проектирования до 1 недели. Извлечение спецификаций (BOM) сокращает время на 85%.</p></div>
+</section>
+
+<!-- TWO-UP: iPhone + Vision -->
+<section class="twoup" id="twoup1">
+  <div class="side"><img src="Изображение 10.jpg" alt=""><div class="txt"><h2>MVP ЛОГИСТИКИ: БОТ-ПАРСЕР</h2><p>Telegram-бот + словарь из 500 позиций 1С. Фото накладной → мгновенное совпадение с эталоном.</p></div></div>
+  <div class="side"><img src="Изображение 11.jpg" alt=""><div class="txt"><h2>FIELD TO ERP PIPELINE</h2><p>Vision LLM извлекает таблицы из грязных полевых накладных. Точность 93-95%.</p></div></div>
+</section>
+
+<!-- FS5: VISION LLM -->
+<section class="fs" id="fs5">
+  <img src="Изображение 12.jpg" alt="" class="fs-img">
+  <div class="overlay"></div>
+  <div class="caption"><h2>VISION LLM: ПОНИМАНИЕ ГРЯЗНЫХ ДОКУМЕНТОВ</h2><p>Мультимодальные LLM семантически понимают контекст таблицы и восстанавливают неразборчивый текст (точность 95%+).</p></div>
+</section>
+
+<!-- SCALE: JARO -->
+<section class="scale-s" id="jaro">
+  <div class="sticky">
+    <img src="Изображение 13.jpg" alt="" class="scale-img">
+    <div class="scale-text"><h2>JARO-WINKLER</h2><p>Нечеткий поиск: кривой текст → точный ID товара из 15 000 позиций 1С</p></div>
   </div>
 </section>
 
-<!-- S4: 15 000 SKU -->
-<section class="slide" id="s4">
-  <div class="slide-inner">
-    <div class="big-numbers">
-      <span class="big-num split">15 000 SKU</span>
-      <span class="divider">|</span>
-      <span class="big-num red split">4 ЧАСА</span>
-    </div>
-    <p class="subtitle">Хаос номенклатуры. 4 часа на ручной перенос данных из одной многостраничной накладной в систему 1С. Высокая транзакционная нагрузка сотен объектов парализует своевременный учет.</p>
-  </div>
+<!-- TWO-UP: Tasks + Metrics -->
+<section class="twoup" id="twoup2">
+  <div class="side"><img src="Изображение 14.jpg" alt=""><div class="txt"><h2>ЗАДАЧИ СТАВЯТСЯ САМИ</h2><p>Автоматический черновик в 1С + задача валидации в Битрикс24. Нулевой человеческий фактор.</p></div></div>
+  <div class="side"><img src="Изображение 15.jpg" alt=""><div class="txt"><h2>BACKOFFICE METRICS</h2><p>-370 часов экономии труда. 1 час цикл валидации. 0 ошибок спецификаций.</p></div></div>
 </section>
 
-<!-- S5: HUMAN ERROR MULTIPLIER -->
-<section class="slide" id="s5">
-  <div class="slide-inner">
-    <h1 class="mega-title split">HUMAN ERROR MULTIPLIER</h1>
-    <p class="subtitle">Цена человеческого фактора.</p>
-    <div class="error-cascade">
-      <div class="err-node">Ошибка в проектной CAD-модели</div>
-      <div class="err-arrow">↓</div>
-      <div class="err-node">Простой строительной техники</div>
-      <div class="err-arrow">↓</div>
-      <div class="err-node err-fatal">Перерасход материалов и штрафные санкции</div>
-    </div>
-    <div class="error-cascade">
-      <div class="err-node">Опечатка оператора в 1С</div>
-      <div class="err-arrow">↓</div>
-      <div class="err-node">Налоговый риск</div>
-      <div class="err-arrow">↓</div>
-      <div class="err-node err-fatal">Длительные корректировки со стороны ПТО</div>
-    </div>
-  </div>
+<!-- FS6: SECURITY -->
+<section class="fs" id="fs6">
+  <img src="security.png" alt="" class="fs-img">
+  <div class="overlay"></div>
+  <div class="caption"><h2>ON-PREMISE SECURITY</h2><p>Enterprise в закрытом контуре. Исключен риск утечки баз 1С и DWG-чертежей в публичные SaaS-облака.</p></div>
 </section>
 
-<!-- S6: ECOSYSTEM ARCHITECTURE -->
-<section class="slide" id="s6">
-  <div class="slide-inner">
-    <h1 class="mega-title split">ECOSYSTEM ARCHITECTURE</h1>
-    <p class="subtitle">Единый ИИ-слой устраняет барьеры между корпоративными системами. Данные напрямую транслируются без ручного копирования.</p>
-    <div class="arch-diagram">
-      <div class="arch-node">Autodesk<br>Platform<br>Services (APS)</div>
-      <div class="arch-arrow">⟵</div>
-      <div class="arch-core">
-        <div class="code-block">AI Core</div>
-      </div>
-      <div class="arch-arrow">⟶</div>
-      <div class="arch-node">1C ERP</div>
-    </div>
-    <div class="arch-bottom">
-      <div class="arch-arrow-down">↓</div>
-      <div class="arch-node">Bitrix24</div>
-    </div>
-  </div>
+<!-- FS7: ROADMAP -->
+<section class="fs" id="fs7">
+  <img src="Изображение 16.jpg" alt="" class="fs-img">
+  <div class="overlay"></div>
+  <div class="caption"><h2>ДОРОЖНАЯ КАРТА: MVP ЗА 21 ДЕНЬ</h2><p>Трек 1: AI-Логистика (Telegram + Vision LLM + Jaro-Winkler). Трек 2: AI-Проектировщик (APS + RAG + A*).</p></div>
 </section>
 
-<!-- S7: МАТЕМАТИЧЕСКАЯ ТРАССИРОВКА -->
-<section class="slide slide-dark" id="s7">
-  <div class="slide-inner">
-    <h1 class="mega-title split">Математическая трассировка из DWG за 7 дней.</h1>
-    <div class="two-col">
-      <div class="col">
-        <img src="voxel_path.png" alt="Voxel Pathfinding" class="slide-img parallax-img">
-      </div>
-      <div class="col">
-        <p class="info-text">Сокращение цикла с 12 месяцев до 7 дней. Отказ от ручного вычерчивания. Экспорт геоподосновы из Autodesk Platform Services (APS).</p>
-        <p class="info-text">RAG-валидация и поиск путей. Алгоритм A* и графовые нейросети. Жесткие алгоритмические ограничения (Hard Constraints) строго на базе оцифрованных СНиП и ПУЭ.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- S8: ГЕНЕРАТИВНАЯ ТРАССИРОВКА -->
-<section class="slide" id="s8">
-  <div class="slide-inner">
-    <h1 class="mega-title split">Генеративная трассировка</h1>
-    <div class="steps-row">
-      <div class="step-card"><h4>1. Дискретизация (Voxelization)</h4><p>Перевод CAD-модели в воксельную матрицу. Строгое разделение на свободные зоны и зоны абсолютного запрета.</p></div>
-      <div class="step-arrow">→</div>
-      <div class="step-card"><h4>2. Поиск путей (Pathfinding)</h4><p>Использование графовых нейросетей (GNN) для исследования тысяч маршрутов-кандидатов в миллисекунды.</p></div>
-      <div class="step-arrow">→</div>
-      <div class="step-card"><h4>3. Ограничения и Оптимизация</h4><p>Математический баланс: минимизация длины кабеля, соблюдение радиуса изгиба и обход физических препятствий.</p></div>
-    </div>
-  </div>
-</section>
-
-<!-- S9: ЗАЩИТА ОТ ГАЛЛЮЦИНАЦИЙ -->
-<section class="slide" id="s9">
-  <div class="slide-inner">
-    <h1 class="mega-title split">Инженерная достоверность: Защита от ИИ-галлюцинаций</h1>
-    <p class="subtitle">ИИ не придумывает нормы. Алгоритм трассировки жестко ограничен локальной базой знаний.</p>
-    <div class="rag-flow">
-      <div class="rag-card"><strong>Ввод:</strong><br>Инженер запрашивает отступ (например, кабель от газопровода).</div>
-      <div class="rag-arrow">⟶</div>
-      <div class="rag-card rag-vault"><strong>Гибридный поиск:</strong><br>Локальный поиск по семантике (BERTA) и ключевым словам (BM25) по внутренней базе.</div>
-      <div class="rag-arrow">⟶</div>
-      <div class="rag-card rag-out"><strong>Вывод:</strong><br>Формирование трассы с гарантированным соблюдением радиусов и отступов. Ошибка исключена математически.</div>
-    </div>
-  </div>
-</section>
-
-<!-- S10: AUTODESK APS -->
-<section class="slide" id="s10">
-  <div class="slide-inner">
-    <h1 class="mega-title split">Облачная парадигма Autodesk (APS)</h1>
-    <div class="aps-layers">
-      <div class="aps-layer layer-top"><span>AI Agents (Model Context Protocol)</span></div>
-      <div class="aps-layer layer-mid"><span>Autodesk Platform Services (APS)</span></div>
-      <div class="aps-layer layer-bot"><span>DWG Files</span></div>
-    </div>
-    <div class="aps-info">
-      <p><strong>1.</strong> Безголовый запуск (Headless AutoCAD): Вычисления на серверах Design Automation API.</p>
-      <p><strong>2.</strong> Model Context Protocol (MCP): Безопасный интерфейс для взаимодействия языковых моделей с проектными директориями.</p>
-      <p><strong>3.</strong> Двунаправленный обмен: Извлечение координат из DWG → Генерация в облаке → Обратная отрисовка полилинии.</p>
-    </div>
-  </div>
-</section>
-
-<!-- S11: 365 → 7 ДНЕЙ -->
-<section class="slide" id="s11">
-  <div class="slide-inner">
-    <h1 class="mega-title split"><span class="red">365</span> → <span class="blue">7 ДНЕЙ</span></h1>
-    <p class="subtitle">Вычислительная оптимизация наружных сетей. Перевод трассировки в облачные вычисления (APS) сжимает срок проектирования до 1 недели.</p>
-    <div class="gantt">
-      <div class="gantt-row">
-        <div class="gantt-bar gantt-red" data-width="100%"><span>1 ГОД</span></div>
-      </div>
-      <div class="gantt-row">
-        <div class="gantt-bar gantt-blue" data-width="2%"><span>7 ДНЕЙ</span></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- S12: MVP ЛОГИСТИКИ -->
-<section class="slide slide-dark" id="s12">
-  <div class="slide-inner">
-    <h1 class="mega-title split">MVP ЛОГИСТИКИ: БОТ-ПАРСЕР НА ВАШИХ ДАННЫХ.</h1>
-    <p class="subtitle">Запускаем рабочий Telegram-бот. Загружаем словарь из 500 критических позиций вашей номенклатуры 1С. Вы кидаете фото накладной — бот мгновенно возвращает точное совпадение с эталоном.</p>
-    <div class="two-col">
-      <div class="col center">
-        <img src="iphone_mockup.png" alt="iPhone Telegram Bot" class="iphone-img parallax-img">
-      </div>
-      <div class="col">
-        <table class="sku-table">
-          <tr><th>Артикул</th><th>Наименование</th></tr>
-          <tr><td class="orange">001-БЕТ</td><td>Бетон М400 В30</td></tr>
-          <tr><td class="orange">002-АРМ</td><td>Арматура А500С Ø12</td></tr>
-          <tr><td class="orange">003-КИР</td><td>Кирпич керамический рядовой М150</td></tr>
-          <tr><td class="orange">004-ЦЕМ</td><td>Цемент ПЦ-500 Д0</td></tr>
-          <tr><td class="orange">005-ГПС</td><td>Гипсокартон Knauf 12.5мм</td></tr>
-          <tr><td class="orange">008-ПЕС</td><td>Песок карьерный мытый</td></tr>
-        </table>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- S13: FIELD TO ERP -->
-<section class="slide slide-dark" id="s13">
-  <div class="slide-inner">
-    <h1 class="mega-title split">FIELD TO ERP PIPELINE</h1>
-    <p class="subtitle">Из грязного фото в чистую проводку 1С. Мультимодальные модели (Vision LLM) извлекают таблицы из загрязненных полевых накладных. Точность распознавания: 93-95%.</p>
-  </div>
-</section>
-
-<!-- S14: VISION LLM -->
-<section class="slide slide-dark" id="s14">
-  <div class="slide-inner">
-    <h1 class="mega-title split">VISION LLM: ПОНИМАНИЕ ГРЯЗНЫХ ДОКУМЕНТОВ</h1>
-    <p class="subtitle">Классический OCR пасует перед мятой бумагой и плохим светом (точность падает до 89%). Мультимодальные LLM семантически понимают контекст таблицы (точность 95%+).</p>
-    <div class="bars-chart">
-      <div class="bc-row"><span class="bc-label">Specialized AI</span><div class="bc-track"><div class="bc-fill" data-w="98%" style="background:#3b82f6"></div></div><span class="bc-val">98%</span></div>
-      <div class="bc-row"><span class="bc-label">Multimodal LLM</span><div class="bc-track"><div class="bc-fill" data-w="95%" style="background:#22c55e"></div></div><span class="bc-val">95%</span></div>
-      <div class="bc-row"><span class="bc-label">Cloud OCR</span><div class="bc-track"><div class="bc-fill" data-w="91%" style="background:#6b7280"></div></div><span class="bc-val">91%</span></div>
-    </div>
-  </div>
-</section>
-
-<!-- S15: JARO-WINKLER -->
-<section class="slide slide-dark" id="s15">
-  <div class="slide-inner">
-    <h1 class="mega-title split">АЛГОРИТМ JARO-WINKLER ВМЕСТО РУЧНОГО ПОИСКА.</h1>
-    <p class="subtitle">Как связать кривой текст с эталонной базой 1С на 15 000 позиций? Алгоритм нечеткого поиска вычисляет дистанцию строк, нивелируя опечатки и сокращения.</p>
-    <div class="jaro-demo">
-      <div class="jaro-card jaro-in"><span class="jaro-label">Сырой ввод от ИИ</span><div class="jaro-val">песок мыт. 1 кл.</div></div>
-      <div class="jaro-scale">
-        <span class="jaro-score">Confidence: <strong id="jaro-score">0%</strong></span>
-        <div class="jaro-track"><div class="jaro-thumb" id="jaro-thumb"></div></div>
-      </div>
-      <div class="jaro-card jaro-out"><span class="jaro-label">Эталон из 1С</span><div class="jaro-val">Песок мытый 1-го класса ГОСТ, Артикул 40291</div></div>
-    </div>
-  </div>
-</section>
-
-<!-- S16: ЗАДАЧИ СТАВЯТСЯ САМИ -->
-<section class="slide slide-dark" id="s16">
-  <div class="slide-inner">
-    <h1 class="mega-title split">ЗАДАЧИ СТАВЯТСЯ САМИ. НУЛЕВОЙ ЧЕЛОВЕЧЕСКИЙ ФАКТОР.</h1>
-    <p class="subtitle">После успешного сопоставления номенклатуры, система автоматически создает черновик документа в 1С и ставит задачу валидации ответственному инженеру в Битрикс24.</p>
-  </div>
-</section>
-
-<!-- S17: BACKOFFICE METRICS -->
-<section class="slide" id="s17">
-  <div class="slide-inner">
-    <h1 class="mega-title split">BACKOFFICE METRICS</h1>
-    <p class="subtitle">Тотальная автоматизация высвобождает до 370 рабочих часов ПТО и бухгалтерии в месяц.</p>
-    <div class="metrics-grid">
-      <div class="metric-box"><div class="metric-big counter" data-target="370" data-prefix="-">0</div><div class="metric-sub">ЭКОНОМИЯ ТРУДА</div></div>
-      <div class="metric-box"><div class="metric-big">1 ЧАС</div><div class="metric-sub">ЦИКЛ ВАЛИДАЦИИ</div></div>
-      <div class="metric-box"><div class="metric-big">0 ОШИБОК</div><div class="metric-sub">ТОЧНОСТЬ СПЕЦИФИКАЦИЙ</div></div>
-    </div>
-  </div>
-</section>
-
-<!-- S18: ON-PREMISE SECURITY -->
-<section class="slide slide-dark" id="s18">
-  <div class="slide-inner">
-    <h1 class="mega-title split">ON-PREMISE SECURITY</h1>
-    <div class="two-col">
-      <div class="col">
-        <p class="info-text">Enterprise-решение в закрытом контуре. Система интегрируется on-premise непосредственно в текущий IT-ландшафт заказчика без "костылей".</p>
-        <p class="info-text">Полностью исключен риск утечки коммерческой тайны, баз 1С и DWG-чертежей в публичные SaaS-облака.</p>
-      </div>
-      <div class="col center">
-        <img src="security.png" alt="On-Premise Security" class="slide-img parallax-img">
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- S19: ДОРОЖНАЯ КАРТА MVP 21 ДЕНЬ -->
-<section class="slide" id="s19">
-  <div class="slide-inner">
-    <h1 class="mega-title split">Дорожная карта: Запуск MVP за 21 день</h1>
-    <p class="subtitle">Параллельная валидация гипотез на реальных данных без рисков для ERP-ядра.</p>
-    <div class="roadmap">
-      <div class="track track-cyan">
-        <h4>Трек 1: AI-Логистика (Быстрая победа)</h4>
-        <div class="track-steps">
-          <div class="t-step">Развертывание Telegram-бота<br><small>День 1-4</small></div>
-          <div class="t-step">Интеграция Vision LLM<br><small>День 4-11</small></div>
-          <div class="t-step">Локальный матчинг (Jaro-Winkler)<br><small>День 11-18</small></div>
-        </div>
-      </div>
-      <div class="track track-orange">
-        <h4>Трек 2: AI-Проектировщик (Проверка ядра)</h4>
-        <div class="track-steps">
-          <div class="t-step">Скрипт APS: извлечение геометрии<br><small>День 1-7</small></div>
-          <div class="t-step">Локальный RAG по ПУЭ<br><small>День 7-14</small></div>
-          <div class="t-step">Генерация базовой трассы (A*)<br><small>День 14-21</small></div>
-        </div>
-      </div>
-      <div class="roadmap-result">Итог 21 дня: Демонстрация сквозной математической логики алгоритмов на изолированном контуре.</div>
-    </div>
-  </div>
-</section>
-
-<!-- S20: MARKET ARBITRAGE -->
-<section class="slide" id="s20">
-  <div class="slide-inner">
-    <h1 class="mega-title split">MARKET ARBITRAGE</h1>
-    <p class="subtitle">Рыночная стоимость кастомной ИИ-платформы в РФ — от 15 до 25 млн руб. За счет среды Antigravity мы даем дисконт в 50% при сохранении 100% Enterprise-качества.</p>
-    <div class="arb-bars">
-      <div class="arb-row"><span>Рынок: 25 млн ₽</span><div class="arb-bar arb-red" data-width="100%"></div></div>
-      <div class="arb-row"><span>Наше предложение</span><div class="arb-bar arb-blue" data-width="50%"></div><span class="arb-tag">DISCOUNT 50%</span></div>
-    </div>
-  </div>
-</section>
-
-<!-- S21: МГНОВЕННАЯ ОКУПАЕМОСТЬ -->
-<section class="slide" id="s21">
-  <div class="slide-inner">
-    <h1 class="mega-title split">МГНОВЕННАЯ ОКУПАЕМОСТЬ</h1>
-    <p class="subtitle">Профит после первого сданного проекта. Сокращение ФОТ рабочей группы (срезание издержек до 18 млн руб. в год) гарантирует мгновенную окупаемость системы.</p>
-    <div class="roi-card">
-      <div class="roi-label">Стоимость MVP: <strong>250 000 ₽</strong></div>
-      <div class="roi-graph">
-        <svg viewBox="0 0 600 200" class="roi-svg">
-          <line x1="50" y1="150" x2="550" y2="150" stroke="#333" stroke-width="1"/>
-          <line x1="50" y1="10" x2="50" y2="150" stroke="#333" stroke-width="1"/>
-          <text x="50" y="170" fill="#888" font-size="12">MVP</text>
-          <text x="350" y="170" fill="#888" font-size="12">ПРОЕКТ №1</text>
-          <text x="30" y="80" fill="#888" font-size="10">₽</text>
-          <line x1="50" y1="80" x2="550" y2="80" stroke="#444" stroke-dasharray="4" stroke-width="1"/>
-          <text x="10" y="83" fill="#666" font-size="9">ТОЧКА ОКУПАЕМОСТИ</text>
-          <path id="roi-curve" d="M50,140 Q200,130 300,80 Q400,30 550,10" stroke="#0055ff" stroke-width="3" fill="none"/>
-        </svg>
-      </div>
-    </div>
+<!-- FINAL CTA -->
+<section class="cta" id="final">
+  <div>
+    <h1>МГНОВЕННАЯ<br>ОКУПАЕМОСТЬ</h1>
+    <div class="price">250 000 ₽</div>
+    <p>Рыночная стоимость — 15-25 млн ₽. Мы даем дисконт 50%. Профит после первого сданного проекта.</p>
   </div>
 </section>
 
 <script src="https://unpkg.com/lenis@1.3.23/dist/lenis.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-<script src="spectrum.js"></script>
+<script>
+(function(){
+'use strict';
+gsap.registerPlugin(ScrollTrigger);
+
+// CURSOR
+const cur=document.createElement('div');cur.className='cur';document.body.appendChild(cur);
+const dot=document.createElement('div');dot.className='dot';document.body.appendChild(dot);
+addEventListener('mousemove',e=>{
+  gsap.to(cur,{x:e.clientX,y:e.clientY,duration:.5,ease:'power2.out'});
+  gsap.to(dot,{x:e.clientX,y:e.clientY,duration:.08});
+});
+
+// LENIS
+const lenis=new Lenis({duration:1.4,easing:t=>Math.min(1,1.001-Math.pow(2,-10*t)),smoothWheel:true});
+lenis.on('scroll',ScrollTrigger.update);
+gsap.ticker.add(t=>lenis.raf(t*1000));
+gsap.ticker.lagSmoothing(0);
+
+// PARTICLES
+const cv=document.getElementById('c'),ctx=cv.getContext('2d');
+let W,H;const pts=[];const ms={x:-1e3,y:-1e3};
+const re=()=>{W=cv.width=innerWidth;H=cv.height=innerHeight};addEventListener('resize',re);re();
+addEventListener('mousemove',e=>{ms.x=e.clientX;ms.y=e.clientY});
+for(let i=0;i<60;i++)pts.push({x:Math.random()*W,y:Math.random()*H,vx:(Math.random()-.5)*.4,vy:(Math.random()-.5)*.4,r:Math.random()*1.5+.5});
+(function loop(){
+  ctx.clearRect(0,0,W,H);
+  pts.forEach((p,i)=>{
+    p.x+=p.vx;p.y+=p.vy;
+    if(p.x<0||p.x>W)p.vx*=-1;if(p.y<0||p.y>H)p.vy*=-1;
+    ctx.fillStyle='rgba(229,9,20,.25)';ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,6.28);ctx.fill();
+    for(let j=i+1;j<pts.length;j++){const d=Math.hypot(p.x-pts[j].x,p.y-pts[j].y);if(d<130){ctx.strokeStyle=`rgba(229,9,20,${.1-d/1400})`;ctx.beginPath();ctx.moveTo(p.x,p.y);ctx.lineTo(pts[j].x,pts[j].y);ctx.stroke();}}
+    const dm=Math.hypot(p.x-ms.x,p.y-ms.y);if(dm<170){ctx.strokeStyle=`rgba(255,107,0,${.2-dm/900})`;ctx.beginPath();ctx.moveTo(p.x,p.y);ctx.lineTo(ms.x,ms.y);ctx.stroke();}
+  });
+  requestAnimationFrame(loop);
+})();
+
+// ORB TRACKING
+const o1=document.querySelector('.o1'),o2=document.querySelector('.o2');
+addEventListener('mousemove',e=>{
+  const x=e.clientX/innerWidth,y=e.clientY/innerHeight;
+  gsap.to(o1,{x:x*80,y:y*80,duration:2.5,ease:'power2.out'});
+  gsap.to(o2,{x:-x*60,y:-y*60,duration:3,ease:'power2.out'});
+});
+
+// HERO ENTRANCE
+const htl=gsap.timeline({delay:.3});
+htl.to('#hero h1',{opacity:1,y:0,duration:1.2,ease:'expo.out'})
+   .to('#hero p',{opacity:1,y:0,duration:.8,ease:'power2.out'},'-=.6')
+   .to('#hero .tag',{opacity:1,y:0,duration:.6},'-=.4');
+
+// FS IMAGE PARALLAX + CAPTION REVEAL
+document.querySelectorAll('.fs').forEach(s=>{
+  const img=s.querySelector('.fs-img');
+  const h=s.querySelector('h2');
+  const p=s.querySelector('.caption p');
+  if(img) gsap.to(img,{scale:1.15,ease:'none',scrollTrigger:{trigger:s,start:'top bottom',end:'bottom top',scrub:1}});
+  if(h) gsap.to(h,{opacity:1,y:0,duration:1,ease:'expo.out',scrollTrigger:{trigger:s,start:'top 70%'}});
+  if(p) gsap.to(p,{opacity:1,y:0,duration:.8,ease:'power2.out',scrollTrigger:{trigger:s,start:'top 60%'}});
+});
+
+// SCALE SECTIONS — image scales down, text fades in
+document.querySelectorAll('.scale-s').forEach(s=>{
+  const img=s.querySelector('.scale-img');
+  const txt=s.querySelector('.scale-text');
+  if(img&&txt){
+    gsap.fromTo(img,{scale:1.3},{scale:.9,ease:'none',scrollTrigger:{trigger:s,start:'top top',end:'bottom top',scrub:1}});
+    gsap.to(txt,{opacity:1,duration:.5,scrollTrigger:{trigger:s,start:'30% top',end:'60% top',scrub:1}});
+  }
+});
+
+// HORIZONTAL SCROLL
+const hzWrap=document.querySelector('.hz-wrap');
+const hzTrack=document.querySelector('.hz-track');
+if(hzWrap&&hzTrack){
+  const panels=hzTrack.querySelectorAll('.hz-panel');
+  gsap.to(hzTrack,{
+    x:()=>-(hzTrack.scrollWidth-innerWidth),
+    ease:'none',
+    scrollTrigger:{trigger:hzWrap,start:'top top',end:()=>`+=${hzTrack.scrollWidth-innerWidth}`,pin:true,scrub:1,anticipatePin:1}
+  });
+  // Animate each panel content
+  panels.forEach(p=>{
+    const h=p.querySelector('h2'),t=p.querySelector('p');
+    gsap.set([h,t],{opacity:0,y:40});
+    ScrollTrigger.create({
+      trigger:p,start:'left 80%',end:'right 20%',containerAnimation:gsap.to(hzTrack,{x:()=>-(hzTrack.scrollWidth-innerWidth),ease:'none'}),
+      onEnter:()=>gsap.to([h,t],{opacity:1,y:0,duration:.8,stagger:.15,ease:'expo.out'})
+    });
+  });
+}
+
+// TWO-UP REVEAL
+document.querySelectorAll('.twoup .side').forEach((s,i)=>{
+  const txt=s.querySelector('.txt');
+  if(txt){
+    gsap.set(txt,{opacity:0,x:i%2===0?-60:60});
+    gsap.to(txt,{opacity:1,x:0,duration:1,ease:'expo.out',scrollTrigger:{trigger:s,start:'top 70%'}});
+  }
+});
+
+// FINAL CTA
+const ctl=gsap.timeline({scrollTrigger:{trigger:'#final',start:'top 60%'}});
+ctl.to('#final h1',{opacity:1,duration:1,ease:'expo.out'})
+   .to('#final .price',{opacity:1,scale:1,duration:.8,ease:'back.out(1.7)'},'-=.5')
+   .to('#final p',{opacity:1,duration:.6},'-=.3');
+
+// VELOCITY SKEW
+let px={s:0};const cl=gsap.utils.clamp(-10,10);
+const sk=gsap.quickSetter('.fs .caption, .hz-content, .twoup .txt','skewY','deg');
+ScrollTrigger.create({onUpdate:self=>{let v=cl(self.getVelocity()/-120);if(Math.abs(v)>Math.abs(px.s)){px.s=v;gsap.to(px,{s:0,duration:.8,ease:'power3',overwrite:true,onUpdate:()=>sk(px.s)});}}});
+
+})();
+</script>
 </body>
 </html>
