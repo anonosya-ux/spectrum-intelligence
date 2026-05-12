@@ -134,6 +134,90 @@
                 }
             });
         });
+
+        // SLIDE 9: Counters
+        ScrollTrigger.create({
+            trigger: '#sl-docflow',
+            start: 'top 70%',
+            onEnter: () => {
+                const c370 = { val: 0 };
+                gsap.to(c370, {
+                    val: 370, duration: 2, ease: "power2.out",
+                    onUpdate: () => document.querySelector('.counter-370').textContent = `-${Math.floor(c370.val)}`
+                });
+                
+                const c85 = { val: 0 };
+                gsap.to(c85, {
+                    val: 85, duration: 2, ease: "power2.out", delay: 0.5,
+                    onUpdate: () => document.querySelector('.counter-85').textContent = `+${Math.floor(c85.val)}%`
+                });
+            }
+        });
+
+        // SLIDE 11: Bar Chart
+        ScrollTrigger.create({
+            trigger: '#sl-vision',
+            start: 'top 60%',
+            onEnter: () => {
+                const fills = document.querySelectorAll('.bc-fill');
+                fills.forEach(f => {
+                    gsap.to(f, { width: f.getAttribute('data-w'), duration: 1.5, ease: "power3.out" });
+                });
+            }
+        });
+
+        // SLIDE 12: Jaro-Winkler
+        ScrollTrigger.create({
+            trigger: '#sl-jaro',
+            start: 'top 60%',
+            onEnter: () => {
+                gsap.to('#jaro-thumb', { left: '92%', duration: 2, ease: "elastic.out(1, 0.7)" });
+            }
+        });
+
+        // SLIDE 13: UI Tasks checkmarks
+        ScrollTrigger.create({
+            trigger: '#sl-tasks',
+            start: 'top 60%',
+            onEnter: () => {
+                gsap.to('.check-mark-anim', {
+                    scale: 1, duration: 0.5, stagger: 0.5, ease: "back.out(1.7)"
+                });
+            }
+        });
+
+        // SLIDE 14: Roadmap
+        ScrollTrigger.create({
+            trigger: '#sl-roadmap',
+            start: 'top 60%',
+            onEnter: () => {
+                const tl = gsap.timeline();
+                tl.to('.tl-fill', { width: '100%', duration: 2, ease: "power1.inOut" });
+                const points = document.querySelectorAll('.tl-point');
+                points.forEach((p, i) => {
+                    tl.to(p, { backgroundColor: '#F59E0B', duration: 0.2 }, `-=${2 - (i * 0.8)}`);
+                });
+            }
+        });
+
+        // SLIDE 15: A* Path SVG
+        const pathLine = document.getElementById('path-line');
+        if (pathLine) {
+            const length = pathLine.getTotalLength();
+            gsap.set(pathLine, { strokeDasharray: length, strokeDashoffset: length });
+            
+            ScrollTrigger.create({
+                trigger: '#sl-1hectare',
+                start: 'top 50%',
+                onEnter: () => {
+                    gsap.to(pathLine, {
+                        strokeDashoffset: 0,
+                        duration: 3,
+                        ease: "power2.inOut"
+                    });
+                }
+            });
+        }
     }
 
     // --- Boot ---
