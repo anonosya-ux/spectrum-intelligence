@@ -4,62 +4,205 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Spectrum Intelligence | Коммерческое предложение</title>
-<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800;900&family=Plus+Jakarta+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<!-- Bebas Neue for Aggressive B2B Headers, Inter for legibility, JetBrains Mono for data -->
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<canvas id="bg-canvas"></canvas>
+<div id="noise-overlay"></div>
 
 <nav id="nav">
-    <div class="nav-logo">◆ SPECTRUM</div>
-    <a href="#pitch" class="nav-cta">Смотреть КП</a>
+    <div class="nav-logo">SPECTRUM INTELLIGENCE</div>
 </nav>
 
-<section class="hero" id="hero">
-    <div class="hero-content">
-        <div class="tag"><div class="dot"></div>КОММЕРЧЕСКОЕ ПРЕДЛОЖЕНИЕ</div>
-        <h1 class="hero-title">
-            <span class="word">Spectrum</span>
-            <span class="word accent">Intelligence</span>
-        </h1>
-        <p class="hero-subtitle">Технологический рывок и оптимизация издержек. От ручного труда — к строгой математической оптимизации.</p>
-        <div class="scroll-cue">
-            <div class="mouse"></div>
-            <span>Скролльте вниз</span>
+<!-- SLIDE 1: ФОТ -->
+<section class="sl" id="sl-fot">
+    <div class="sl-c">
+        <h1 class="bebas title-main">18 МЛН РУБЛЕЙ ФОТ НА ОДИН ПРОЕКТ СЕТЕЙ.</h1>
+        <p class="desc">Ручное черчение в AutoCAD — это сжигание ресурсов. Цикл занимает до 1 года. Группа из 3-4 инженеров потребляет от 10.5 до 18 млн рублей ФОТ. Скрытый налог: САПР стоит от 100 до 400 тысяч рублей за одно рабочее место.</p>
+        
+        <div class="grid-2">
+            <!-- Left: Waterfall Chart -->
+            <div class="card dark-card">
+                <h3 class="card-title">ЕЖЕМЕСЯЧНЫЙ ФИНАНСОВЫЙ УЩЕРБ (12 МЕСЯЦЕВ)</h3>
+                <div class="waterfall" id="fot-waterfall">
+                    <!-- Bars injected via JS -->
+                </div>
+                <div class="fot-total">
+                    <span class="bebas total-val red" id="fot-counter">0</span> <span class="bebas total-val red">РУБ</span>
+                </div>
+                <div class="months-axis">
+                    <span>M1</span><span>M2</span><span>M3</span><span>M4</span><span>M5</span><span>M6</span><span>M7</span><span>M8</span><span>M9</span><span>M10</span><span>M11</span><span>M12</span>
+                </div>
+                <p class="axis-label">Суммарный ФОТ за 12 месяцев (3-4 инженера).</p>
+            </div>
+            
+            <!-- Right: 12 Months Strike + Licenses -->
+            <div class="col-stack">
+                <div class="card dark-card center-card strike-card">
+                    <h2 class="bebas giant-text">12 МЕСЯЦЕВ</h2>
+                    <div class="strike-line"></div>
+                    <p class="axis-label">Цикл ручного черчения.</p>
+                </div>
+                
+                <div class="card dark-card">
+                    <h3 class="card-title text-center">ЛИЦЕНЗИИ САПР</h3>
+                    <div class="table">
+                        <div class="t-row"><div class="t-cell">nanoCAD</div><div class="t-cell red right">97 500 руб.</div></div>
+                        <div class="t-row"><div class="t-cell">BIM Модули</div><div class="t-cell red right">до 403 700 руб.</div></div>
+                    </div>
+                    <p class="axis-label" style="margin-top: 15px;">Стоимость за одно рабочее место.</p>
+                </div>
+            </div>
         </div>
     </div>
 </section>
 
-<section class="pitch-deck" id="pitch">
-    <div class="stack-container">
-        <!-- Generates 16 cards -->
-        <script>
-            for(let i=1; i<=16; i++) {
-                document.write(`
-                <div class="card" id="card-${i}">
-                    <div class="card-inner">
-                        <img src="Изображение ${i}.jpg" alt="Слайд ${i}" class="slide-img">
+<!-- SLIDE 2: ПТО И БУХГАЛТЕРИЯ -->
+<section class="sl" id="sl-pto">
+    <div class="sl-c">
+        <h1 class="bebas title-main">РУЧНОЙ ВВОД ПАРАЛИЗУЕТ ПТО И БУХГАЛТЕРИЮ.</h1>
+        <p class="desc">3-4 часа уходит на перенос одной сложной накладной в 1С. База из 15 000 позиций номенклатуры математически гарантирует опечатки. Человеческий фактор равен закупке неверных материалов.</p>
+        
+        <div class="grid-2">
+            <!-- Left: Blurred Invoice + Giant Digits -->
+            <div class="card img-bg-card">
+                <div class="blur-overlay"></div>
+                <div class="led-clock" id="clock-anim">
+                    <span class="bebas led-text">3-4 ЧАСА</span>
+                </div>
+                <div class="led-sub">15 000 позиций в 1С</div>
+            </div>
+            
+            <!-- Right: Warning List -->
+            <div class="warning-list">
+                <div class="warn-item">
+                    <div class="warn-icon">⌨️</div>
+                    <div class="warn-text">Опечатки<br>в артикулах.</div>
+                </div>
+                <div class="warn-item">
+                    <div class="warn-icon">📦</div>
+                    <div class="warn-text">Закупка<br>неверных ТМЦ.</div>
+                </div>
+                <div class="warn-item">
+                    <div class="warn-icon">⚖️</div>
+                    <div class="warn-text">Штрафы<br>от налоговой<br>и заказчика.</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- SLIDE 3: ЭФФЕКТ КОЛЛИЗИЙ -->
+<section class="sl" id="sl-collision">
+    <div class="sl-c">
+        <h1 class="bebas title-main">ЭФФЕКТ КОЛЛИЗИЙ: КАК ОШИБКА В БУКВЕ ОСТАНАВЛИВАЕТ СТРОЙКУ.</h1>
+        <p class="desc">Ошибка не изолирована. Опечатка в номенклатуре кабеля на этапе ПТО запускает цепную реакцию мультипликативных финансовых потерь.</p>
+        
+        <div class="flowchart">
+            <div class="flow-node">
+                <div class="f-icon">⌨️</div>
+                <p>Опечатка<br>в 1С</p>
+            </div>
+            <div class="flow-arrow"><div class="arr-body"></div><div class="arr-head"></div></div>
+            <div class="flow-node">
+                <div class="f-icon">📦</div>
+                <p>Закупка<br>неверного кабеля</p>
+            </div>
+            <div class="flow-arrow red-arr"><div class="arr-body"></div><div class="arr-head"></div></div>
+            <div class="flow-node highlight">
+                <div class="f-icon">🏗️</div>
+                <p>Простой<br>тяжелой техники</p>
+            </div>
+            <div class="flow-arrow red-arr"><div class="arr-body"></div><div class="arr-head"></div></div>
+            <div class="flow-node fatal">
+                <div class="f-icon">⚠️</div>
+                <p>Многомиллионные<br>пени по<br>генподряду</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- SLIDE 4: AI ПРОЕКТИРОВЩИК -->
+<section class="sl" id="sl-ai">
+    <div class="sl-c">
+        <h1 class="bebas title-main">AI-ПРОЕКТИРОВЩИК: МАТЕМАТИКА ВМЕСТО РУЧНОГО ЧЕРЧЕНИЯ.</h1>
+        <p class="desc">Срок проектирования падает с 12 месяцев до 7 дней. Перевод процесса из плоскости AutoCAD в плоскость вычислительной оптимизации графов.</p>
+        
+        <div class="grid-2">
+            <div class="card dark-card center-card flex-col">
+                <div class="time-compress">
+                    <span class="bebas giant-text">12 МЕС</span>
+                    <span class="arrow-right">→</span>
+                    <span class="bebas giant-text accent-orange">7 ДНЕЙ</span>
+                </div>
+            </div>
+            
+            <div class="col-stack">
+                <div class="card dark-card row-card">
+                    <div class="graph-visual chaos-graph">
+                        <svg viewBox="0 0 100 100" class="svg-chaos"><path d="..." stroke="#555" fill="none"/></svg>
+                    </div>
+                    <div class="graph-text">
+                        <h3 class="bebas">БЫЛО:</h3>
+                        <p>Ручной перебор вариантов и коллизии</p>
                     </div>
                 </div>
-                `);
-            }
-        </script>
-    </div>
-</section>
-
-<section class="cta-section">
-    <div class="cta-content">
-        <h2 class="cta-title">Начнем внедрение?</h2>
-        <p class="cta-subtitle">Для старта MVP необходима тестовая DWG-подоснова и справочник 1С (CSV).</p>
-        <div class="cta-buttons">
-            <button class="btn btn-primary">Передать DWG →</button>
-            <button class="btn btn-secondary">Выгрузить 1С</button>
+                <div class="card dark-card row-card">
+                    <div class="graph-visual astar-graph">
+                        <svg viewBox="0 0 100 100" class="svg-astar" id="astar-svg">
+                            <!-- Nodes and edges injected via JS or CSS -->
+                        </svg>
+                    </div>
+                    <div class="graph-text">
+                        <h3 class="bebas">СТАЛО:</h3>
+                        <p>Мультикритериальная генерация и A* поиск</p>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </section>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<!-- SLIDE 16: MVP -->
+<section class="sl" id="sl-mvp">
+    <div class="sl-c">
+        <h1 class="bebas title-main">MVP ЛОГИСТИКИ: БОТ-ПАРСЕР НА ВАШИХ ДАННЫХ.</h1>
+        <p class="desc">Запускаем рабочий Telegram-бот. Загружаем словарь из 500 критических позиций вашей номенклатуры 1С. Вы кидаете фото накладной — бот мгновенно возвращает точное совпадение с эталоном.</p>
+        
+        <div class="grid-2 mvp-grid">
+            <div class="phone-mockup">
+                <div class="phone-inner">
+                    <div class="phone-header">Telegram</div>
+                    <div class="phone-chat">
+                        <div class="msg img-msg">
+                            <div class="inv-placeholder">Накладная.jpg</div>
+                        </div>
+                        <div class="msg bot-msg">
+                            <code>[JSON Распознано. Точность 98.5%]</code><br>
+                            <code>{ "vendor": "СТРОЙСЕРВИС", "items": [...] }</code>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card dark-card table-card">
+                <h3 class="card-title">Ограниченная выборка 1С: 500 строк</h3>
+                <div class="data-table">
+                    <div class="dt-head"><div class="dt-col">Артикул</div><div class="dt-col">Наименование</div></div>
+                    <div class="dt-row"><div class="dt-col orange">001-БЕТ</div><div class="dt-col">Бетон М400 В30</div></div>
+                    <div class="dt-row"><div class="dt-col orange">002-АРМ</div><div class="dt-col">Арматура А500С Ø12</div></div>
+                    <div class="dt-row"><div class="dt-col orange">003-КИР</div><div class="dt-col">Кирпич керамический рядовой М150</div></div>
+                    <div class="dt-row"><div class="dt-col orange">004-ЦЕМ</div><div class="dt-col">Цемент ПЦ-500 ДО</div></div>
+                    <div class="dt-row"><div class="dt-col orange">005-ГПС</div><div class="dt-col">Гипсокартон Knauf 12.5мм</div></div>
+                    <div class="dt-row"><div class="dt-col orange">006-ПРОФ</div><div class="dt-col">Профнастил Н60-845</div></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 <script src="https://unpkg.com/lenis@1.3.23/dist/lenis.min.js"></script>

@@ -1,4 +1,4 @@
-/* SPECTRUM v6 — Sticky Stacking Cards Engine */
+/* SPECTRUM v7 — Native Slide Aesthetic Engine */
 (function() {
     'use strict';
 
@@ -6,111 +6,116 @@
     let lenis;
     function initLenis() {
         lenis = new Lenis({
-            duration: 1.5,
+            duration: 1.2,
             easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
             smoothWheel: true
         });
-
         lenis.on('scroll', ScrollTrigger.update);
-
-        gsap.ticker.add((time) => {
-            lenis.raf(time * 1000);
-        });
+        gsap.ticker.add((time) => lenis.raf(time * 1000));
         gsap.ticker.lagSmoothing(0);
     }
 
-    // --- 2. GSAP Stacking Cards Animation ---
-    function initStackingCards() {
+    // --- 2. GSAP Animations ---
+    function initAnimations() {
         gsap.registerPlugin(ScrollTrigger);
 
-        const cards = gsap.utils.toArray('.card');
-        
-        cards.forEach((card, i) => {
-            // We animate the current card as the NEXT card approaches
-            // The last card doesn't scale down
-            if (i < cards.length - 1) {
-                gsap.to(card, {
-                    scale: 0.94, // Shrink slightly to create depth
-                    filter: 'brightness(0.3)', // Darken it as it goes to the background
-                    scrollTrigger: {
-                        trigger: cards[i + 1], // Triggered when the NEXT card comes up
-                        start: "top bottom", // When next card's top hits bottom of screen
-                        end: "top top", // When next card hits top of screen
-                        scrub: true, // Smooth scrub
-                        invalidateOnRefresh: true
-                    }
-                });
-            }
-        });
-        
-        // Hero Parallax
-        gsap.to('.hero-content', {
-            y: -150,
-            opacity: 0,
-            scrollTrigger: {
-                trigger: '.hero',
-                start: 'top top',
-                end: 'bottom top',
-                scrub: true
-            }
-        });
-    }
+        // SLIDE 1: FOT Waterfall & Counter
+        const waterfall = document.getElementById('fot-waterfall');
+        if (waterfall) {
+            // Generate 12 bars
+            const barHeights = [15, 30, 45, 60, 75, 90, 105, 120, 135, 150, 165, 180];
+            barHeights.forEach(h => {
+                const b = document.createElement('div');
+                b.className = 'bar';
+                b.style.height = `${h}px`;
+                waterfall.appendChild(b);
+            });
 
-    // --- 3. Subtle WebGL Background ---
-    function initWebGL() {
-        const c = document.getElementById('bg-canvas');
-        if (!c) return;
-        const r = new THREE.WebGLRenderer({ canvas: c, alpha: true, antialias: false });
-        r.setSize(innerWidth, innerHeight);
-        r.setPixelRatio(Math.min(devicePixelRatio, 1.5));
-        
-        const sc = new THREE.Scene();
-        const cam = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
-        
-        const m = new THREE.ShaderMaterial({
-            uniforms: {
-                uT: { value: 0 },
-                uR: { value: new THREE.Vector2(innerWidth, innerHeight) }
-            },
-            vertexShader: `varying vec2 v; void main(){ v=uv; gl_Position=vec4(position,1.); }`,
-            fragmentShader: `
-                precision highp float;
-                uniform float uT;
-                uniform vec2 uR;
-                varying vec2 v;
-                void main() {
-                    vec2 u = v * 2.0 - 1.0;
-                    u.x *= uR.x / uR.y;
-                    float n = fract(sin(dot(u + uT * 0.1, vec2(12.9898, 78.233))) * 43758.5453);
-                    float glow = exp(-length(u) * 1.5);
-                    vec3 col = mix(vec3(0.02, 0.02, 0.04), vec3(0.0, 0.1, 0.4), glow * 0.3);
-                    col += n * 0.03; // film grain
-                    gl_FragColor = vec4(col, 1.0);
+            const bars = waterfall.querySelectorAll('.bar');
+            
+            ScrollTrigger.create({
+                trigger: '#sl-fot',
+                start: 'top center',
+                onEnter: () => {
+                    // Animate bars cascading
+                    gsap.to(bars, {
+                        scaleY: 1,
+                        duration: 0.5,
+                        stagger: 0.05,
+                        ease: "back.out(1.7)"
+                    });
+                    
+                    // Animate 18M counter
+                    const counter = { val: 0 };
+                    gsap.to(counter, {
+                        val: 18000000,
+                        duration: 2,
+                        ease: "power2.out",
+                        onUpdate: () => {
+                            document.getElementById('fot-counter').textContent = 
+                                Math.floor(counter.val).toLocaleString('ru-RU');
+                        }
+                    });
+
+                    // Strike line animation
+                    gsap.to('.strike-line', {
+                        scaleX: 1,
+                        duration: 0.8,
+                        delay: 1,
+                        ease: "power2.out"
+                    });
                 }
-            `
+            });
+        }
+
+        // SLIDE 2: Warnings & LED Clock
+        ScrollTrigger.create({
+            trigger: '#sl-pto',
+            start: 'top 60%',
+            onEnter: () => {
+                gsap.to('.warn-item', {
+                    opacity: 1,
+                    x: 0,
+                    duration: 0.6,
+                    stagger: 0.2,
+                    ease: "power2.out"
+                });
+                
+                // Blink LED
+                gsap.fromTo('.led-text', 
+                    { opacity: 0.5 }, 
+                    { opacity: 1, duration: 0.1, repeat: 5, yoyo: true }
+                );
+            }
         });
-        
-        sc.add(new THREE.Mesh(new THREE.PlaneGeometry(2, 2), m));
-        
-        let t = 0;
-        (function lp() {
-            requestAnimationFrame(lp);
-            t += 0.016;
-            m.uniforms.uT.value = t;
-            r.render(sc, cam);
-        })();
-        
-        window.addEventListener('resize', () => {
-            r.setSize(innerWidth, innerHeight);
-            m.uniforms.uR.value.set(innerWidth, innerHeight);
+
+        // SLIDE 3: Flowchart Arrows
+        ScrollTrigger.create({
+            trigger: '#sl-collision',
+            start: 'top 50%',
+            onEnter: () => {
+                const nodes = gsap.utils.toArray('.flow-node');
+                const arrows = gsap.utils.toArray('.flow-arrow');
+                
+                const tl = gsap.timeline();
+                
+                for(let i=0; i<nodes.length; i++) {
+                    tl.to(nodes[i], { opacity: 1, duration: 0.4 }, `+=${i===0?0:0.2}`);
+                    if (arrows[i]) {
+                        tl.to(arrows[i], { opacity: 1, duration: 0.2 });
+                    }
+                }
+                
+                // Shake fatal block
+                tl.to('.fatal', { x: -5, duration: 0.05, repeat: 5, yoyo: true });
+            }
         });
     }
 
     // --- Boot ---
     document.addEventListener('DOMContentLoaded', () => {
         initLenis();
-        initStackingCards();
-        initWebGL();
+        initAnimations();
     });
 
 })();
