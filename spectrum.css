@@ -1,7 +1,7 @@
 /* SPECTRUM v6 — CINEMA */
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap');
 :root{--r:#E50914;--b:#0055ff;--c:#00d4ff;--o:#FF6B00;--g:#22c55e;
---bg:#050508;--card:rgba(255,255,255,.025);--brd:rgba(255,255,255,.06);
+--bg:#050508;--card:rgba(255,255,255,.06);--brd:rgba(255,255,255,.12);
 --bebas:'Bebas Neue',sans-serif;--inter:'Inter',sans-serif;--mono:'JetBrains Mono',monospace}
 *{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:auto}
@@ -18,20 +18,26 @@ a:hover ~ .cur,.cur.hover{width:60px;height:60px;background:rgba(255,255,255,.06
 /* CANVAS & ORBS */
 canvas{position:fixed;inset:0;z-index:-2;pointer-events:none}
 .orb{position:fixed;border-radius:50%;filter:blur(180px);pointer-events:none;z-index:-1;will-change:transform}
-.o1{width:55vw;height:55vw;background:rgba(229,9,20,.06);top:-25%;left:-25%}
-.o2{width:45vw;height:45vw;background:rgba(0,85,255,.04);bottom:-20%;right:-25%}
-.o3{width:30vw;height:30vw;background:rgba(255,107,0,.035);top:30%;left:50%}
+.o1{width:55vw;height:55vw;background:rgba(229,9,20,.2);top:-25%;left:-25%}
+.o2{width:45vw;height:45vw;background:rgba(0,85,255,.15);bottom:-20%;right:-25%}
+.o3{width:30vw;height:30vw;background:rgba(255,107,0,.12);top:30%;left:50%}
+
+/* PROGRESS BAR */
+.progress{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,var(--r),var(--o));z-index:9999;width:0;will-change:width}
+
+/* SECTION COUNTER */
+.s-num{position:absolute;top:40px;right:60px;font-family:var(--mono);font-size:.7rem;color:#333;letter-spacing:2px;z-index:3}
 
 /* SECTION BASE */
 .s{min-height:100vh;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;padding:100px 80px}
-.s::after{content:'';position:absolute;bottom:0;left:8%;right:8%;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.04),transparent)}
+.s::after{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent 5%,rgba(255,255,255,.08) 50%,transparent 95%)}
 .si{max-width:1100px;width:100%;position:relative;z-index:2}
 .dark{background:rgba(6,6,12,.95)}
 .tc{text-align:center;display:flex;flex-direction:column;align-items:center}
 
 /* TYPOGRAPHY — breathing */
 .mega{font-family:var(--bebas);font-size:clamp(3.5rem,8vw,7.5rem);line-height:.88;text-transform:uppercase;letter-spacing:-2px;margin-bottom:28px}
-.sub{color:#555;font-size:1.1rem;line-height:1.75;max-width:680px;margin-bottom:48px;font-weight:300}
+.sub{color:#888;font-size:1.15rem;line-height:1.75;max-width:680px;margin-bottom:48px;font-weight:300}
 .kicker{font-family:var(--mono);font-size:.7rem;letter-spacing:4px;text-transform:uppercase;color:#444;margin-bottom:16px}
 .red{color:var(--r);text-shadow:0 0 80px rgba(229,9,20,.25)}
 .blue{color:var(--b);text-shadow:0 0 80px rgba(0,85,255,.25)}

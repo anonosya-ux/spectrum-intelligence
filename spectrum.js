@@ -203,4 +203,10 @@ ScrollTrigger.create({onUpdate:self=>{
   });}
 }});
 
+// PROGRESS BAR
+const prog=document.getElementById('prog');
+if(prog){
+  gsap.to(prog,{width:'100%',ease:'none',scrollTrigger:{trigger:'body',start:'top top',end:'bottom bottom',scrub:.3}});
+}
+
 })();
