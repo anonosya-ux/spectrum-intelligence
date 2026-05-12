@@ -110,6 +110,30 @@
                 tl.to('.fatal', { x: -5, duration: 0.05, repeat: 5, yoyo: true });
             }
         });
+
+        // SLIDE 6 & 7: RAG Pipeline Animation
+        const pipelines = gsap.utils.toArray('.rag-pipeline');
+        pipelines.forEach(pipe => {
+            ScrollTrigger.create({
+                trigger: pipe,
+                start: 'top 70%',
+                onEnter: () => {
+                    const nodes = pipe.querySelectorAll('.rag-node, .cloud-node');
+                    const arrows = pipe.querySelectorAll('.flow-arrow');
+                    const tl = gsap.timeline();
+                    
+                    gsap.set(nodes, { opacity: 0, y: 20 });
+                    gsap.set(arrows, { opacity: 0 });
+                    
+                    nodes.forEach((node, i) => {
+                        tl.to(node, { opacity: 1, y: 0, duration: 0.4 }, `+=${i===0?0:0.1}`);
+                        if (arrows[i]) {
+                            tl.to(arrows[i], { opacity: 1, duration: 0.2 });
+                        }
+                    });
+                }
+            });
+        });
     }
 
     // --- Boot ---

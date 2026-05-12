@@ -165,6 +165,115 @@
     </div>
 </section>
 
+<!-- SLIDE 6: СНИП И ПУЭ -->
+<section class="sl" id="sl-snip">
+    <div class="sl-c">
+        <h1 class="bebas title-main">ЖЕСТКИЙ КОНТРОЛЬ СНИП И ПУЭ. НОЛЬ ГАЛЛЮЦИНАЦИЙ.</h1>
+        <p class="desc">Нейросети врут. Наш RAG-модуль — нет. Алгоритм (Hybrid Search: Dense + BM25) опирается исключительно на локальную векторную базу нормативов. Каждый отступ имеет прямую ссылку на пункт ГОСТа.</p>
+        
+        <div class="grid-2" style="grid-template-columns: 1fr 2.5fr;">
+            <!-- Left: No LLM -->
+            <div class="card dark-card center-card flex-col">
+                <div class="no-llm">
+                    <span class="bebas giant-text" style="font-size: 4rem;">LLM</span>
+                    <div class="cross-red"></div>
+                    <div class="cross-red rev"></div>
+                </div>
+                <p class="axis-label" style="margin-top:20px;">Никаких свободных генераций</p>
+            </div>
+            
+            <!-- Right: RAG Pipeline -->
+            <div class="card dark-card">
+                <div class="rag-pipeline">
+                    <div class="rag-node">
+                        <p>Запрос дистанции от кабеля до газопровода.</p>
+                    </div>
+                    <div class="flow-arrow"><div class="arr-body"></div><div class="arr-head"></div></div>
+                    <div class="rag-node outline">
+                        <div class="f-icon">🗄️</div>
+                        <p>Поиск семантических чанков в векторной БД (СНиП/ПУЭ).</p>
+                    </div>
+                    <div class="flow-arrow"><div class="arr-body"></div><div class="arr-head"></div></div>
+                    <div class="rag-node outline">
+                        <div class="f-icon">📄</div>
+                        <p>Извлечение точного правила.</p>
+                    </div>
+                    <div class="flow-arrow"><div class="arr-body"></div><div class="arr-head"></div></div>
+                    <div class="rag-node orange-bg">
+                        <p style="color:#000; font-weight:600;">Детерминированный ответ с указанием ГОСТа.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- SLIDE 7: ОБЛАЧНЫЙ ДВИЖОК -->
+<section class="sl" id="sl-cloud">
+    <div class="sl-c">
+        <h1 class="bebas title-main">ОБЛАЧНЫЙ ДВИЖОК БЕЗ НАГРУЗКИ НА ПК ИНЖЕНЕРА.</h1>
+        <p class="desc">Интеграция через Autodesk Platform Services (APS). Машинное обучение генерирует трассу, облачный Design Automation API безголово (headless) отрисовывает рабочую документацию прямо в DWG файл.</p>
+        
+        <div class="card dark-card">
+            <div class="rag-pipeline justify-between">
+                <div class="cloud-node">
+                    <div class="f-icon">⚛️</div>
+                    <h3 class="bebas">LLM / Графовый движок</h3>
+                    <p class="axis-label">Генерация координат (Python)</p>
+                </div>
+                <div class="flow-arrow orange-arr"><div class="arr-body"></div><div class="arr-head"></div></div>
+                <div class="cloud-node orange-bg-large">
+                    <div class="f-icon" style="color:#000;">☁️</div>
+                    <h3 class="bebas" style="color:#000;">APS Cloud / MCP</h3>
+                    <p class="axis-label" style="color:#333;">Облачные вычисления</p>
+                </div>
+                <div class="flow-arrow orange-arr"><div class="arr-body"></div><div class="arr-head"></div></div>
+                <div class="cloud-node">
+                    <div class="f-icon">📁</div>
+                    <h3 class="bebas">Готовый файл .dwg</h3>
+                    <p class="axis-label">в директории проекта</p>
+                </div>
+            </div>
+        </div>
+        <div class="card dark-card text-center" style="margin-top: 24px; padding: 20px;">
+            <p class="axis-label" style="font-size: 1.1rem;">Нулевая потребность в установке тяжелого ПО на локальные рабочие станции</p>
+        </div>
+    </div>
+</section>
+
+<!-- SLIDE 8: РАБОЧАЯ ДОКУМЕНТАЦИЯ -->
+<section class="sl" id="sl-roi">
+    <div class="sl-c">
+        <h1 class="bebas title-main">РАБОЧАЯ ДОКУМЕНТАЦИЯ ЗА НЕДЕЛЮ.</h1>
+        <p class="desc">Снижение себестоимости проектирования на 90%. Высвобождение инженеров для архитектурного контроля, а не рутинного вычерчивания полилиний.</p>
+        
+        <div class="grid-2">
+            <div class="card dark-card" style="padding:0; overflow:hidden;">
+                <div class="compare-table">
+                    <div class="c-row header">
+                        <div class="c-cell">Человек</div>
+                        <div class="c-cell">Алгоритм</div>
+                    </div>
+                    <div class="c-row">
+                        <div class="c-cell">
+                            <span class="bebas giant-text" style="font-size: 4rem;">1 ГОД</span>
+                            <p class="axis-label">18 МЛН РУБ (ФОТ)</p>
+                        </div>
+                        <div class="c-cell">
+                            <span class="bebas giant-text orange" style="font-size: 4rem;">1 НЕДЕЛЯ</span>
+                            <p class="axis-label">СТОИМОСТЬ СЕРВЕРА (API)</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card orange-bg-large center-card" style="height: 100%;">
+                <h2 class="bebas" style="color:#000; font-size: 2.5rem; line-height: 1.1;">Интеллектуальный капитал остается внутри компании, а не уходит вместе с уволившимся инженером</h2>
+            </div>
+        </div>
+    </div>
+</section>
+
 <!-- SLIDE 16: MVP -->
 <section class="sl" id="sl-mvp">
     <div class="sl-c">
