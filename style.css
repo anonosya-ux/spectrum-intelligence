@@ -48,7 +48,7 @@ body{background:var(--bg);color:var(--tx);font-family:var(--sans);overflow-x:hid
 .kpi-u{font-size:.9rem;font-weight:700;color:var(--blue)}
 .kpi-l{font-family:var(--mono);font-size:.55rem;color:var(--tx3);letter-spacing:.08em;text-transform:uppercase}
 .kpi-d{width:1px;height:32px;background:var(--bd)}
-.scr-cue{position:absolute;bottom:30px;display:flex;flex-direction:column;align-items:center;gap:8px;opacity:0}
+.scr-cue{display:flex;flex-direction:column;align-items:center;gap:8px;opacity:0;margin-top:50px}
 .scr-cue span{font-family:var(--mono);font-size:.5rem;letter-spacing:.3em;color:var(--tx3)}
 .scr-line{width:1px;height:40px;background:linear-gradient(to bottom,var(--blue),transparent);animation:sc 2s ease-in-out infinite}
 @keyframes sc{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
