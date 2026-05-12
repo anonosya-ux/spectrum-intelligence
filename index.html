@@ -4,218 +4,166 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Spectrum Intelligence</title>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="spectrum.css">
+<link rel="stylesheet" href="s.css">
 </head>
 <body>
 <div class="progress" id="prog"></div>
-<canvas id="c"></canvas>
-<div class="orb o1"></div><div class="orb o2"></div><div class="orb o3"></div>
+<nav id="nav"><span id="nav-num">01</span><span id="nav-sep">/</span><span id="nav-total">13</span></nav>
 
-<!-- S1 HERO -->
-<section class="s hero" id="s1">
-  <div class="hero-bg-text">SPECTRUM</div>
-  <div class="si">
-    <h1 class="mega">SPECTRUM<br>INTELLIGENCE</h1>
-    <p class="sub">Технологический рывок и оптимизация издержек.<br>От децентрализованного ручного труда к строгой математической оптимизации.</p>
-    <div class="scroll-hint"><span>↓</span> ЛИСТАЙТЕ</div>
-  </div>
+<main id="main">
+
+<section class="sc" data-accent="red">
+<div class="sc-bg"><span>SPECTRUM</span></div>
+<div class="ct">
+<p class="kk">Коммерческое предложение</p>
+<h1 class="h1">SPECTRUM<br>INTELLIGENCE</h1>
+<p class="ds">Технологический рывок. Микросервисная архитектура для радикального снижения транзакционных издержек строительной компании.</p>
+</div>
 </section>
 
-<!-- S2 PARADIGM SHIFT — pinned -->
-<section class="s" id="s2">
-  <div class="si">
-    <h2 class="mega anim-t">PARADIGM SHIFT</h2>
-    <p class="sub anim-t">Замещение когнитивных способностей исполнителей машинными алгоритмами.</p>
-    <div class="vs-grid">
-      <div class="vs-card chaos"><div class="vs-icon">⚠</div><h3>ХАОС</h3><p>Мятые накладные в мессенджерах. Ошибки ручного ввода. «Зоопарк» IT.</p></div>
-      <div class="vs-arrow"><svg width="60" height="24"><path d="M0 12h50M40 4l10 8-10 8" stroke="#E50914" stroke-width="2" fill="none"/></svg></div>
-      <div class="vs-card order"><div class="vs-icon">⬡</div><h3>ПОРЯДОК</h3><p>Единый AI-слой → Processing → AI Model → Execution Engine.</p></div>
-    </div>
-  </div>
+<section class="sc" data-accent="blue">
+<div class="ct">
+<p class="kk">Проблема</p>
+<h1 class="h1">PARADIGM<br>SHIFT</h1>
+<div class="grid2">
+<div class="card card-red"><h3>⚠ ХАОС</h3><p>Мятые накладные в мессенджерах. Ручной ввод. «Зоопарк» IT-систем.</p></div>
+<div class="card card-blue"><h3>⬡ ПОРЯДОК</h3><p>AI Ingest → Processing → Model → Execution. Единый слой.</p></div>
+</div>
+</div>
 </section>
 
-<!-- S3 18 МЛН — animated counter -->
-<section class="s" id="s3">
-  <div class="si">
-    <h2 class="mega anim-t"><span class="red">18 000 000 ₽</span></h2>
-    <p class="sub anim-t">ФОТ рабочей группы (3-4 инженера) за 12 месяцев одного проекта сетей.</p>
-    <div class="bars-stack">
-      <div class="bar-item"><span class="bar-label">ФОТ 12 мес.</span><div class="bar-track"><div class="bar-fill rf" data-w="100%"></div></div><span class="bar-val">18 000 000 ₽</span></div>
-      <div class="bar-item"><span class="bar-label">Лицензия CAD</span><div class="bar-track"><div class="bar-fill bf" data-w="12%"></div></div><span class="bar-val">403 700 ₽</span></div>
-      <div class="bar-item"><span class="bar-label">MVP Spectrum</span><div class="bar-track"><div class="bar-fill gf" data-w="1.5%"></div></div><span class="bar-val green">250 000 ₽</span></div>
-    </div>
-  </div>
+<section class="sc" data-accent="red">
+<div class="ct center">
+<p class="kk">Финансовый ущерб</p>
+<h1 class="h1"><span class="accent-r">18 000 000 ₽</span></h1>
+<p class="ds">ФОТ рабочей группы (3-4 инженера) за 12 месяцев одного проекта наружных сетей. Лицензия САПР — до 403 700 ₽ за рабочее место.</p>
+<div class="bars">
+<div class="bar"><span>ФОТ</span><div class="bar-t"><div class="bar-f bar-r" data-w="100%"></div></div><b>18 млн</b></div>
+<div class="bar"><span>САПР</span><div class="bar-t"><div class="bar-f bar-b" data-w="8%"></div></div><b>403 тыс</b></div>
+<div class="bar"><span>MVP</span><div class="bar-t"><div class="bar-f bar-g" data-w="1.4%"></div></div><b class="accent-g">250 тыс</b></div>
+</div>
+</div>
 </section>
 
-<!-- S4 15000 SKU — big numbers -->
-<section class="s" id="s4">
-  <div class="si tc">
-    <div class="big-split">
-      <div class="big-num anim-t"><span class="counter" data-t="15000">0</span><small>SKU</small></div>
-      <div class="big-div">|</div>
-      <div class="big-num anim-t"><span class="red counter" data-t="4">0</span><small>ЧАСА</small></div>
-    </div>
-    <p class="sub anim-t">На ручной перенос одной многостраничной накладной в 1С. Транзакционный хаос парализует своевременный учёт.</p>
-  </div>
+<section class="sc" data-accent="orange">
+<div class="ct center">
+<p class="kk">Номенклатурный хаос</p>
+<div class="bignums">
+<div><em class="bn" data-v="15000">0</em><small>SKU</small></div>
+<div class="sep">|</div>
+<div><em class="bn accent-r" data-v="4">0</em><small>ЧАСА</small></div>
+</div>
+<p class="ds">на ручной перенос данных из одной многостраничной накладной в 1С.</p>
+</div>
 </section>
 
-<!-- S5 HUMAN ERROR — cascade -->
-<section class="s" id="s5">
-  <div class="si">
-    <h2 class="mega anim-t">HUMAN ERROR<br>MULTIPLIER</h2>
-    <div class="cascade">
-      <div class="cas-node">Опечатка в 1С</div>
-      <div class="cas-arr">→</div>
-      <div class="cas-node">Закупка неверного кабеля</div>
-      <div class="cas-arr">→</div>
-      <div class="cas-node">Простой тяжёлой техники</div>
-      <div class="cas-arr">→</div>
-      <div class="cas-node cas-fatal">Многомиллионные пени</div>
-    </div>
-  </div>
+<section class="sc" data-accent="red">
+<div class="ct center">
+<p class="kk">Цена ошибки</p>
+<h1 class="h1">HUMAN ERROR<br>MULTIPLIER</h1>
+<div class="chain">
+<div class="ch-n">Опечатка в 1С</div><div class="ch-a">→</div>
+<div class="ch-n">Неверный кабель</div><div class="ch-a">→</div>
+<div class="ch-n">Простой техники</div><div class="ch-a">→</div>
+<div class="ch-n ch-fatal">Пени по генподряду</div>
+</div>
+</div>
 </section>
 
-<!-- HORIZONTAL SCROLL — 4 tech panels -->
-<section class="hz-wrap" id="hz">
-  <div class="hz-track">
-    <div class="hz-panel hz-accent-blue">
-      <div class="hz-num">01</div>
-      <h2>ECOSYSTEM<br>ARCHITECTURE</h2>
-      <p>Autodesk APS ⟵ AI Core ⟶ 1C ERP ⟶ Bitrix24</p>
-      <div class="hz-diagram"><div class="hzn">APS</div><div class="hza">⟵</div><div class="hzn hzn-core">AI CORE</div><div class="hza">⟶</div><div class="hzn">1С</div></div>
-    </div>
-    <div class="hz-panel hz-accent-cyan">
-      <div class="hz-num">02</div>
-      <h2>ГЕНЕРАТИВНАЯ<br>ТРАССИРОВКА</h2>
-      <p>Voxelization → Pathfinding (A*) → Hard Constraints (СНиП, ПУЭ)</p>
-      <img src="voxel_path.png" alt="" class="hz-img">
-    </div>
-    <div class="hz-panel hz-accent-orange">
-      <div class="hz-num">03</div>
-      <h2>ОБЛАЧНАЯ ПАРАДИГМА<br>AUTODESK (APS)</h2>
-      <p>Headless AutoCAD + Model Context Protocol. DWG ↔ Cloud.</p>
-      <div class="aps-stack"><div class="aps-l at">AI Agents (MCP)</div><div class="aps-l am">Autodesk Platform Services</div><div class="aps-l ab">DWG Files</div></div>
-    </div>
-    <div class="hz-panel hz-accent-red">
-      <div class="hz-num">04</div>
-      <h2>ЗАЩИТА ОТ<br>ИИ-ГАЛЛЮЦИНАЦИЙ</h2>
-      <p>RAG: Гибридный поиск BERTA + BM25 по локальной базе СНиП/ПУЭ.</p>
-      <div class="rag-flow"><div class="rag-n">Запрос</div><div class="rag-a">⟶</div><div class="rag-n rag-v">RAG Vault</div><div class="rag-a">⟶</div><div class="rag-n rag-o">Точная норма</div></div>
-    </div>
-  </div>
+<section class="sc" data-accent="blue">
+<div class="ct">
+<p class="kk">Архитектура</p>
+<h1 class="h1">ECOSYSTEM</h1>
+<div class="arch">
+<div class="arch-n">APS</div><div class="arch-a">⟵</div>
+<div class="arch-n arch-core">AI CORE</div>
+<div class="arch-a">⟶</div><div class="arch-n">1С ERP</div>
+</div>
+<p class="ds">Единый ИИ-слой: Autodesk APS ↔ AI Core ↔ 1C ERP → Bitrix24. Данные транслируются без ручного копирования.</p>
+</div>
 </section>
 
-<!-- S6 365→7 — gantt pinned -->
-<section class="s" id="s6">
-  <div class="si">
-    <h2 class="mega anim-t"><span class="red">365</span> → <span class="blue">7 ДНЕЙ</span></h2>
-    <p class="sub anim-t">Перевод трассировки в APS сжимает срок проектирования до 1 недели.</p>
-    <div class="gantt">
-      <div class="g-row"><div class="g-bar g-red" data-w="100%"><span>1 ГОД</span></div></div>
-      <div class="g-row"><div class="g-bar g-blue" data-w="2%"><span>7 ДНЕЙ</span></div></div>
-    </div>
-  </div>
+<section class="sc" data-accent="cyan">
+<div class="ct two">
+<div><p class="kk">AI-Проектировщик</p>
+<h1 class="h1">ГЕНЕРАТИВНАЯ<br>ТРАССИРОВКА</h1>
+<p class="ds">Алгоритм A* + графовые нейросети. Voxelization → Pathfinding → Hard Constraints по СНиП и ПУЭ. RAG-валидация исключает галлюцинации.</p></div>
+<div class="img-wrap"><img src="voxel_path.png" alt="" class="float-img"></div>
+</div>
 </section>
 
-<!-- S7 MVP ЛОГИСТИКИ — iPhone -->
-<section class="s dark" id="s7">
-  <div class="si two">
-    <div class="col-img"><img src="iphone_mockup.png" alt="" class="phone-img"></div>
-    <div class="col-txt">
-      <h2 class="mega anim-t">MVP ЛОГИСТИКИ</h2>
-      <p class="sub anim-t">Telegram-бот + словарь из 500 позиций 1С. Фото накладной → мгновенное совпадение с эталоном. Точность 93-95%.</p>
-      <div class="json-block anim-t"><pre>{
-  "invoice_id": "INV-9823",
-  "vendor": "СтройСнаб",
-  "items": [
-    {"code":"88321","name":"Цемент М500","qty":20,"total":9000},
-    {"code":"11452","name":"Арматура А500С","qty":150,"total":12750}
-  ],
-  "status": "READY_FOR_ERP"
-}</pre></div>
-    </div>
-  </div>
+<section class="sc" data-accent="orange">
+<div class="ct center">
+<p class="kk">Скорость</p>
+<h1 class="h1"><span class="accent-r">365</span> → <span class="accent-b">7 ДНЕЙ</span></h1>
+<p class="ds">Перевод трассировки в облачные вычисления APS сжимает проектирование до 1 недели.</p>
+<div class="gantt">
+<div class="g-bar g-r" data-w="100%"><span>1 ГОД</span></div>
+<div class="g-bar g-b" data-w="2%"><span>7 ДНЕЙ</span></div>
+</div>
+</div>
 </section>
 
-<!-- S8 VISION LLM — bars -->
-<section class="s" id="s8">
-  <div class="si">
-    <h2 class="mega anim-t">VISION LLM</h2>
-    <p class="sub anim-t">Мультимодальные LLM семантически понимают контекст грязных документов (95%+ точность).</p>
-    <div class="bench">
-      <div class="bench-r"><span>Specialized AI</span><div class="bench-t"><div class="bench-f" data-w="98%" style="--c:#3b82f6"></div></div><b>98%</b></div>
-      <div class="bench-r"><span>Multimodal LLM</span><div class="bench-t"><div class="bench-f" data-w="95%" style="--c:#22c55e"></div></div><b>95%</b></div>
-      <div class="bench-r"><span>Cloud OCR</span><div class="bench-t"><div class="bench-f" data-w="91%" style="--c:#6b7280"></div></div><b>91%</b></div>
-      <div class="bench-r"><span>Legacy OCR</span><div class="bench-t"><div class="bench-f" data-w="85%" style="--c:#374151"></div></div><b>85%</b></div>
-    </div>
-  </div>
+<section class="sc dark" data-accent="cyan">
+<div class="ct two">
+<div class="img-wrap"><img src="iphone_mockup.png" alt="" class="float-img phone"></div>
+<div><p class="kk">AI-Логистика</p>
+<h1 class="h1">MVP<br>ЛОГИСТИКИ</h1>
+<p class="ds">Telegram-бот парсит фото накладных. Vision LLM + Jaro-Winkler → точное совпадение с эталоном 1С. Точность 93-95%.</p>
+<div class="code"><pre>{"invoice":"INV-9823","vendor":"СтройСнаб",
+"items":[{"code":"88321","name":"Цемент М500",
+"qty":20,"total":9000}],
+"status":"READY_FOR_ERP"}</pre></div></div>
+</div>
 </section>
 
-<!-- S9 JARO-WINKLER — interactive -->
-<section class="s dark" id="s9">
-  <div class="si tc">
-    <h2 class="mega anim-t">JARO-WINKLER</h2>
-    <p class="sub anim-t">Нечёткий поиск: кривой текст → точный ID товара из 15 000 позиций 1С.</p>
-    <div class="jaro">
-      <div class="jaro-in"><small>Сырой ввод</small><div>песок мыт. 1 кл.</div></div>
-      <div class="jaro-mid"><div class="jaro-score" id="jscore">0%</div><div class="jaro-bar"><div class="jaro-fill" id="jfill"></div></div></div>
-      <div class="jaro-out"><small>Эталон 1С</small><div>Песок мытый 1-го класса ГОСТ, Арт. 40291</div></div>
-    </div>
-  </div>
+<section class="sc" data-accent="blue">
+<div class="ct center">
+<p class="kk">Результат</p>
+<h1 class="h1">BACKOFFICE<br>METRICS</h1>
+<div class="m3">
+<div class="mc"><em class="bn" data-v="370">0</em><small>ЧАСОВ / МЕС</small></div>
+<div class="mc"><em>1 ЧАС</em><small>ЦИКЛ ВАЛИДАЦИИ</small></div>
+<div class="mc"><em class="accent-g">0</em><small>ОШИБОК</small></div>
+</div>
+</div>
 </section>
 
-<!-- S10 METRICS — 3 cards -->
-<section class="s" id="s10">
-  <div class="si">
-    <h2 class="mega anim-t">BACKOFFICE METRICS</h2>
-    <div class="m3">
-      <div class="m3-card"><div class="m3-val">-<span class="counter" data-t="370">0</span></div><div class="m3-label">ЧАСОВ / МЕС</div></div>
-      <div class="m3-card"><div class="m3-val">1 ЧАС</div><div class="m3-label">ЦИКЛ ВАЛИДАЦИИ</div></div>
-      <div class="m3-card"><div class="m3-val green">0</div><div class="m3-label">ОШИБОК СПЕЦИФИКАЦИЙ</div></div>
-    </div>
-  </div>
+<section class="sc dark" data-accent="blue">
+<div class="ct two">
+<div><p class="kk">Безопасность</p>
+<h1 class="h1">ON-PREMISE<br>SECURITY</h1>
+<p class="ds">Enterprise в закрытом контуре. Исключён риск утечки баз 1С и DWG-чертежей в публичные SaaS-облака.</p></div>
+<div class="img-wrap"><img src="security.png" alt="" class="float-img"></div>
+</div>
 </section>
 
-<!-- S11 SECURITY -->
-<section class="s dark" id="s11">
-  <div class="si two">
-    <div class="col-txt">
-      <h2 class="mega anim-t">ON-PREMISE<br>SECURITY</h2>
-      <p class="sub anim-t">Enterprise в закрытом контуре. Полностью исключён риск утечки баз 1С и DWG в публичные SaaS-облака.</p>
-    </div>
-    <div class="col-img"><img src="security.png" alt="" class="sec-img"></div>
-  </div>
+<section class="sc" data-accent="cyan">
+<div class="ct">
+<p class="kk">Запуск</p>
+<h1 class="h1">MVP ЗА 21 ДЕНЬ</h1>
+<div class="tracks">
+<div class="track track-c"><h4>Трек 1 · AI-Логистика</h4><div class="steps"><div class="st">Telegram-бот<br><small>День 1–4</small></div><div class="st">Vision LLM<br><small>День 4–11</small></div><div class="st">Jaro-Winkler<br><small>День 11–18</small></div></div></div>
+<div class="track track-o"><h4>Трек 2 · AI-Проектировщик</h4><div class="steps"><div class="st">APS геометрия<br><small>День 1–7</small></div><div class="st">RAG по ПУЭ<br><small>День 7–14</small></div><div class="st">A* трассы<br><small>День 14–21</small></div></div></div>
+</div>
+</div>
 </section>
 
-<!-- S12 ROADMAP -->
-<section class="s" id="s12">
-  <div class="si">
-    <h2 class="mega anim-t">MVP ЗА 21 ДЕНЬ</h2>
-    <div class="road">
-      <div class="road-track road-cyan"><h4>Трек 1: AI-Логистика</h4>
-        <div class="road-steps"><div class="rs">Telegram-бот<br><small>День 1-4</small></div><div class="rs">Vision LLM<br><small>День 4-11</small></div><div class="rs">Jaro-Winkler<br><small>День 11-18</small></div></div>
-      </div>
-      <div class="road-track road-orange"><h4>Трек 2: AI-Проектировщик</h4>
-        <div class="road-steps"><div class="rs">APS геометрия<br><small>День 1-7</small></div><div class="rs">RAG по ПУЭ<br><small>День 7-14</small></div><div class="rs">A* трассы<br><small>День 14-21</small></div></div>
-      </div>
-    </div>
-  </div>
+<section class="sc" data-accent="orange">
+<div class="sc-bg"><span>250K</span></div>
+<div class="ct center">
+<p class="kk">Инвестиция</p>
+<h1 class="h1">МГНОВЕННАЯ<br>ОКУПАЕМОСТЬ</h1>
+<div class="price">250 000 ₽</div>
+<p class="ds">Рынок: 15–25 млн ₽. Дисконт 50%. Профит после первого сданного проекта.</p>
+</div>
 </section>
 
-<!-- S13 FINAL CTA -->
-<section class="s hero" id="s13">
-  <div class="hero-bg-text">250K</div>
-  <div class="si tc">
-    <h2 class="mega anim-t">МГНОВЕННАЯ<br>ОКУПАЕМОСТЬ</h2>
-    <div class="price anim-t">250 000 ₽</div>
-    <p class="sub anim-t">Рыночная стоимость: 15-25 млн ₽. Дисконт 50%. Профит после первого сданного проекта.</p>
-  </div>
-</section>
+</main>
 
-<script src="https://unpkg.com/lenis@1.3.23/dist/lenis.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-<script src="spectrum.js"></script>
+<script src="https://unpkg.com/lenis@1.3.23/dist/lenis.min.js"></script>
+<script src="s.js"></script>
 </body>
 </html>
