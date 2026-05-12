@@ -4,299 +4,217 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Spectrum Intelligence</title>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;700&display=swap" rel="stylesheet">
-<style>
-:root{--r:#E50914;--b:#0055ff;--c:#00d4ff;--o:#FF6B00}
-*{margin:0;padding:0;box-sizing:border-box}
-html{scroll-behavior:auto}
-body{background:#030303;color:#fff;font-family:'Inter',sans-serif;overflow-x:hidden;cursor:none}
-body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9998;opacity:.035;background:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='.9'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
-.cur{position:fixed;width:20px;height:20px;border:2px solid var(--r);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .3s,height .3s;mix-blend-mode:difference}
-.dot{position:fixed;width:5px;height:5px;background:var(--r);border-radius:50%;pointer-events:none;z-index:10000;transform:translate(-50%,-50%)}
-canvas{position:fixed;inset:0;z-index:-2;pointer-events:none}
-.orb{position:fixed;border-radius:50%;filter:blur(150px);pointer-events:none;z-index:-1}
-.o1{width:50vw;height:50vw;background:rgba(229,9,20,.1);top:-15%;left:-15%}
-.o2{width:40vw;height:40vw;background:rgba(255,107,0,.07);bottom:-10%;right:-15%}
-
-/* SLIDES */
-.s{min-height:100vh;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
-.s-bg{position:absolute;inset:-50px;background-size:cover;background-position:center;filter:brightness(.35);transform:scale(1.1);will-change:transform}
-.s-inner{position:relative;z-index:2;max-width:1200px;width:100%;padding:60px}
-.s::after{content:'';position:absolute;bottom:0;left:5%;right:5%;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.06),transparent)}
-
-/* HERO */
-.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;position:relative}
-.hero h1{font-family:'Bebas Neue';font-size:clamp(5rem,12vw,12rem);line-height:.85;letter-spacing:-3px;opacity:0;transform:translateY(60px)}
-.hero p{color:#777;font-size:1.2rem;max-width:600px;margin-top:30px;opacity:0}
-.hero .tag{display:inline-block;border:1px solid var(--b);color:var(--b);padding:12px 24px;margin-top:30px;font-size:.9rem;backdrop-filter:blur(10px);background:rgba(0,85,255,.05);opacity:0}
-
-/* FULLSCREEN IMAGE SLIDE */
-.fs{min-height:100vh;position:relative;overflow:hidden;display:flex;align-items:flex-end}
-.fs img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;will-change:transform}
-.fs .overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.85) 0%,rgba(0,0,0,.2) 40%,rgba(0,0,0,.1) 100%);z-index:1}
-.fs .caption{position:relative;z-index:2;padding:60px 80px;max-width:900px}
-.fs .caption h2{font-family:'Bebas Neue';font-size:clamp(2.5rem,5vw,4rem);margin-bottom:12px;text-transform:uppercase;opacity:0;transform:translateY(40px)}
-.fs .caption p{color:#aaa;font-size:1.05rem;line-height:1.6;opacity:0;transform:translateY(30px)}
-
-/* HORIZONTAL SCROLL */
-.hz-wrap{overflow:hidden;position:relative}
-.hz-track{display:flex;width:max-content}
-.hz-panel{width:100vw;height:100vh;flex-shrink:0;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
-.hz-panel img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:brightness(.4)}
-.hz-panel .hz-content{position:relative;z-index:2;text-align:center;max-width:800px;padding:40px}
-.hz-panel h2{font-family:'Bebas Neue';font-size:clamp(3rem,6vw,5rem);text-transform:uppercase;margin-bottom:15px}
-.hz-panel p{color:#aaa;font-size:1.05rem;line-height:1.6}
-.hz-counter{position:fixed;bottom:40px;right:60px;font-family:'Bebas Neue';font-size:1.5rem;color:#333;z-index:50;display:none}
-
-/* SCALE SECTION */
-.scale-s{min-height:200vh;position:relative}
-.scale-s .sticky{position:sticky;top:0;height:100vh;display:flex;align-items:center;justify-content:center;overflow:hidden}
-.scale-s img{width:80vw;max-width:1000px;border-radius:16px;box-shadow:0 40px 80px rgba(0,0,0,.6);will-change:transform}
-.scale-s .scale-text{position:absolute;z-index:2;text-align:center;opacity:0}
-.scale-s .scale-text h2{font-family:'Bebas Neue';font-size:clamp(4rem,8vw,7rem);text-shadow:0 0 60px rgba(229,9,20,.4)}
-.scale-s .scale-text p{color:#aaa;font-size:1.15rem;margin-top:15px}
-
-/* TWO-UP */
-.twoup{display:grid;grid-template-columns:1fr 1fr;min-height:100vh;overflow:hidden}
-.twoup .side{display:flex;align-items:center;justify-content:center;padding:60px;position:relative;overflow:hidden}
-.twoup img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0;filter:brightness(.3)}
-.twoup .txt{position:relative;z-index:2;max-width:500px}
-.twoup h2{font-family:'Bebas Neue';font-size:clamp(2.5rem,4vw,3.5rem);margin-bottom:15px;text-transform:uppercase}
-.twoup p{color:#aaa;font-size:1rem;line-height:1.6}
-
-/* FINAL CTA */
-.cta{min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;position:relative}
-.cta h1{font-family:'Bebas Neue';font-size:clamp(4rem,10vw,9rem);line-height:.9;opacity:0}
-.cta .price{font-family:'Bebas Neue';font-size:clamp(3rem,6vw,5rem);color:var(--o);margin-top:20px;opacity:0}
-.cta p{color:#777;font-size:1.1rem;margin-top:20px;max-width:700px;opacity:0}
-
-@media(max-width:768px){.twoup{grid-template-columns:1fr}.fs .caption{padding:30px}.s-inner{padding:30px}}
-</style>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="spectrum.css">
 </head>
 <body>
 <canvas id="c"></canvas>
-<div class="orb o1"></div>
-<div class="orb o2"></div>
+<div class="orb o1"></div><div class="orb o2"></div><div class="orb o3"></div>
 
-<!-- HERO -->
-<section class="hero s" id="hero">
-  <h1>SPECTRUM<br>INTELLIGENCE</h1>
-  <p>Технологический рывок и оптимизация издержек. Интеграция микросервисной архитектуры для радикального снижения транзакционных издержек.</p>
-  <div class="tag">⟶ ЛИСТАЙТЕ ВНИЗ</div>
-</section>
-
-<!-- FS1: PARADIGM SHIFT (slide_02) -->
-<section class="fs" id="fs1">
-  <img src="Изображение 2.jpg" alt="" class="fs-img">
-  <div class="overlay"></div>
-  <div class="caption"><h2>PARADIGM SHIFT</h2><p>Переход к алгоритмическому управлению. Замещение когнитивных способностей исполнителей машинными алгоритмами. Устранение хаоса IT-систем.</p></div>
-</section>
-
-<!-- FS2: 18 МЛН (slide_03 = Изображение 1) -->
-<section class="fs" id="fs2">
-  <img src="Изображение 1.jpg" alt="" class="fs-img">
-  <div class="overlay"></div>
-  <div class="caption"><h2>18 000 000 ₽ / 12 МЕСЯЦЕВ</h2><p>Убыток на ФОТ рабочей группы. 3-4 инженера сжигают до 18 млн руб. за цикл проекта. Лицензия САПР — до 403 700 ₽ за одно рабочее место.</p></div>
-</section>
-
-<!-- SCALE: 15000 SKU -->
-<section class="scale-s" id="sku">
-  <div class="sticky">
-    <img src="Изображение 4.jpg" alt="" class="scale-img">
-    <div class="scale-text"><h2>15 000 SKU | 4 ЧАСА</h2><p>Хаос номенклатуры парализует учет. 4 часа на одну накладную.</p></div>
+<!-- S1 HERO -->
+<section class="s hero" id="s1">
+  <div class="hero-bg-text">SPECTRUM</div>
+  <div class="si">
+    <h1 class="mega">SPECTRUM<br>INTELLIGENCE</h1>
+    <p class="sub">Технологический рывок и оптимизация издержек.<br>От децентрализованного ручного труда к строгой математической оптимизации.</p>
+    <div class="scroll-hint"><span>↓</span> ЛИСТАЙТЕ</div>
   </div>
 </section>
 
-<!-- FS3: HUMAN ERROR (Изображение 3) -->
-<section class="fs" id="fs3">
-  <img src="Изображение 3.jpg" alt="" class="fs-img">
-  <div class="overlay"></div>
-  <div class="caption"><h2>HUMAN ERROR MULTIPLIER</h2><p>Опечатка в 1С → Закупка неверного кабеля → Простой тяжелой техники → Многомиллионные пени по генподряду.</p></div>
+<!-- S2 PARADIGM SHIFT — pinned -->
+<section class="s" id="s2">
+  <div class="si">
+    <h2 class="mega anim-t">PARADIGM SHIFT</h2>
+    <p class="sub anim-t">Замещение когнитивных способностей исполнителей машинными алгоритмами.</p>
+    <div class="vs-grid">
+      <div class="vs-card chaos"><div class="vs-icon">⚠</div><h3>ХАОС</h3><p>Мятые накладные в мессенджерах. Ошибки ручного ввода. «Зоопарк» IT.</p></div>
+      <div class="vs-arrow"><svg width="60" height="24"><path d="M0 12h50M40 4l10 8-10 8" stroke="#E50914" stroke-width="2" fill="none"/></svg></div>
+      <div class="vs-card order"><div class="vs-icon">⬡</div><h3>ПОРЯДОК</h3><p>Единый AI-слой → Processing → AI Model → Execution Engine.</p></div>
+    </div>
+  </div>
 </section>
 
-<!-- HORIZONTAL SCROLL: 4 tech slides -->
+<!-- S3 18 МЛН — animated counter -->
+<section class="s" id="s3">
+  <div class="si">
+    <h2 class="mega anim-t"><span class="red">18 000 000 ₽</span></h2>
+    <p class="sub anim-t">ФОТ рабочей группы (3-4 инженера) за 12 месяцев одного проекта сетей.</p>
+    <div class="bars-stack">
+      <div class="bar-item"><span class="bar-label">ФОТ 12 мес.</span><div class="bar-track"><div class="bar-fill rf" data-w="100%"></div></div><span class="bar-val">18 000 000 ₽</span></div>
+      <div class="bar-item"><span class="bar-label">Лицензия CAD</span><div class="bar-track"><div class="bar-fill bf" data-w="12%"></div></div><span class="bar-val">403 700 ₽</span></div>
+      <div class="bar-item"><span class="bar-label">MVP Spectrum</span><div class="bar-track"><div class="bar-fill gf" data-w="1.5%"></div></div><span class="bar-val green">250 000 ₽</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- S4 15000 SKU — big numbers -->
+<section class="s" id="s4">
+  <div class="si tc">
+    <div class="big-split">
+      <div class="big-num anim-t"><span class="counter" data-t="15000">0</span><small>SKU</small></div>
+      <div class="big-div">|</div>
+      <div class="big-num anim-t"><span class="red counter" data-t="4">0</span><small>ЧАСА</small></div>
+    </div>
+    <p class="sub anim-t">На ручной перенос одной многостраничной накладной в 1С. Транзакционный хаос парализует своевременный учёт.</p>
+  </div>
+</section>
+
+<!-- S5 HUMAN ERROR — cascade -->
+<section class="s" id="s5">
+  <div class="si">
+    <h2 class="mega anim-t">HUMAN ERROR<br>MULTIPLIER</h2>
+    <div class="cascade">
+      <div class="cas-node">Опечатка в 1С</div>
+      <div class="cas-arr">→</div>
+      <div class="cas-node">Закупка неверного кабеля</div>
+      <div class="cas-arr">→</div>
+      <div class="cas-node">Простой тяжёлой техники</div>
+      <div class="cas-arr">→</div>
+      <div class="cas-node cas-fatal">Многомиллионные пени</div>
+    </div>
+  </div>
+</section>
+
+<!-- HORIZONTAL SCROLL — 4 tech panels -->
 <section class="hz-wrap" id="hz">
   <div class="hz-track">
-    <div class="hz-panel"><img src="Изображение 5.jpg" alt=""><div class="hz-content"><h2>ECOSYSTEM ARCHITECTURE</h2><p>Единый ИИ-слой: APS ⟵ AI Core ⟶ 1C ERP ⟶ Bitrix24</p></div></div>
-    <div class="hz-panel"><img src="Изображение 6.jpg" alt=""><div class="hz-content"><h2>Математическая трассировка из DWG за 7 дней</h2><p>Алгоритм A* + графовые нейросети. RAG-валидация на базе СНиП и ПУЭ.</p></div></div>
-    <div class="hz-panel"><img src="Изображение 7.jpg" alt=""><div class="hz-content"><h2>Облачная парадигма Autodesk (APS)</h2><p>Headless AutoCAD + Model Context Protocol. Двунаправленный обмен DWG ↔ Cloud.</p></div></div>
-    <div class="hz-panel"><img src="Изображение 8.jpg" alt=""><div class="hz-content"><h2>Защита от ИИ-галлюцинаций</h2><p>Гибридный поиск BERTA + BM25. Алгоритм жестко ограничен локальной базой знаний.</p></div></div>
+    <div class="hz-panel hz-accent-blue">
+      <div class="hz-num">01</div>
+      <h2>ECOSYSTEM<br>ARCHITECTURE</h2>
+      <p>Autodesk APS ⟵ AI Core ⟶ 1C ERP ⟶ Bitrix24</p>
+      <div class="hz-diagram"><div class="hzn">APS</div><div class="hza">⟵</div><div class="hzn hzn-core">AI CORE</div><div class="hza">⟶</div><div class="hzn">1С</div></div>
+    </div>
+    <div class="hz-panel hz-accent-cyan">
+      <div class="hz-num">02</div>
+      <h2>ГЕНЕРАТИВНАЯ<br>ТРАССИРОВКА</h2>
+      <p>Voxelization → Pathfinding (A*) → Hard Constraints (СНиП, ПУЭ)</p>
+      <img src="voxel_path.png" alt="" class="hz-img">
+    </div>
+    <div class="hz-panel hz-accent-orange">
+      <div class="hz-num">03</div>
+      <h2>ОБЛАЧНАЯ ПАРАДИГМА<br>AUTODESK (APS)</h2>
+      <p>Headless AutoCAD + Model Context Protocol. DWG ↔ Cloud.</p>
+      <div class="aps-stack"><div class="aps-l at">AI Agents (MCP)</div><div class="aps-l am">Autodesk Platform Services</div><div class="aps-l ab">DWG Files</div></div>
+    </div>
+    <div class="hz-panel hz-accent-red">
+      <div class="hz-num">04</div>
+      <h2>ЗАЩИТА ОТ<br>ИИ-ГАЛЛЮЦИНАЦИЙ</h2>
+      <p>RAG: Гибридный поиск BERTA + BM25 по локальной базе СНиП/ПУЭ.</p>
+      <div class="rag-flow"><div class="rag-n">Запрос</div><div class="rag-a">⟶</div><div class="rag-n rag-v">RAG Vault</div><div class="rag-a">⟶</div><div class="rag-n rag-o">Точная норма</div></div>
+    </div>
   </div>
 </section>
 
-<!-- FS4: 365 → 7 -->
-<section class="fs" id="fs4">
-  <img src="Изображение 9.jpg" alt="" class="fs-img">
-  <div class="overlay"></div>
-  <div class="caption"><h2>365 → 7 ДНЕЙ</h2><p>Перевод трассировки в облачные вычисления APS сжимает срок проектирования до 1 недели. Извлечение спецификаций (BOM) сокращает время на 85%.</p></div>
-</section>
-
-<!-- TWO-UP: iPhone + Vision -->
-<section class="twoup" id="twoup1">
-  <div class="side"><img src="Изображение 10.jpg" alt=""><div class="txt"><h2>MVP ЛОГИСТИКИ: БОТ-ПАРСЕР</h2><p>Telegram-бот + словарь из 500 позиций 1С. Фото накладной → мгновенное совпадение с эталоном.</p></div></div>
-  <div class="side"><img src="Изображение 11.jpg" alt=""><div class="txt"><h2>FIELD TO ERP PIPELINE</h2><p>Vision LLM извлекает таблицы из грязных полевых накладных. Точность 93-95%.</p></div></div>
-</section>
-
-<!-- FS5: VISION LLM -->
-<section class="fs" id="fs5">
-  <img src="Изображение 12.jpg" alt="" class="fs-img">
-  <div class="overlay"></div>
-  <div class="caption"><h2>VISION LLM: ПОНИМАНИЕ ГРЯЗНЫХ ДОКУМЕНТОВ</h2><p>Мультимодальные LLM семантически понимают контекст таблицы и восстанавливают неразборчивый текст (точность 95%+).</p></div>
-</section>
-
-<!-- SCALE: JARO -->
-<section class="scale-s" id="jaro">
-  <div class="sticky">
-    <img src="Изображение 13.jpg" alt="" class="scale-img">
-    <div class="scale-text"><h2>JARO-WINKLER</h2><p>Нечеткий поиск: кривой текст → точный ID товара из 15 000 позиций 1С</p></div>
+<!-- S6 365→7 — gantt pinned -->
+<section class="s" id="s6">
+  <div class="si">
+    <h2 class="mega anim-t"><span class="red">365</span> → <span class="blue">7 ДНЕЙ</span></h2>
+    <p class="sub anim-t">Перевод трассировки в APS сжимает срок проектирования до 1 недели.</p>
+    <div class="gantt">
+      <div class="g-row"><div class="g-bar g-red" data-w="100%"><span>1 ГОД</span></div></div>
+      <div class="g-row"><div class="g-bar g-blue" data-w="2%"><span>7 ДНЕЙ</span></div></div>
+    </div>
   </div>
 </section>
 
-<!-- TWO-UP: Tasks + Metrics -->
-<section class="twoup" id="twoup2">
-  <div class="side"><img src="Изображение 14.jpg" alt=""><div class="txt"><h2>ЗАДАЧИ СТАВЯТСЯ САМИ</h2><p>Автоматический черновик в 1С + задача валидации в Битрикс24. Нулевой человеческий фактор.</p></div></div>
-  <div class="side"><img src="Изображение 15.jpg" alt=""><div class="txt"><h2>BACKOFFICE METRICS</h2><p>-370 часов экономии труда. 1 час цикл валидации. 0 ошибок спецификаций.</p></div></div>
+<!-- S7 MVP ЛОГИСТИКИ — iPhone -->
+<section class="s dark" id="s7">
+  <div class="si two">
+    <div class="col-img"><img src="iphone_mockup.png" alt="" class="phone-img"></div>
+    <div class="col-txt">
+      <h2 class="mega anim-t">MVP ЛОГИСТИКИ</h2>
+      <p class="sub anim-t">Telegram-бот + словарь из 500 позиций 1С. Фото накладной → мгновенное совпадение с эталоном. Точность 93-95%.</p>
+      <div class="json-block anim-t"><pre>{
+  "invoice_id": "INV-9823",
+  "vendor": "СтройСнаб",
+  "items": [
+    {"code":"88321","name":"Цемент М500","qty":20,"total":9000},
+    {"code":"11452","name":"Арматура А500С","qty":150,"total":12750}
+  ],
+  "status": "READY_FOR_ERP"
+}</pre></div>
+    </div>
+  </div>
 </section>
 
-<!-- FS6: SECURITY -->
-<section class="fs" id="fs6">
-  <img src="security.png" alt="" class="fs-img">
-  <div class="overlay"></div>
-  <div class="caption"><h2>ON-PREMISE SECURITY</h2><p>Enterprise в закрытом контуре. Исключен риск утечки баз 1С и DWG-чертежей в публичные SaaS-облака.</p></div>
+<!-- S8 VISION LLM — bars -->
+<section class="s" id="s8">
+  <div class="si">
+    <h2 class="mega anim-t">VISION LLM</h2>
+    <p class="sub anim-t">Мультимодальные LLM семантически понимают контекст грязных документов (95%+ точность).</p>
+    <div class="bench">
+      <div class="bench-r"><span>Specialized AI</span><div class="bench-t"><div class="bench-f" data-w="98%" style="--c:#3b82f6"></div></div><b>98%</b></div>
+      <div class="bench-r"><span>Multimodal LLM</span><div class="bench-t"><div class="bench-f" data-w="95%" style="--c:#22c55e"></div></div><b>95%</b></div>
+      <div class="bench-r"><span>Cloud OCR</span><div class="bench-t"><div class="bench-f" data-w="91%" style="--c:#6b7280"></div></div><b>91%</b></div>
+      <div class="bench-r"><span>Legacy OCR</span><div class="bench-t"><div class="bench-f" data-w="85%" style="--c:#374151"></div></div><b>85%</b></div>
+    </div>
+  </div>
 </section>
 
-<!-- FS7: ROADMAP -->
-<section class="fs" id="fs7">
-  <img src="Изображение 16.jpg" alt="" class="fs-img">
-  <div class="overlay"></div>
-  <div class="caption"><h2>ДОРОЖНАЯ КАРТА: MVP ЗА 21 ДЕНЬ</h2><p>Трек 1: AI-Логистика (Telegram + Vision LLM + Jaro-Winkler). Трек 2: AI-Проектировщик (APS + RAG + A*).</p></div>
+<!-- S9 JARO-WINKLER — interactive -->
+<section class="s dark" id="s9">
+  <div class="si tc">
+    <h2 class="mega anim-t">JARO-WINKLER</h2>
+    <p class="sub anim-t">Нечёткий поиск: кривой текст → точный ID товара из 15 000 позиций 1С.</p>
+    <div class="jaro">
+      <div class="jaro-in"><small>Сырой ввод</small><div>песок мыт. 1 кл.</div></div>
+      <div class="jaro-mid"><div class="jaro-score" id="jscore">0%</div><div class="jaro-bar"><div class="jaro-fill" id="jfill"></div></div></div>
+      <div class="jaro-out"><small>Эталон 1С</small><div>Песок мытый 1-го класса ГОСТ, Арт. 40291</div></div>
+    </div>
+  </div>
 </section>
 
-<!-- FINAL CTA -->
-<section class="cta" id="final">
-  <div>
-    <h1>МГНОВЕННАЯ<br>ОКУПАЕМОСТЬ</h1>
-    <div class="price">250 000 ₽</div>
-    <p>Рыночная стоимость — 15-25 млн ₽. Мы даем дисконт 50%. Профит после первого сданного проекта.</p>
+<!-- S10 METRICS — 3 cards -->
+<section class="s" id="s10">
+  <div class="si">
+    <h2 class="mega anim-t">BACKOFFICE METRICS</h2>
+    <div class="m3">
+      <div class="m3-card"><div class="m3-val">-<span class="counter" data-t="370">0</span></div><div class="m3-label">ЧАСОВ / МЕС</div></div>
+      <div class="m3-card"><div class="m3-val">1 ЧАС</div><div class="m3-label">ЦИКЛ ВАЛИДАЦИИ</div></div>
+      <div class="m3-card"><div class="m3-val green">0</div><div class="m3-label">ОШИБОК СПЕЦИФИКАЦИЙ</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- S11 SECURITY -->
+<section class="s dark" id="s11">
+  <div class="si two">
+    <div class="col-txt">
+      <h2 class="mega anim-t">ON-PREMISE<br>SECURITY</h2>
+      <p class="sub anim-t">Enterprise в закрытом контуре. Полностью исключён риск утечки баз 1С и DWG в публичные SaaS-облака.</p>
+    </div>
+    <div class="col-img"><img src="security.png" alt="" class="sec-img"></div>
+  </div>
+</section>
+
+<!-- S12 ROADMAP -->
+<section class="s" id="s12">
+  <div class="si">
+    <h2 class="mega anim-t">MVP ЗА 21 ДЕНЬ</h2>
+    <div class="road">
+      <div class="road-track road-cyan"><h4>Трек 1: AI-Логистика</h4>
+        <div class="road-steps"><div class="rs">Telegram-бот<br><small>День 1-4</small></div><div class="rs">Vision LLM<br><small>День 4-11</small></div><div class="rs">Jaro-Winkler<br><small>День 11-18</small></div></div>
+      </div>
+      <div class="road-track road-orange"><h4>Трек 2: AI-Проектировщик</h4>
+        <div class="road-steps"><div class="rs">APS геометрия<br><small>День 1-7</small></div><div class="rs">RAG по ПУЭ<br><small>День 7-14</small></div><div class="rs">A* трассы<br><small>День 14-21</small></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- S13 FINAL CTA -->
+<section class="s hero" id="s13">
+  <div class="hero-bg-text">250K</div>
+  <div class="si tc">
+    <h2 class="mega anim-t">МГНОВЕННАЯ<br>ОКУПАЕМОСТЬ</h2>
+    <div class="price anim-t">250 000 ₽</div>
+    <p class="sub anim-t">Рыночная стоимость: 15-25 млн ₽. Дисконт 50%. Профит после первого сданного проекта.</p>
   </div>
 </section>
 
 <script src="https://unpkg.com/lenis@1.3.23/dist/lenis.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-<script>
-(function(){
-'use strict';
-gsap.registerPlugin(ScrollTrigger);
-
-// CURSOR
-const cur=document.createElement('div');cur.className='cur';document.body.appendChild(cur);
-const dot=document.createElement('div');dot.className='dot';document.body.appendChild(dot);
-addEventListener('mousemove',e=>{
-  gsap.to(cur,{x:e.clientX,y:e.clientY,duration:.5,ease:'power2.out'});
-  gsap.to(dot,{x:e.clientX,y:e.clientY,duration:.08});
-});
-
-// LENIS
-const lenis=new Lenis({duration:1.4,easing:t=>Math.min(1,1.001-Math.pow(2,-10*t)),smoothWheel:true});
-lenis.on('scroll',ScrollTrigger.update);
-gsap.ticker.add(t=>lenis.raf(t*1000));
-gsap.ticker.lagSmoothing(0);
-
-// PARTICLES
-const cv=document.getElementById('c'),ctx=cv.getContext('2d');
-let W,H;const pts=[];const ms={x:-1e3,y:-1e3};
-const re=()=>{W=cv.width=innerWidth;H=cv.height=innerHeight};addEventListener('resize',re);re();
-addEventListener('mousemove',e=>{ms.x=e.clientX;ms.y=e.clientY});
-for(let i=0;i<60;i++)pts.push({x:Math.random()*W,y:Math.random()*H,vx:(Math.random()-.5)*.4,vy:(Math.random()-.5)*.4,r:Math.random()*1.5+.5});
-(function loop(){
-  ctx.clearRect(0,0,W,H);
-  pts.forEach((p,i)=>{
-    p.x+=p.vx;p.y+=p.vy;
-    if(p.x<0||p.x>W)p.vx*=-1;if(p.y<0||p.y>H)p.vy*=-1;
-    ctx.fillStyle='rgba(229,9,20,.25)';ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,6.28);ctx.fill();
-    for(let j=i+1;j<pts.length;j++){const d=Math.hypot(p.x-pts[j].x,p.y-pts[j].y);if(d<130){ctx.strokeStyle=`rgba(229,9,20,${.1-d/1400})`;ctx.beginPath();ctx.moveTo(p.x,p.y);ctx.lineTo(pts[j].x,pts[j].y);ctx.stroke();}}
-    const dm=Math.hypot(p.x-ms.x,p.y-ms.y);if(dm<170){ctx.strokeStyle=`rgba(255,107,0,${.2-dm/900})`;ctx.beginPath();ctx.moveTo(p.x,p.y);ctx.lineTo(ms.x,ms.y);ctx.stroke();}
-  });
-  requestAnimationFrame(loop);
-})();
-
-// ORB TRACKING
-const o1=document.querySelector('.o1'),o2=document.querySelector('.o2');
-addEventListener('mousemove',e=>{
-  const x=e.clientX/innerWidth,y=e.clientY/innerHeight;
-  gsap.to(o1,{x:x*80,y:y*80,duration:2.5,ease:'power2.out'});
-  gsap.to(o2,{x:-x*60,y:-y*60,duration:3,ease:'power2.out'});
-});
-
-// HERO ENTRANCE
-const htl=gsap.timeline({delay:.3});
-htl.to('#hero h1',{opacity:1,y:0,duration:1.2,ease:'expo.out'})
-   .to('#hero p',{opacity:1,y:0,duration:.8,ease:'power2.out'},'-=.6')
-   .to('#hero .tag',{opacity:1,y:0,duration:.6},'-=.4');
-
-// FS IMAGE PARALLAX + CAPTION REVEAL
-document.querySelectorAll('.fs').forEach(s=>{
-  const img=s.querySelector('.fs-img');
-  const h=s.querySelector('h2');
-  const p=s.querySelector('.caption p');
-  if(img) gsap.to(img,{scale:1.15,ease:'none',scrollTrigger:{trigger:s,start:'top bottom',end:'bottom top',scrub:1}});
-  if(h) gsap.to(h,{opacity:1,y:0,duration:1,ease:'expo.out',scrollTrigger:{trigger:s,start:'top 70%'}});
-  if(p) gsap.to(p,{opacity:1,y:0,duration:.8,ease:'power2.out',scrollTrigger:{trigger:s,start:'top 60%'}});
-});
-
-// SCALE SECTIONS — image scales down, text fades in
-document.querySelectorAll('.scale-s').forEach(s=>{
-  const img=s.querySelector('.scale-img');
-  const txt=s.querySelector('.scale-text');
-  if(img&&txt){
-    gsap.fromTo(img,{scale:1.3},{scale:.9,ease:'none',scrollTrigger:{trigger:s,start:'top top',end:'bottom top',scrub:1}});
-    gsap.to(txt,{opacity:1,duration:.5,scrollTrigger:{trigger:s,start:'30% top',end:'60% top',scrub:1}});
-  }
-});
-
-// HORIZONTAL SCROLL
-const hzWrap=document.querySelector('.hz-wrap');
-const hzTrack=document.querySelector('.hz-track');
-if(hzWrap&&hzTrack){
-  const panels=hzTrack.querySelectorAll('.hz-panel');
-  gsap.to(hzTrack,{
-    x:()=>-(hzTrack.scrollWidth-innerWidth),
-    ease:'none',
-    scrollTrigger:{trigger:hzWrap,start:'top top',end:()=>`+=${hzTrack.scrollWidth-innerWidth}`,pin:true,scrub:1,anticipatePin:1}
-  });
-  // Animate each panel content
-  panels.forEach(p=>{
-    const h=p.querySelector('h2'),t=p.querySelector('p');
-    gsap.set([h,t],{opacity:0,y:40});
-    ScrollTrigger.create({
-      trigger:p,start:'left 80%',end:'right 20%',containerAnimation:gsap.to(hzTrack,{x:()=>-(hzTrack.scrollWidth-innerWidth),ease:'none'}),
-      onEnter:()=>gsap.to([h,t],{opacity:1,y:0,duration:.8,stagger:.15,ease:'expo.out'})
-    });
-  });
-}
-
-// TWO-UP REVEAL
-document.querySelectorAll('.twoup .side').forEach((s,i)=>{
-  const txt=s.querySelector('.txt');
-  if(txt){
-    gsap.set(txt,{opacity:0,x:i%2===0?-60:60});
-    gsap.to(txt,{opacity:1,x:0,duration:1,ease:'expo.out',scrollTrigger:{trigger:s,start:'top 70%'}});
-  }
-});
-
-// FINAL CTA
-const ctl=gsap.timeline({scrollTrigger:{trigger:'#final',start:'top 60%'}});
-ctl.to('#final h1',{opacity:1,duration:1,ease:'expo.out'})
-   .to('#final .price',{opacity:1,scale:1,duration:.8,ease:'back.out(1.7)'},'-=.5')
-   .to('#final p',{opacity:1,duration:.6},'-=.3');
-
-// VELOCITY SKEW
-let px={s:0};const cl=gsap.utils.clamp(-10,10);
-const sk=gsap.quickSetter('.fs .caption, .hz-content, .twoup .txt','skewY','deg');
-ScrollTrigger.create({onUpdate:self=>{let v=cl(self.getVelocity()/-120);if(Math.abs(v)>Math.abs(px.s)){px.s=v;gsap.to(px,{s:0,duration:.8,ease:'power3',overwrite:true,onUpdate:()=>sk(px.s)});}}});
-
-})();
-</script>
+<script src="spectrum.js"></script>
 </body>
 </html>
