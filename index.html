@@ -9,8 +9,8 @@
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
-<div id="noise-overlay"></div>
+    <canvas id="webgl-canvas"></canvas>
+    <div id="noise-overlay"></div>
 
 <nav id="nav">
     <div class="nav-logo">SPECTRUM INTELLIGENCE</div>
@@ -505,6 +505,55 @@
             <div class="card dark-card center-card" style="padding:40px;">
                 <h3 class="bebas" style="font-size: 2rem; margin-bottom:20px;">Кастомная изолированная среда (Docker)</h3>
                 <div class="f-icon" style="color:var(--orange); font-size:3rem;">🐳</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- SLIDE 14.2: ТЕХНИЧЕСКАЯ АРХИТЕКТУРА (ИЗ DOCX) -->
+<section class="sl" id="sl-tech-stack">
+    <div class="sl-c">
+        <h1 class="bebas title-main">АРХИТЕКТУРА ПОД КАПОТОМ. ENTERPRISE СТЕК.</h1>
+        <p class="desc">Мы не используем "коробочные" промпты. В основе системы лежит тяжелая математика, микросервисная архитектура и гибридные алгоритмы поиска для 100% точности на строительных данных.</p>
+        
+        <div class="grid-3" style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 24px; margin-bottom: 24px;">
+            <!-- RAG & NLP -->
+            <div class="card dark-card" style="padding: 30px;">
+                <div style="font-size: 2rem; margin-bottom: 16px;">🧠</div>
+                <h3 class="bebas" style="font-size: 1.8rem; margin-bottom: 16px; color: var(--orange);">RAG & СЕМАНТИКА</h3>
+                <ul class="tech-list">
+                    <li><strong>Модель:</strong> <span>Sentence Transformers (768 измерений), multilingual-e5-large</span></li>
+                    <li><strong>Чанкирование:</strong> <span>Semantic Chunking (BERTA) — защита от разрыва таблиц СНиП</span></li>
+                    <li><strong>База данных:</strong> <span>Векторные СУБД (Qdrant / Elasticsearch)</span></li>
+                    <li><strong>Поиск:</strong> <span>Hybrid Search (Dense + Sparse/BM25)</span></li>
+                    <li><strong>Контроль:</strong> <span>MinHash дедупликация (исключение коллизий редакций)</span></li>
+                </ul>
+            </div>
+            
+            <!-- CAD Integration -->
+            <div class="card dark-card" style="padding: 30px;">
+                <div style="font-size: 2rem; margin-bottom: 16px;">🏗️</div>
+                <h3 class="bebas" style="font-size: 1.8rem; margin-bottom: 16px; color: var(--orange);">САПР ИНТЕГРАЦИЯ</h3>
+                <ul class="tech-list">
+                    <li><strong>Ядро:</strong> <span>Autodesk Platform Services (Design Automation API)</span></li>
+                    <li><strong>Экстракция:</strong> <span>Конвертация полилиний DWG в 2D-матрицу (вокселизация)</span></li>
+                    <li><strong>Алгоритмы:</strong> <span>Эвристический A* поиск с добавленной стоимостью поворотов кабеля</span></li>
+                    <li><strong>Ограничения:</strong> <span>Hard Constraints (расчет отступов от фундаментов по СНиП)</span></li>
+                    <li><strong>Среда:</strong> <span>Python 3.10+ (бэкенд и алгоритмы графов)</span></li>
+                </ul>
+            </div>
+            
+            <!-- Docflow & Vision -->
+            <div class="card dark-card" style="padding: 30px;">
+                <div style="font-size: 2rem; margin-bottom: 16px;">👁️</div>
+                <h3 class="bebas" style="font-size: 1.8rem; margin-bottom: 16px; color: var(--orange);">VISION & ЛОГИСТИКА</h3>
+                <ul class="tech-list">
+                    <li><strong>OCR:</strong> <span>Мультимодальные LLM (Vision) для мятых и грязных накладных</span></li>
+                    <li><strong>Матчинг:</strong> <span>Jaro-Winkler для нечеткого поиска по 15 000 позициям 1С</span></li>
+                    <li><strong>Очереди:</strong> <span>RabbitMQ для балансировки нагрузки сотен объектов</span></li>
+                    <li><strong>Шина:</strong> <span>Событийно-ориентированная архитектура интеграции (API)</span></li>
+                    <li><strong>Связь:</strong> <span>Бесшовная маршрутизация в 1C:ERP и Bitrix24</span></li>
+                </ul>
             </div>
         </div>
     </div>

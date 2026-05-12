@@ -19,6 +19,140 @@
     function initAnimations() {
         gsap.registerPlugin(ScrollTrigger);
 
+        // --- 1. AWWWARDS TYPOGRAPHY (SPLIT TEXT) ---
+        const splitText = (selector) => {
+            document.querySelectorAll(selector).forEach(el => {
+                const text = el.innerText;
+                el.innerHTML = '';
+                let html = '';
+                for (let i = 0; i < text.length; i++) {
+                    const char = text[i] === ' ' ? '&nbsp;' : text[i];
+                    html += `<span class="char-wrapper"><span class="char-inner">${char}</span></span>`;
+                }
+                el.innerHTML = html;
+            });
+        };
+        splitText('.title-main');
+
+        // Cinematic Typography Animation
+        document.querySelectorAll('.title-main').forEach(title => {
+            const chars = title.querySelectorAll('.char-inner');
+            gsap.to(chars, {
+                scrollTrigger: { trigger: title, start: "top 85%" },
+                y: "0%", duration: 1, ease: "expo.out", stagger: 0.02
+            });
+        });
+
+        // --- 2. SCROLL VELOCITY SKEW ---
+        let proxy = { skew: 0 },
+            skewSetter = gsap.quickSetter(".card, .flow-node, .rag-node", "skewY", "deg"),
+            clamp = gsap.utils.clamp(-15, 15);
+
+        ScrollTrigger.create({
+            onUpdate: (self) => {
+                let skew = clamp(self.getVelocity() / -100);
+                if (Math.abs(skew) > Math.abs(proxy.skew)) {
+                    proxy.skew = skew;
+                    gsap.to(proxy, { skew: 0, duration: 0.8, ease: "power3", overwrite: true, onUpdate: () => skewSetter(proxy.skew) });
+                }
+            }
+        });
+        
+        // --- 3. CANVAS PARTICLE NETWORK (WEBGL VIBE) ---
+        const canvas = document.getElementById('webgl-canvas');
+        if (canvas) {
+            const ctx = canvas.getContext('2d');
+            let w, h;
+            const particles = [];
+            const mouse = { x: -1000, y: -1000 };
+
+            const resize = () => {
+                w = canvas.width = window.innerWidth;
+                h = canvas.height = window.innerHeight;
+            };
+            window.addEventListener('resize', resize);
+            resize();
+
+            document.addEventListener('mousemove', (e) => {
+                mouse.x = e.clientX;
+                mouse.y = e.clientY;
+            });
+
+            class Particle {
+                constructor() {
+                    this.x = Math.random() * w;
+                    this.y = Math.random() * h;
+                    this.vx = (Math.random() - 0.5) * 0.5;
+                    this.vy = (Math.random() - 0.5) * 0.5;
+                    this.size = Math.random() * 2 + 0.5;
+                }
+                update() {
+                    this.x += this.vx;
+                    this.y += this.vy;
+                    if (this.x < 0 || this.x > w) this.vx *= -1;
+                    if (this.y < 0 || this.y > h) this.vy *= -1;
+                }
+                draw() {
+                    ctx.fillStyle = 'rgba(229, 9, 20, 0.4)';
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+            }
+
+            for (let i = 0; i < 60; i++) particles.push(new Particle());
+
+            const animate = () => {
+                ctx.clearRect(0, 0, w, h);
+                for (let i = 0; i < particles.length; i++) {
+                    particles[i].update();
+                    particles[i].draw();
+                    
+                    // Connect particles
+                    for (let j = i; j < particles.length; j++) {
+                        const dx = particles[i].x - particles[j].x;
+                        const dy = particles[i].y - particles[j].y;
+                        const dist = Math.sqrt(dx*dx + dy*dy);
+                        if (dist < 150) {
+                            ctx.beginPath();
+                            ctx.strokeStyle = `rgba(229, 9, 20, ${0.15 - dist/1000})`;
+                            ctx.moveTo(particles[i].x, particles[i].y);
+                            ctx.lineTo(particles[j].x, particles[j].y);
+                            ctx.stroke();
+                        }
+                    }
+                    
+                    // Connect to mouse
+                    const dxm = particles[i].x - mouse.x;
+                    const dym = particles[i].y - mouse.y;
+                    const distm = Math.sqrt(dxm*dxm + dym*dym);
+                    if (distm < 200) {
+                        ctx.beginPath();
+                        ctx.strokeStyle = `rgba(255, 107, 0, ${0.3 - distm/800})`;
+                        ctx.moveTo(particles[i].x, particles[i].y);
+                        ctx.lineTo(mouse.x, mouse.y);
+                        ctx.stroke();
+                    }
+                }
+                requestAnimationFrame(animate);
+            };
+            animate();
+        }
+
+        // --- 4. ADVANCED PARALLAX ---
+        document.querySelectorAll('.f-icon, .red-circle, .rag-node').forEach(el => {
+            gsap.to(el, {
+                yPercent: -20,
+                ease: "none",
+                scrollTrigger: {
+                    trigger: el,
+                    start: "top bottom",
+                    end: "bottom top",
+                    scrub: 0.5
+                }
+            });
+        });
+
         // SLIDE 1: FOT Waterfall & Counter
         const waterfall = document.getElementById('fot-waterfall');
         if (waterfall) {

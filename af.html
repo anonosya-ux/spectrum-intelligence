@@ -1,374 +1,694 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Spectrum Intelligence | ГК Спектрум</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --bg-color: #050505;
-            --surface-color: rgba(255, 255, 255, 0.03);
-            --border-color: rgba(255, 255, 255, 0.08);
-            --accent-blue: #0055ff;
-            --accent-red: #ff3333;
-            --accent-green: #00cc66;
-            --text-main: #ffffff;
-            --text-muted: #888890;
-            --font-main: 'Inter', sans-serif;
-        }
-
-        body {
-            background-color: var(--bg-color);
-            color: var(--text-main);
-            font-family: var(--font-main);
-            margin: 0;
-            padding: 0;
-            overflow-x: hidden;
-            line-height: 1.5;
-        }
-
-        /* Parallax Background */
-        .bg-glow {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            width: 80vw;
-            height: 80vh;
-            background: radial-gradient(circle, rgba(0, 85, 255, 0.05) 0%, rgba(0, 0, 0, 0) 70%);
-            transform: translate(-50%, -50%);
-            z-index: -1;
-            pointer-events: none;
-        }
-
-        header {
-            padding: 100px 20px 60px;
-            text-align: center;
-        }
-
-        h1 {
-            font-size: 3.5rem;
-            font-weight: 800;
-            margin-bottom: 20px;
-            letter-spacing: -0.05em;
-        }
-
-        h1 span {
-            color: var(--accent-blue);
-        }
-
-        .subtitle {
-            font-size: 1.2rem;
-            color: var(--text-muted);
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        .bento-section {
-            max-width: 1200px;
-            margin: 0 auto 100px;
-            padding: 0 20px;
-        }
-
-        .section-title {
-            font-size: 1.5rem;
-            font-weight: 600;
-            margin-bottom: 30px;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-        }
-
-        .bento-grid {
-            display: grid;
-            grid-template-columns: repeat(12, 1fr);
-            gap: 20px;
-        }
-
-        .bento-item {
-            background: var(--surface-color);
-            border: 1px solid var(--border-color);
-            border-radius: 20px;
-            padding: 40px;
-            backdrop-filter: blur(10px);
-            transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1), border-color 0.4s;
-            opacity: 0;
-            transform: translateY(30px);
-        }
-
-        .bento-item.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .bento-item:hover {
-            border-color: rgba(0, 85, 255, 0.4);
-            transform: translateY(-5px);
-        }
-
-        .col-4 { grid-column: span 4; }
-        .col-6 { grid-column: span 6; }
-        .col-8 { grid-column: span 8; }
-        .col-12 { grid-column: span 12; }
-
-        .bento-item h2 {
-            font-size: 1.8rem;
-            margin-top: 0;
-            margin-bottom: 20px;
-            font-weight: 600;
-        }
-
-        .bento-item p, .bento-item li {
-            color: var(--text-muted);
-            font-size: 1rem;
-            margin-bottom: 12px;
-        }
-
-        .bento-item ul {
-            padding-left: 20px;
-        }
-
-        .highlight-number {
-            font-size: 3.5rem;
-            font-weight: 800;
-            color: var(--accent-blue);
-            line-height: 1;
-            margin-bottom: 10px;
-            display: block;
-        }
-
-        .highlight-red { color: var(--accent-red); }
-        .highlight-green { color: var(--accent-green); }
-
-        /* Visual Elements */
-        .bar-chart {
-            margin-top: 20px;
-        }
-        .bar {
-            height: 40px;
-            border-radius: 4px;
-            margin-bottom: 10px;
-            display: flex;
-            align-items: center;
-            padding: 0 15px;
-            font-weight: 600;
-        }
-        .bar-red { background: rgba(255, 51, 51, 0.2); border: 1px solid var(--accent-red); width: 100%; color: var(--accent-red); }
-        .bar-blue { background: rgba(0, 85, 255, 0.2); border: 1px solid var(--accent-blue); width: 50%; color: var(--accent-blue); }
-        .bar-green { background: rgba(0, 204, 102, 0.2); border: 1px solid var(--accent-green); width: 10%; color: var(--accent-green); }
-
-        .cta-button {
-            display: inline-block;
-            background: var(--accent-blue);
-            color: #fff;
-            padding: 16px 32px;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 1.1rem;
-            transition: background 0.3s;
-            border: none;
-            cursor: pointer;
-            width: 100%;
-            text-align: center;
-            box-sizing: border-box;
-        }
-
-        .cta-button:hover {
-            background: #0044cc;
-        }
-
-        @media (max-width: 900px) {
-            .col-4, .col-6, .col-8 { grid-column: span 12; }
-            h1 { font-size: 2.5rem; }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Spectrum Intelligence | Коммерческое предложение</title>
+<!-- Bebas Neue for Aggressive B2B Headers, Inter for legibility, JetBrains Mono for data -->
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <canvas id="webgl-canvas"></canvas>
+    <div id="noise-overlay"></div>
 
-    <div class="bg-glow"></div>
+<nav id="nav">
+    <div class="nav-logo">SPECTRUM INTELLIGENCE</div>
+</nav>
 
-    <header>
-        <h1>Spectrum <span>Intelligence</span></h1>
-        <p class="subtitle">Технологический рывок и оптимизация издержек. Фундаментальная трансформация операционной деятельности: от децентрализованного ручного труда к строгой математической оптимизации.</p>
-    </header>
-
-    <section class="bento-section">
-        <div class="section-title">Анализ операционной эффективности</div>
-        <div class="bento-grid">
-            
-            <div class="bento-item col-6">
-                <h2>Executive Summary</h2>
-                <ul>
-                    <li>Замещение когнитивных способностей исполнителей алгоритмами.</li>
-                    <li>Устранение линейной последовательности в проектировании.</li>
-                    <li>Ликвидация зоопарка IT-систем в логистике.</li>
-                </ul>
-            </div>
-
-            <div class="bento-item col-6">
-                <h2>Цена человеческого фактора</h2>
-                <ul>
-                    <li>Ошибки в CAD-моделях = простой техники и перерасход материалов.</li>
-                    <li>Опечатки при вводе ТМЦ = налоговые риски и долгие корректировки.</li>
-                </ul>
-            </div>
-
-            <div class="bento-item col-8">
-                <h2>Аудит проектирования сетей</h2>
-                <span class="highlight-number highlight-red">18 000 000 ₽</span>
-                <p>Прямые затраты на ФОТ рабочей группы (3-4 инженера) на один проект длительностью 12 месяцев.</p>
-                <ul>
-                    <li>Постоянная лицензия САПР до 403 700 руб. за место.</li>
-                    <li>Годовой цикл формирует критический риск срыва сроков генподряда.</li>
-                </ul>
-                <div class="bar-chart">
-                    <div class="bar bar-red">Текущий цикл: 12 месяцев (Критический риск)</div>
+<!-- SLIDE 1: ФОТ -->
+<section class="sl" id="sl-fot">
+    <div class="sl-c">
+        <h1 class="bebas title-main">18 МЛН РУБЛЕЙ ФОТ НА ОДИН ПРОЕКТ СЕТЕЙ.</h1>
+        <p class="desc">Ручное черчение в AutoCAD — это сжигание ресурсов. Цикл занимает до 1 года. Группа из 3-4 инженеров потребляет от 10.5 до 18 млн рублей ФОТ. Скрытый налог: САПР стоит от 100 до 400 тысяч рублей за одно рабочее место.</p>
+        
+        <div class="grid-2">
+            <!-- Left: Waterfall Chart -->
+            <div class="card dark-card">
+                <h3 class="card-title">ЕЖЕМЕСЯЧНЫЙ ФИНАНСОВЫЙ УЩЕРБ (12 МЕСЯЦЕВ)</h3>
+                <div class="waterfall" id="fot-waterfall">
+                    <!-- Bars injected via JS -->
                 </div>
-            </div>
-
-            <div class="bento-item col-4">
-                <h2>Аудит логистики</h2>
-                <span class="highlight-number highlight-red">4 часа</span>
-                <p>На перенос данных из одной накладной в ERP.</p>
-                <ul>
-                    <li>Справочник перегружен: 15 000 позиций.</li>
-                    <li>Транзакционная нагрузка парализует учет.</li>
-                </ul>
-            </div>
-
-        </div>
-    </section>
-
-    <section class="bento-section">
-        <div class="section-title">Технологическое решение</div>
-        <div class="bento-grid">
-            
-            <div class="bento-item col-12">
-                <h2>Экосистема: AutoCAD + 1C + Bitrix24</h2>
-                <p>Единый ИИ-слой устраняет барьеры. Данные напрямую транслируются из облачного AutoCAD (APS) в 1С и Bitrix24 без ручного копирования.</p>
-            </div>
-
-            <div class="bento-item col-6">
-                <h2>AI-Проектировщик</h2>
-                <ul>
-                    <li>Вокселизация: DWG-чертеж переводится в цифровую матрицу (1 - препятствие, 0 - свободно).</li>
-                    <li>A*/GNN агенты строят маршруты с обходом зданий за секунды.</li>
-                    <li>RAG-система: гибридный поиск по СНиП и ПУЭ блокирует ИИ-галлюцинации с точностью 100%.</li>
-                </ul>
-            </div>
-
-            <div class="bento-item col-6">
-                <h2>AI-Логистика (Vision LLM)</h2>
-                <ul>
-                    <li>Мультимодальные модели извлекают таблицы из грязных накладных (точность 95%).</li>
-                    <li>Алгоритм Jaro-Winkler математически нивелирует опечатки.</li>
-                    <li>Мгновенное формирование JSON и черновика в 1С.</li>
-                </ul>
-            </div>
-
-            <div class="bento-item col-6">
-                <h2>Результат: Проектирование</h2>
-                <span class="highlight-number highlight-green">7 дней</span>
-                <p>Вместо 365 дней ручного черчения.</p>
-                <div class="bar-chart">
-                    <div class="bar bar-red" style="width:100%">Было: 365 дней</div>
-                    <div class="bar bar-green" style="width:5%">Стало: 7 дней</div>
+                <div class="fot-total">
+                    <span class="bebas total-val red" id="fot-counter">0</span> <span class="bebas total-val red">РУБ</span>
                 </div>
-            </div>
-
-            <div class="bento-item col-6">
-                <h2>Результат: Документооборот</h2>
-                <span class="highlight-number highlight-green">-370 часов</span>
-                <p>Высвобождение рутинных часов бухгалтерии в месяц.</p>
-                <ul>
-                    <li>Цикл валидации падает с 7 дней до 1 часа.</li>
-                    <li>Количество ошибок извлечения BOM снижено на 85%.</li>
-                </ul>
-            </div>
-
-        </div>
-    </section>
-
-    <section class="bento-section">
-        <div class="section-title">Экономика и Внедрение</div>
-        <div class="bento-grid">
-            
-            <div class="bento-item col-8">
-                <h2>Методология Antigravity</h2>
-                <p>Полностью исключен классический штат IT-интеграторов. 2 Senior Архитектора работают в среде Antigravity, где AI генерирует 80% рутинного кода.</p>
-                <ul>
-                    <li>Прямая трансляция логики в код: релиз в 5 раз быстрее.</li>
-                    <li>Бюджет идет на чистую инженерию, а не содержание офисов.</li>
-                    <li>Enterprise-безопасность on-premise в закрытом контуре.</li>
-                </ul>
-            </div>
-
-            <div class="bento-item col-4">
-                <h2>Рынок vs Наше решение</h2>
-                <p>Дисконт 50% при сохранении Enterprise-качества.</p>
-                <div class="bar-chart">
-                    <div class="bar bar-red" style="width:100%">Рынок: 15-25 млн ₽</div>
-                    <div class="bar bar-blue" style="width:50%">Antigravity: Дисконт 50%</div>
+                <div class="months-axis">
+                    <span>M1</span><span>M2</span><span>M3</span><span>M4</span><span>M5</span><span>M6</span><span>M7</span><span>M8</span><span>M9</span><span>M10</span><span>M11</span><span>M12</span>
                 </div>
+                <p class="axis-label">Суммарный ФОТ за 12 месяцев (3-4 инженера).</p>
             </div>
-
-            <div class="bento-item col-12">
-                <h2>Этап 1: Fast Track MVP за 21 день</h2>
-                <div class="bento-grid" style="margin-top: 20px;">
-                    <div class="col-6">
-                        <span class="highlight-number">1 Га</span>
-                        <p>Генерация маршрута с обходом препятствий на тестовом полигоне DWG.</p>
+            
+            <!-- Right: 12 Months Strike + Licenses -->
+            <div class="col-stack">
+                <div class="card dark-card center-card strike-card">
+                    <h2 class="bebas giant-text">12 МЕСЯЦЕВ</h2>
+                    <div class="strike-line"></div>
+                    <p class="axis-label">Цикл ручного черчения.</p>
+                </div>
+                
+                <div class="card dark-card">
+                    <h3 class="card-title text-center">ЛИЦЕНЗИИ САПР</h3>
+                    <div class="table">
+                        <div class="t-row"><div class="t-cell">nanoCAD</div><div class="t-cell red right">97 500 руб.</div></div>
+                        <div class="t-row"><div class="t-cell">BIM Модули</div><div class="t-cell red right">до 403 700 руб.</div></div>
                     </div>
-                    <div class="col-6">
-                        <span class="highlight-number">500 SKU</span>
-                        <p>Запуск Telegram-бота и парсера с матчингом базы 1С без риска для боевых серверов. <b>Стоимость пилота: 250 000 ₽.</b></p>
+                    <p class="axis-label" style="margin-top: 15px;">Стоимость за одно рабочее место.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- SLIDE 2: ПТО И БУХГАЛТЕРИЯ -->
+<section class="sl" id="sl-pto">
+    <div class="sl-c">
+        <h1 class="bebas title-main">РУЧНОЙ ВВОД ПАРАЛИЗУЕТ ПТО И БУХГАЛТЕРИЮ.</h1>
+        <p class="desc">3-4 часа уходит на перенос одной сложной накладной в 1С. База из 15 000 позиций номенклатуры математически гарантирует опечатки. Человеческий фактор равен закупке неверных материалов.</p>
+        
+        <div class="grid-2">
+            <!-- Left: Blurred Invoice + Giant Digits -->
+            <div class="card img-bg-card">
+                <div class="blur-overlay"></div>
+                <div class="led-clock" id="clock-anim">
+                    <span class="bebas led-text">3-4 ЧАСА</span>
+                </div>
+                <div class="led-sub">15 000 позиций в 1С</div>
+            </div>
+            
+            <!-- Right: Warning List -->
+            <div class="warning-list">
+                <div class="warn-item">
+                    <div class="warn-icon">⌨️</div>
+                    <div class="warn-text">Опечатки<br>в артикулах.</div>
+                </div>
+                <div class="warn-item">
+                    <div class="warn-icon">📦</div>
+                    <div class="warn-text">Закупка<br>неверных ТМЦ.</div>
+                </div>
+                <div class="warn-item">
+                    <div class="warn-icon">⚖️</div>
+                    <div class="warn-text">Штрафы<br>от налоговой<br>и заказчика.</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- SLIDE 3: ЭФФЕКТ КОЛЛИЗИЙ -->
+<section class="sl" id="sl-collision">
+    <div class="sl-c">
+        <h1 class="bebas title-main">ЭФФЕКТ КОЛЛИЗИЙ: КАК ОШИБКА В БУКВЕ ОСТАНАВЛИВАЕТ СТРОЙКУ.</h1>
+        <p class="desc">Ошибка не изолирована. Опечатка в номенклатуре кабеля на этапе ПТО запускает цепную реакцию мультипликативных финансовых потерь.</p>
+        
+        <div class="flowchart">
+            <div class="flow-node">
+                <div class="f-icon">⌨️</div>
+                <p>Опечатка<br>в 1С</p>
+            </div>
+            <div class="flow-arrow"><div class="arr-body"></div><div class="arr-head"></div></div>
+            <div class="flow-node">
+                <div class="f-icon">📦</div>
+                <p>Закупка<br>неверного кабеля</p>
+            </div>
+            <div class="flow-arrow red-arr"><div class="arr-body"></div><div class="arr-head"></div></div>
+            <div class="flow-node highlight">
+                <div class="f-icon">🏗️</div>
+                <p>Простой<br>тяжелой техники</p>
+            </div>
+            <div class="flow-arrow red-arr"><div class="arr-body"></div><div class="arr-head"></div></div>
+            <div class="flow-node fatal">
+                <div class="f-icon">⚠️</div>
+                <p>Многомиллионные<br>пени по<br>генподряду</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- SLIDE 4: AI ПРОЕКТИРОВЩИК -->
+<section class="sl" id="sl-ai">
+    <div class="sl-c">
+        <h1 class="bebas title-main">AI-ПРОЕКТИРОВЩИК: МАТЕМАТИКА ВМЕСТО РУЧНОГО ЧЕРЧЕНИЯ.</h1>
+        <p class="desc">Срок проектирования падает с 12 месяцев до 7 дней. Перевод процесса из плоскости AutoCAD в плоскость вычислительной оптимизации графов.</p>
+        
+        <div class="grid-2">
+            <div class="card dark-card center-card flex-col">
+                <div class="time-compress">
+                    <span class="bebas giant-text">12 МЕС</span>
+                    <span class="arrow-right">→</span>
+                    <span class="bebas giant-text accent-orange">7 ДНЕЙ</span>
+                </div>
+            </div>
+            
+            <div class="col-stack">
+                <div class="card dark-card row-card">
+                    <div class="graph-visual chaos-graph">
+                        <svg viewBox="0 0 100 100" class="svg-chaos"><path d="..." stroke="#555" fill="none"/></svg>
+                    </div>
+                    <div class="graph-text">
+                        <h3 class="bebas">БЫЛО:</h3>
+                        <p>Ручной перебор вариантов и коллизии</p>
+                    </div>
+                </div>
+                <div class="card dark-card row-card">
+                    <div class="graph-visual astar-graph">
+                        <svg viewBox="0 0 100 100" class="svg-astar" id="astar-svg">
+                            <!-- Nodes and edges injected via JS or CSS -->
+                        </svg>
+                    </div>
+                    <div class="graph-text">
+                        <h3 class="bebas">СТАЛО:</h3>
+                        <p>Мультикритериальная генерация и A* поиск</p>
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
+</section>
 
-            <div class="bento-item col-6">
-                <h2>ROI: Профит после 1-го проекта</h2>
-                <ul>
-                    <li>Мгновенная окупаемость за счет сокращения ФОТ на 18 млн руб. в год.</li>
-                    <li>Исключение пеней за срыв сроков формирует чистую прибыль.</li>
-                </ul>
+<!-- SLIDE 6: СНИП И ПУЭ -->
+<section class="sl" id="sl-snip">
+    <div class="sl-c">
+        <h1 class="bebas title-main">ЖЕСТКИЙ КОНТРОЛЬ СНИП И ПУЭ. НОЛЬ ГАЛЛЮЦИНАЦИЙ.</h1>
+        <p class="desc">Нейросети врут. Наш RAG-модуль — нет. Алгоритм (Hybrid Search: Dense + BM25) опирается исключительно на локальную векторную базу нормативов. Каждый отступ имеет прямую ссылку на пункт ГОСТа.</p>
+        
+        <div class="grid-2" style="grid-template-columns: 1fr 2.5fr;">
+            <!-- Left: No LLM -->
+            <div class="card dark-card center-card flex-col">
+                <div class="no-llm">
+                    <span class="bebas giant-text" style="font-size: 4rem;">LLM</span>
+                    <div class="cross-red"></div>
+                    <div class="cross-red rev"></div>
+                </div>
+                <p class="axis-label" style="margin-top:20px;">Никаких свободных генераций</p>
             </div>
-
-            <div class="bento-item col-6" style="border-color: var(--accent-blue); background: rgba(0, 85, 255, 0.05);">
-                <h2>Next Step: Валидация данных</h2>
-                <p>Математическая система требует настройки на реальных активах. Передайте материалы для старта сборки MVP.</p>
-                <div style="display: flex; gap: 15px; margin-top: 20px;">
-                    <button class="cta-button">Передать DWG</button>
-                    <button class="cta-button" style="background: rgba(255,255,255,0.1); color: white;">Выгрузить 1С (CSV)</button>
+            
+            <!-- Right: RAG Pipeline -->
+            <div class="card dark-card">
+                <div class="rag-pipeline">
+                    <div class="rag-node">
+                        <p>Запрос дистанции от кабеля до газопровода.</p>
+                    </div>
+                    <div class="flow-arrow"><div class="arr-body"></div><div class="arr-head"></div></div>
+                    <div class="rag-node outline">
+                        <div class="f-icon">🗄️</div>
+                        <p>Поиск семантических чанков в векторной БД (СНиП/ПУЭ).</p>
+                    </div>
+                    <div class="flow-arrow"><div class="arr-body"></div><div class="arr-head"></div></div>
+                    <div class="rag-node outline">
+                        <div class="f-icon">📄</div>
+                        <p>Извлечение точного правила.</p>
+                    </div>
+                    <div class="flow-arrow"><div class="arr-body"></div><div class="arr-head"></div></div>
+                    <div class="rag-node orange-bg">
+                        <p style="color:#000; font-weight:600;">Детерминированный ответ с указанием ГОСТа.</p>
+                    </div>
                 </div>
             </div>
-
         </div>
-    </section>
+    </div>
+</section>
 
-    <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            const observerOptions = {
-                root: null,
-                rootMargin: '0px',
-                threshold: 0.1
-            };
+<!-- SLIDE 7: ОБЛАЧНЫЙ ДВИЖОК -->
+<section class="sl" id="sl-cloud">
+    <div class="sl-c">
+        <h1 class="bebas title-main">ОБЛАЧНЫЙ ДВИЖОК БЕЗ НАГРУЗКИ НА ПК ИНЖЕНЕРА.</h1>
+        <p class="desc">Интеграция через Autodesk Platform Services (APS). Машинное обучение генерирует трассу, облачный Design Automation API безголово (headless) отрисовывает рабочую документацию прямо в DWG файл.</p>
+        
+        <div class="card dark-card">
+            <div class="rag-pipeline justify-between">
+                <div class="cloud-node">
+                    <div class="f-icon">⚛️</div>
+                    <h3 class="bebas">LLM / Графовый движок</h3>
+                    <p class="axis-label">Генерация координат (Python)</p>
+                </div>
+                <div class="flow-arrow orange-arr"><div class="arr-body"></div><div class="arr-head"></div></div>
+                <div class="cloud-node orange-bg-large">
+                    <div class="f-icon" style="color:#000;">☁️</div>
+                    <h3 class="bebas" style="color:#000;">APS Cloud / MCP</h3>
+                    <p class="axis-label" style="color:#333;">Облачные вычисления</p>
+                </div>
+                <div class="flow-arrow orange-arr"><div class="arr-body"></div><div class="arr-head"></div></div>
+                <div class="cloud-node">
+                    <div class="f-icon">📁</div>
+                    <h3 class="bebas">Готовый файл .dwg</h3>
+                    <p class="axis-label">в директории проекта</p>
+                </div>
+            </div>
+        </div>
+        <div class="card dark-card text-center" style="margin-top: 24px; padding: 20px;">
+            <p class="axis-label" style="font-size: 1.1rem;">Нулевая потребность в установке тяжелого ПО на локальные рабочие станции</p>
+        </div>
+    </div>
+</section>
 
-            const observer = new IntersectionObserver((entries, observer) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('visible');
-                        observer.unobserve(entry.target);
-                    }
-                });
-            }, observerOptions);
+<!-- SLIDE 8: РАБОЧАЯ ДОКУМЕНТАЦИЯ -->
+<section class="sl" id="sl-roi">
+    <div class="sl-c">
+        <h1 class="bebas title-main">РАБОЧАЯ ДОКУМЕНТАЦИЯ ЗА НЕДЕЛЮ.</h1>
+        <p class="desc">Снижение себестоимости проектирования на 90%. Высвобождение инженеров для архитектурного контроля, а не рутинного вычерчивания полилиний.</p>
+        
+        <div class="grid-2">
+            <div class="card dark-card" style="padding:0; overflow:hidden;">
+                <div class="compare-table">
+                    <div class="c-row header">
+                        <div class="c-cell">Человек</div>
+                        <div class="c-cell">Алгоритм</div>
+                    </div>
+                    <div class="c-row">
+                        <div class="c-cell">
+                            <span class="bebas giant-text" style="font-size: 4rem;">1 ГОД</span>
+                            <p class="axis-label">18 МЛН РУБ (ФОТ)</p>
+                        </div>
+                        <div class="c-cell">
+                            <span class="bebas giant-text orange" style="font-size: 4rem;">1 НЕДЕЛЯ</span>
+                            <p class="axis-label">СТОИМОСТЬ СЕРВЕРА (API)</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card orange-bg-large center-card" style="height: 100%;">
+                <h2 class="bebas" style="color:#000; font-size: 2.5rem; line-height: 1.1;">Интеллектуальный капитал остается внутри компании, а не уходит вместе с уволившимся инженером</h2>
+            </div>
+        </div>
+    </div>
+</section>
 
-            document.querySelectorAll('.bento-item').forEach((item, index) => {
-                item.style.transitionDelay = `${index % 4 * 0.1}s`;
-                observer.observe(item);
-            });
-        });
-    </script>
+<!-- SLIDE 9: ДОКУМЕНТООБОРОТ -->
+<section class="sl" id="sl-docflow">
+    <div class="sl-c">
+        <h1 class="bebas title-main">ДОКУМЕНТООБОРОТ БЕЗ ЧЕЛОВЕЧЕСКОГО ФАКТОРА.</h1>
+        <p class="desc">Время на обработку документов падает с 1 недели до 1 часа. Экономия 370 часов рутины бухгалтерии в месяц. Точность извлечения спецификаций растет на 85%.</p>
+        
+        <div class="grid-3" style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 24px;">
+            <div class="card dark-card center-card flex-col">
+                <span class="bebas giant-text orange counter-370">-0</span>
+                <span class="bebas orange" style="font-size: 3rem; line-height: 1; margin-top:-10px;">ЧАСОВ</span>
+                <p class="axis-label" style="margin-top: 20px;">Ежемесячная экономия времени ПТО</p>
+            </div>
+            <div class="card dark-card center-card flex-col">
+                <span class="bebas giant-text" style="font-size: 4rem;">1 НЕДЕЛЯ</span>
+                <span class="bebas orange" style="font-size: 3rem; margin: 10px 0;">→ 1 ЧАС</span>
+                <p class="axis-label">Цикл обработки накладной</p>
+            </div>
+            <div class="card dark-card center-card flex-col">
+                <span class="bebas giant-text counter-85" style="font-size: 6rem;">+0%</span>
+                <p class="axis-label" style="margin-top: 20px;">Рост точности извлечения данных</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- SLIDE 10: СТРОЙПЛОЩАДКА -> TELEGRAM -> 1C -->
+<section class="sl" id="sl-telegram-1c">
+    <div class="sl-c">
+        <h1 class="bebas title-main" style="font-size: 4rem;">СТРОЙПЛОЩАДКА → TELEGRAM → 1С. ПОЛНАЯ АВТОМАТИЗАЦИЯ.</h1>
+        <p class="desc">Прораб скидывает грязное фото в защищенный Telegram-бот. Очередь сообщений RabbitMQ балансирует нагрузку. ИИ распознает данные, алгоритм сопоставляет их с БД, 1С формирует черновик.</p>
+        
+        <div class="card dark-card">
+            <div class="rag-pipeline justify-between">
+                <div class="rag-node outline">
+                    <div class="f-icon">📱</div>
+                    <p>Мобильный телефон / Telegram бот (Вход)</p>
+                </div>
+                <div class="flow-arrow"><div class="arr-body"></div><div class="arr-head"></div></div>
+                <div class="rag-node orange-outline">
+                    <div class="f-icon" style="color:var(--orange);">📨</div>
+                    <p style="color:var(--orange); font-weight:600;">Очередь сообщений (RabbitMQ)</p>
+                </div>
+                <div class="flow-arrow"><div class="arr-body"></div><div class="arr-head"></div></div>
+                <div class="rag-node outline">
+                    <div class="f-icon">👁️</div>
+                    <p>AI-Парсер (Vision LLM)</p>
+                </div>
+                <div class="flow-arrow"><div class="arr-body"></div><div class="arr-head"></div></div>
+                <div class="rag-node outline">
+                    <div class="f-icon">🔍</div>
+                    <p>Модуль сопоставления (Matching Engine)</p>
+                </div>
+                <div class="flow-arrow split-arrow">
+                    <div class="arr-body"></div>
+                    <div class="arr-fork up"><div class="arr-head"></div></div>
+                    <div class="arr-fork down"><div class="arr-head"></div></div>
+                </div>
+                <div class="rag-node-stack">
+                    <div class="rag-node outline small-node">
+                        <div class="f-icon" style="font-size: 1.5rem;">🗄️</div>
+                        <p>1C ERP (Хранение)</p>
+                    </div>
+                    <div class="rag-node outline small-node" style="margin-top: 10px;">
+                        <div class="f-icon" style="font-size: 1.5rem;">☁️</div>
+                        <p>Bitrix24 (Задача на валидацию)</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- SLIDE 11: VISION LLM -->
+<section class="sl" id="sl-vision">
+    <div class="sl-c">
+        <h1 class="bebas title-main">VISION LLM: ПОНИМАНИЕ ГРЯЗНЫХ ДОКУМЕНТОВ</h1>
+        <p class="desc">Классический OCR пасует перед мятой бумагой и плохим светом (точность 89%). Мультимодальные LLM семантически понимают контекст таблицы и восстанавливают неразборчивый текст (точность 95%+).</p>
+        
+        <div class="grid-2">
+            <div class="card dark-card">
+                <h3 class="card-title text-center" style="font-size: 1.5rem;">Точность Распознавания Рукописного Текста</h3>
+                <div class="bar-chart">
+                    <div class="bc-row">
+                        <div class="bc-label">Specialized AI</div>
+                        <div class="bc-track"><div class="bc-fill" style="background:#2563EB;" data-w="98%"></div></div>
+                        <div class="bc-val">98%</div>
+                    </div>
+                    <div class="bc-row">
+                        <div class="bc-label">Multimodal LLM</div>
+                        <div class="bc-track"><div class="bc-fill" style="background:#10B981;" data-w="95%"></div></div>
+                        <div class="bc-val">95%</div>
+                    </div>
+                    <div class="bc-row">
+                        <div class="bc-label">Cloud OCR</div>
+                        <div class="bc-track"><div class="bc-fill" style="background:#555;" data-w="92%"></div></div>
+                        <div class="bc-val">92%</div>
+                    </div>
+                    <div class="bc-row">
+                        <div class="bc-label">Legacy OCR</div>
+                        <div class="bc-track"><div class="bc-fill" style="background:#444;" data-w="89%"></div></div>
+                        <div class="bc-val">89%</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-stack">
+                <div class="card img-bg-card dirty-doc" style="height:200px; display:flex; align-items:center; justify-content:center;">
+                    <div class="blur-overlay" style="background: rgba(10,10,10,0.4);"></div>
+                    <div class="red-circle">Песок мытый</div>
+                </div>
+                <div class="card dark-card" style="padding: 20px;">
+                    <pre class="json-code">
+{
+  <span style="color:#F59E0B">"Наименование"</span>: <span style="color:#10B981">"Песок мытый"</span>,
+  <span style="color:#F59E0B">"Количество"</span>: <span style="color:#3B82F6">150</span>,
+  <span style="color:#F59E0B">"Единицы измерения"</span>: <span style="color:#10B981">"тонн"</span>
+}</pre>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- SLIDE 12: JARO-WINKLER -->
+<section class="sl" id="sl-jaro">
+    <div class="sl-c">
+        <h1 class="bebas title-main">АЛГОРИТМ JARO-WINKLER ВМЕСТО РУЧНОГО ПОИСКА.</h1>
+        <p class="desc">Как связать кривой текст с эталонной базой 1С на 15 000 позиций? Алгоритм нечеткого поиска Jaro-Winkler вычисляет дистанцию строк, нивелируя опечатки и сокращения. Итог: точный ID товара.</p>
+        
+        <div class="card dark-card" style="padding: 60px 40px;">
+            <div class="jaro-visual">
+                <div class="jaro-box outline">
+                    <p class="axis-label" style="margin-bottom:10px;">Сырой ввод от ИИ</p>
+                    <div class="jaro-inner white-bg">
+                        <code style="color:#000; font-size:1.2rem;">песок мыт. 1 кл.</code>
+                    </div>
+                </div>
+                
+                <div class="jaro-scale-container">
+                    <p class="axis-label text-center" style="margin-bottom:20px;">Шкала Jaro-Winkler</p>
+                    <div class="jaro-scale">
+                        <div class="scale-track"></div>
+                        <div class="scale-thumb" id="jaro-thumb">
+                            <div class="thumb-label">Confidence Score: 92%</div>
+                        </div>
+                    </div>
+                    <div class="scale-ticks">
+                        <span>0.0</span><span>0.25</span><span>0.5</span><span>0.75</span><span>1.0</span>
+                    </div>
+                </div>
+                
+                <div class="jaro-box outline">
+                    <p class="axis-label" style="margin-bottom:10px;">Эталон из 1С</p>
+                    <div class="jaro-inner dark-bg">
+                        <p style="font-size:1rem; line-height:1.4;">Песок мытый 1-го класса ГОСТ, Артикул 40291</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- SLIDE 13: БИТРИКС И 1С -->
+<section class="sl" id="sl-tasks">
+    <div class="sl-c">
+        <h1 class="bebas title-main">ЗАДАЧИ СТАВЯТСЯ САМИ. НУЛЕВОЙ ЧЕЛОВЕЧЕСКИЙ ФАКТОР.</h1>
+        <p class="desc">После успешного сопоставления номенклатуры, система автоматически создает черновик документа в 1С и ставит задачу валидации ответственному инженеру в Битрикс24.</p>
+        
+        <div class="grid-2">
+            <div class="card dark-card ui-mockup">
+                <div class="ui-header">1C: ERP - Поступление ТМЦ <span class="badge orange-bg-outline">Статус: Черновик</span></div>
+                <div class="ui-body">
+                    <div class="ui-row"><strong>Песок мытый 1-го класса</strong> <span>150.000</span></div>
+                    <div class="ui-row"><strong>Цемент ПЦ-500</strong> <span>50.000</span></div>
+                </div>
+                <div class="check-mark-anim"><div class="circle"></div><div class="tick"></div></div>
+            </div>
+            
+            <div class="card dark-card ui-mockup">
+                <div class="ui-header" style="background:#1C2833;">Bitrix24 - Новая Задача</div>
+                <div class="ui-body">
+                    <div class="task-card">
+                        <h4 style="margin-bottom:10px; color:#2ECC71;">Документ распознан, требуется валидация</h4>
+                        <p style="font-size:0.8rem; color:#AAB7B8; line-height:1.5;">Поставщик: ООО "СтройТехСнаб"<br>Система: 1C:ERP<br>Ответственный: Инженер Петров А.</p>
+                    </div>
+                </div>
+                <div class="check-mark-anim delay-1"><div class="circle"></div><div class="tick"></div></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- SLIDE 14: РОУДМАП -->
+<section class="sl" id="sl-roadmap">
+    <div class="sl-c">
+        <h1 class="bebas title-main">РОУДМАП: 21 ДЕНЬ ДО РЕАЛЬНОГО РЕЗУЛЬТАТА.</h1>
+        <p class="desc">Никаких коробочных SaaS-конструкторов. Только чистый кастомный код в закрытом контуре. За 3 недели мы собираем работающий MVP до подписания основного контракта.</p>
+        
+        <div class="card dark-card" style="padding: 40px; margin-bottom: 24px;">
+            <div class="timeline">
+                <div class="tl-track">
+                    <div class="tl-fill"></div>
+                </div>
+                <div class="tl-stages">
+                    <div class="tl-stage">
+                        <div class="tl-point"></div>
+                        <h4 class="bebas" style="font-size:1.5rem; margin-top:16px;">Неделя 1</h4>
+                        <p class="axis-label" style="max-width:200px;">Развертывание архитектуры и парсинг тестовых данных.</p>
+                    </div>
+                    <div class="tl-stage">
+                        <div class="tl-point"></div>
+                        <h4 class="bebas" style="font-size:1.5rem; margin-top:16px;">Неделя 2</h4>
+                        <p class="axis-label" style="max-width:200px;">Обучение алгоритмов обхода препятствий и Jaro-Winkler матчинга.</p>
+                    </div>
+                    <div class="tl-stage">
+                        <div class="tl-point"></div>
+                        <h4 class="bebas" style="font-size:1.5rem; margin-top:16px;">Неделя 3</h4>
+                        <p class="axis-label" style="max-width:200px;">Финальная интеграция MVP и генеральный прогон.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="grid-2">
+            <div class="card dark-card center-card" style="padding:40px;">
+                <h3 class="bebas" style="font-size: 2rem; margin-bottom:20px;">Чистый Python код</h3>
+                <div class="f-icon" style="color:var(--orange); font-size:3rem;">{ } / &gt;</div>
+            </div>
+            <div class="card dark-card center-card" style="padding:40px;">
+                <h3 class="bebas" style="font-size: 2rem; margin-bottom:20px;">Кастомная изолированная среда (Docker)</h3>
+                <div class="f-icon" style="color:var(--orange); font-size:3rem;">🐳</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- SLIDE 14.2: ТЕХНИЧЕСКАЯ АРХИТЕКТУРА (ИЗ DOCX) -->
+<section class="sl" id="sl-tech-stack">
+    <div class="sl-c">
+        <h1 class="bebas title-main">АРХИТЕКТУРА ПОД КАПОТОМ. ENTERPRISE СТЕК.</h1>
+        <p class="desc">Мы не используем "коробочные" промпты. В основе системы лежит тяжелая математика, микросервисная архитектура и гибридные алгоритмы поиска для 100% точности на строительных данных.</p>
+        
+        <div class="grid-3" style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 24px; margin-bottom: 24px;">
+            <!-- RAG & NLP -->
+            <div class="card dark-card" style="padding: 30px;">
+                <div style="font-size: 2rem; margin-bottom: 16px;">🧠</div>
+                <h3 class="bebas" style="font-size: 1.8rem; margin-bottom: 16px; color: var(--orange);">RAG & СЕМАНТИКА</h3>
+                <ul class="tech-list">
+                    <li><strong>Модель:</strong> <span>Sentence Transformers (768 измерений), multilingual-e5-large</span></li>
+                    <li><strong>Чанкирование:</strong> <span>Semantic Chunking (BERTA) — защита от разрыва таблиц СНиП</span></li>
+                    <li><strong>База данных:</strong> <span>Векторные СУБД (Qdrant / Elasticsearch)</span></li>
+                    <li><strong>Поиск:</strong> <span>Hybrid Search (Dense + Sparse/BM25)</span></li>
+                    <li><strong>Контроль:</strong> <span>MinHash дедупликация (исключение коллизий редакций)</span></li>
+                </ul>
+            </div>
+            
+            <!-- CAD Integration -->
+            <div class="card dark-card" style="padding: 30px;">
+                <div style="font-size: 2rem; margin-bottom: 16px;">🏗️</div>
+                <h3 class="bebas" style="font-size: 1.8rem; margin-bottom: 16px; color: var(--orange);">САПР ИНТЕГРАЦИЯ</h3>
+                <ul class="tech-list">
+                    <li><strong>Ядро:</strong> <span>Autodesk Platform Services (Design Automation API)</span></li>
+                    <li><strong>Экстракция:</strong> <span>Конвертация полилиний DWG в 2D-матрицу (вокселизация)</span></li>
+                    <li><strong>Алгоритмы:</strong> <span>Эвристический A* поиск с добавленной стоимостью поворотов кабеля</span></li>
+                    <li><strong>Ограничения:</strong> <span>Hard Constraints (расчет отступов от фундаментов по СНиП)</span></li>
+                    <li><strong>Среда:</strong> <span>Python 3.10+ (бэкенд и алгоритмы графов)</span></li>
+                </ul>
+            </div>
+            
+            <!-- Docflow & Vision -->
+            <div class="card dark-card" style="padding: 30px;">
+                <div style="font-size: 2rem; margin-bottom: 16px;">👁️</div>
+                <h3 class="bebas" style="font-size: 1.8rem; margin-bottom: 16px; color: var(--orange);">VISION & ЛОГИСТИКА</h3>
+                <ul class="tech-list">
+                    <li><strong>OCR:</strong> <span>Мультимодальные LLM (Vision) для мятых и грязных накладных</span></li>
+                    <li><strong>Матчинг:</strong> <span>Jaro-Winkler для нечеткого поиска по 15 000 позициям 1С</span></li>
+                    <li><strong>Очереди:</strong> <span>RabbitMQ для балансировки нагрузки сотен объектов</span></li>
+                    <li><strong>Шина:</strong> <span>Событийно-ориентированная архитектура интеграции (API)</span></li>
+                    <li><strong>Связь:</strong> <span>Бесшовная маршрутизация в 1C:ERP и Bitrix24</span></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- SLIDE 14.5: КОММЕРЧЕСКИЕ УСЛОВИЯ (PRICING) -->
+<section class="sl" id="sl-pricing">
+    <div class="sl-c">
+        <h1 class="bebas title-main">КОММЕРЧЕСКИЕ УСЛОВИЯ И БРИФ.</h1>
+        <p class="desc">Мы не продаем воздух. Вы платите только за готовый результат. Мы гарантируем цену ниже рынка за счет собственной архитектуры.</p>
+        
+        <div class="grid-2">
+            <!-- MVP Pricing -->
+            <div class="card dark-card" style="border-top: 4px solid var(--orange); position: relative; overflow: hidden;">
+                <div style="position: absolute; top:0; right:0; background:var(--orange); color:#000; padding: 4px 12px; font-weight:600; font-size:0.8rem; font-family:var(--inter);">MVP 1 МЕСЯЦ</div>
+                <h3 class="bebas" style="font-size: 2.5rem; margin-bottom: 10px;">БАЗОВЫЙ MVP</h3>
+                <div style="display:flex; align-items:baseline; gap:10px; margin-bottom: 24px;">
+                    <span class="bebas" style="font-size: 4rem; line-height: 1; color: var(--tx);">250 000</span>
+                    <span class="axis-label" style="font-size: 1.2rem;">РУБ</span>
+                </div>
+                
+                <div class="warning-list" style="margin-bottom: 24px;">
+                    <div class="warn-item pricing-item" style="padding: 16px; opacity:1; transform:none;">
+                        <div class="warn-icon" style="color:#2ECC71; font-size:1.5rem;">✓</div>
+                        <div class="warn-text" style="font-size:1rem;">Оплата по этапам за готовый функционал</div>
+                    </div>
+                    <div class="warn-item pricing-item" style="padding: 16px; opacity:1; transform:none;">
+                        <div class="warn-icon" style="color:#2ECC71; font-size:1.5rem;">✓</div>
+                        <div class="warn-text" style="font-size:1rem;">Еженедельные контрольные точки (спринты)</div>
+                    </div>
+                    <div class="warn-item pricing-item" style="padding: 16px; opacity:1; transform:none;">
+                        <div class="warn-icon" style="color:#2ECC71; font-size:1.5rem;">✓</div>
+                        <div class="warn-text" style="font-size:1rem;">Сборка парсера 1С и бота Telegram</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Full Project -->
+            <div class="card orange-bg-large" style="display:flex; flex-direction:column; justify-content:space-between; border-radius:16px;">
+                <div>
+                    <h3 class="bebas" style="font-size: 2.5rem; margin-bottom: 10px; color:#000;">ДАЛЬНЕЙШАЯ РЕАЛИЗАЦИЯ (FULL)</h3>
+                    <p style="color:#222; font-size:1.1rem; line-height:1.5; margin-bottom:20px;">
+                        После успешного запуска MVP мы масштабируем архитектуру до полноценного Enterprise решения (включая AI-проектировщик сетей).
+                    </p>
+                    
+                    <ul style="list-style:none; padding:0; display:flex; flex-direction:column; gap:16px;">
+                        <li style="display:flex; gap:12px; align-items:flex-start; color:#000;">
+                            <span style="font-size:1.2rem;">💰</span>
+                            <strong>Дисконт при оплате за весь проект целиком.</strong>
+                        </li>
+                        <li style="display:flex; gap:12px; align-items:flex-start; color:#000;">
+                            <span style="font-size:1.2rem;">📊</span>
+                            <strong>Гибкая разбивка оплаты по этапам сдачи.</strong>
+                        </li>
+                        <li style="display:flex; gap:12px; align-items:flex-start; color:#000;">
+                            <span style="font-size:1.2rem;">🤝</span>
+                            <strong>Адаптация под ваши бизнес-процессы (Бриф).</strong>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- SLIDE 15: MVP СЕТЕЙ (1 ГЕКТАР) -->
+<section class="sl" id="sl-1hectare">
+    <div class="sl-c">
+        <h1 class="bebas title-main">MVP СЕТЕЙ: ПРОГОН ТРАССИРОВКИ НА 1 ГЕКТАРЕ.</h1>
+        <p class="desc">Изолируем слои вашего тестового DWG. Запускаем алгоритм обхода препятствий и возвращаем готовую математически выверенную полилинию трассы обратно в САПР.</p>
+        
+        <div class="card dark-card center-card" style="padding:0; overflow:hidden; position:relative; height:450px;">
+            <!-- CSS/SVG based representation of the grid and A* path -->
+            <div class="hectare-grid"></div>
+            <div class="obstacles">
+                <div class="obst" style="top:20%; left:20%; width:15%; height:15%;"></div>
+                <div class="obst" style="top:50%; left:10%; width:10%; height:10%;"></div>
+                <div class="obst" style="top:60%; left:30%; width:20%; height:15%;"></div>
+                <div class="obst" style="top:30%; left:40%; width:10%; height:10%;"></div>
+                <div class="obst" style="top:40%; left:60%; width:12%; height:18%;"></div>
+                <div class="obst" style="top:10%; left:70%; width:15%; height:20%;"></div>
+                <div class="obst" style="top:70%; left:80%; width:10%; height:10%;"></div>
+            </div>
+            <svg class="astar-path" viewBox="0 0 1000 450" preserveAspectRatio="none" style="position:absolute; inset:0; width:100%; height:100%; z-index:5;">
+                <path id="path-line" d="M50,400 L200,100 L300,100 L300,200 L450,200 L450,250 L600,250 L600,150 L750,150 L800,300 L950,50" fill="none" stroke="#32C5FF" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" />
+                <circle cx="50" cy="400" r="8" fill="#fff" />
+                <circle cx="950" cy="50" r="8" fill="#fff" />
+            </svg>
+            <div class="point-label" style="bottom: 10px; left: 30px;">Точка А</div>
+            <div class="point-label" style="top: 10px; right: 30px;">Точка Б</div>
+        </div>
+    </div>
+</section>
+
+<!-- SLIDE 16: MVP ЛОГИСТИКИ -->
+<section class="sl" id="sl-mvp">
+    <div class="sl-c">
+        <h1 class="bebas title-main">MVP ЛОГИСТИКИ: БОТ-ПАРСЕР НА ВАШИХ ДАННЫХ.</h1>
+        <p class="desc">Запускаем рабочий Telegram-бот. Загружаем словарь из 500 критических позиций вашей номенклатуры 1С. Вы кидаете фото накладной — бот мгновенно возвращает точное совпадение с эталоном.</p>
+        
+        <div class="grid-2 mvp-grid">
+            <div class="phone-mockup">
+                <div class="phone-inner">
+                    <div class="phone-header">Telegram</div>
+                    <div class="phone-chat">
+                        <div class="msg img-msg">
+                            <div class="inv-placeholder">Накладная.jpg</div>
+                        </div>
+                        <div class="msg bot-msg">
+                            <code>[JSON Распознано. Точность 98.5%]</code><br>
+                            <code>{ "vendor": "СТРОЙСЕРВИС", "items": [...] }</code>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card dark-card table-card">
+                <h3 class="card-title">Ограниченная выборка 1С: 500 строк</h3>
+                <div class="data-table">
+                    <div class="dt-head"><div class="dt-col">Артикул</div><div class="dt-col">Наименование</div></div>
+                    <div class="dt-row"><div class="dt-col orange">001-БЕТ</div><div class="dt-col">Бетон М400 В30</div></div>
+                    <div class="dt-row"><div class="dt-col orange">002-АРМ</div><div class="dt-col">Арматура А500С Ø12</div></div>
+                    <div class="dt-row"><div class="dt-col orange">003-КИР</div><div class="dt-col">Кирпич керамический рядовой М150</div></div>
+                    <div class="dt-row"><div class="dt-col orange">004-ЦЕМ</div><div class="dt-col">Цемент ПЦ-500 ДО</div></div>
+                    <div class="dt-row"><div class="dt-col orange">005-ГПС</div><div class="dt-col">Гипсокартон Knauf 12.5мм</div></div>
+                    <div class="dt-row"><div class="dt-col orange">006-ПРОФ</div><div class="dt-col">Профнастил Н60-845</div></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://unpkg.com/lenis@1.3.23/dist/lenis.min.js"></script>
+<script src="app.js"></script>
 </body>
 </html>
