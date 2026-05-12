@@ -139,19 +139,52 @@
             animate();
         }
 
-        // --- 4. ADVANCED PARALLAX ---
+        // --- 4. ADVANCED PARALLAX & AMBIENT LIGHT ---
         document.querySelectorAll('.f-icon, .red-circle, .rag-node').forEach(el => {
-            gsap.to(el, {
-                yPercent: -20,
-                ease: "none",
-                scrollTrigger: {
-                    trigger: el,
-                    start: "top bottom",
-                    end: "bottom top",
-                    scrub: 0.5
-                }
-            });
+            gsap.to(el, { yPercent: -20, ease: "none", scrollTrigger: { trigger: el, start: "top bottom", end: "bottom top", scrub: 0.5 } });
         });
+
+        document.querySelectorAll('.bg-parallax-text').forEach(el => {
+            const speed = el.getAttribute('data-speed') || 1;
+            gsap.to(el, { xPercent: 50 * speed, ease: "none", scrollTrigger: { trigger: el.parentElement, start: "top bottom", end: "bottom top", scrub: 1 } });
+        });
+
+        const orb1 = document.querySelector('.orb-1');
+        const orb2 = document.querySelector('.orb-2');
+        if (orb1 && orb2) {
+            document.addEventListener('mousemove', (e) => {
+                const x = e.clientX / window.innerWidth;
+                const y = e.clientY / window.innerHeight;
+                gsap.to(orb1, { x: x * 100, y: y * 100, duration: 2, ease: "power2.out" });
+                gsap.to(orb2, { x: -x * 100, y: -y * 100, duration: 2.5, ease: "power2.out" });
+            });
+        }
+
+        // --- 5. ORGANIC ENTRANCES ---
+        gsap.utils.toArray('.sl-c').forEach(section => {
+            gsap.fromTo(section, 
+                { y: 100, opacity: 0 },
+                { y: 0, opacity: 1, duration: 1.2, ease: "expo.out", scrollTrigger: { trigger: section, start: "top 85%" } }
+            );
+        });
+
+        // SCROLLYTELLING: TELEGRAM TO 1C (iPhone slide)
+        const tgSlide = document.getElementById('sl-telegram-1c');
+        if (tgSlide) {
+            ScrollTrigger.create({
+                trigger: tgSlide,
+                start: "top top",
+                end: "+=1500",
+                pin: true,
+                animation: gsap.timeline()
+                    .fromTo('.iphone-mockup', { x: -100, opacity: 0, rotateY: 20 }, { x: 0, opacity: 1, rotateY: 0, duration: 1 })
+                    .fromTo('.tg-msg.photo', { scale: 0, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.5, ease: "back.out" })
+                    .fromTo('.tg-msg.out', { opacity: 0 }, { opacity: 1, duration: 0.5 }, "+=0.5")
+                    .fromTo(tgSlide.querySelectorAll('.flow-arrow'), { opacity: 0, width: 0 }, { opacity: 1, width: 60, duration: 0.5, stagger: 0.2 })
+                    .fromTo(tgSlide.querySelectorAll('.rag-node.orange-outline'), { scale: 0.8, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.5, stagger: 0.2 }, "<"),
+                scrub: 1
+            });
+        }
 
         // SLIDE 1: FOT Waterfall & Counter
         const waterfall = document.getElementById('fot-waterfall');
@@ -334,7 +367,7 @@
             }
         });
 
-        // SLIDE 15: A* Path SVG
+        // SLIDE 15: SCROLLYTELLING A* PATH
         const pathLine = document.getElementById('path-line');
         if (pathLine) {
             const length = pathLine.getTotalLength();
@@ -342,14 +375,13 @@
             
             ScrollTrigger.create({
                 trigger: '#sl-1hectare',
-                start: 'top 50%',
-                onEnter: () => {
-                    gsap.to(pathLine, {
-                        strokeDashoffset: 0,
-                        duration: 3,
-                        ease: "power2.inOut"
-                    });
-                }
+                start: 'top top',
+                end: '+=1500',
+                pin: true,
+                animation: gsap.timeline()
+                    .to('.obst', { scale: 1, opacity: 1, duration: 1, stagger: 0.1, ease: "back.out" })
+                    .to(pathLine, { strokeDashoffset: 0, duration: 2, ease: "none" }),
+                scrub: 1
             });
         }
     }
